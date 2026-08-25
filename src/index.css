@@ -1,0 +1,72 @@
+@import 'tailwindcss';
+
+/**
+ * Unbeaten's palette. Dark by default — the 38-0-0 layout this is modelled on lives on a
+ * near-black field with one saturated accent doing all the signalling.
+ */
+@theme {
+  --color-pitch-950: #070b09;
+  --color-pitch-900: #0a0f0d;
+  --color-pitch-850: #0e1512;
+  --color-pitch-800: #131b18;
+  --color-pitch-700: #1c2723;
+  --color-pitch-600: #2a3a34;
+  --color-pitch-500: #3d5249;
+
+  /* The club pill and every positive signal. */
+  --color-turf-400: #4ade80;
+  --color-turf-500: #22c55e;
+  --color-turf-600: #16a34a;
+  --color-turf-700: #15803d;
+
+  /* Result chips. */
+  --color-win: #22c55e;
+  --color-draw: #a3a3a3;
+  --color-loss: #ef4444;
+
+  --color-gold: #fbbf24;
+  --color-silver: #cbd5e1;
+  --color-bronze: #d97706;
+  --color-legend: #a78bfa;
+
+  --font-display: 'Barlow Condensed', ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-pitch-950);
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-pitch-950);
+    color: #e8ede9;
+    font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    /* Every screen must survive a 380px viewport (SPEC §6). */
+    min-width: 320px;
+    overscroll-behavior-y: none;
+  }
+
+  /* Tabular figures everywhere scores and ladders are shown. */
+  .nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer utilities {
+  /* Respect notches without every screen re-deriving it. */
+  .pb-safe {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
