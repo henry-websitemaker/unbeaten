@@ -76,6 +76,17 @@ export function teamById(state: SeasonState, id: string): Team | undefined {
   return state.teams.find((t) => t.id === id)
 }
 
+/**
+ * Season-long club form was tried here and removed.
+ *
+ * The idea was that a club playing above itself for a whole season would produce the 3-7%
+ * underdog-title rate SPEC §2.4 asks for. Measured over 25 seasons per league it did the
+ * opposite: it added noise that pulled the favourite-wins rate down from 0.55 to 0.50 and
+ * cut strength/finish correlation, while underdog titles *fell* from 1.5% to 0.5% — a
+ * bottom-half squad needs far more than a good run to win a title outright. Noise alone
+ * does not buy a heavy tail, it just blurs everything.
+ */
+
 /** The table as it stands. */
 export function currentLadder(state: SeasonState): LadderRow[] {
   return buildLadder(

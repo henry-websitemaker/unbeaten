@@ -11,7 +11,7 @@
  */
 
 import { getLeague } from '../data'
-import { selectBestXV, type Selection } from './generate'
+import { clubQuality, selectBestXV, type Selection } from './generate'
 import { rngFor, type Rng } from './rng'
 import type { LeagueId, PositionId, StatKey, Team } from '../types/core'
 import type {
@@ -32,10 +32,26 @@ const SET_PIECE_STATS: readonly StatKey[] = ['SCR', 'LNO']
 const BASE_TRIES = 3.0
 /** Home advantage, in effective strength points. */
 const HOME_ADVANTAGE = 2.5
-/** How much a point of strength difference is worth in expected tries. */
-const TRIES_PER_STRENGTH_POINT = 0.085
-/** Spread of the try count around its expectation. */
-const TRY_VARIANCE = 1.25
+/**
+ * How much a point of overall-rating difference is worth in expected tries.
+ *
+ * This is the single most important number in the sim. It sets how far results track
+ * ability, and it is calibrated against the SPEC §2.4 balance targets rather than chosen by
+ * feel: at 0.085 the favourite won its league only 26% of the time against a target of
+ * 60-70%, and the champion's points difference came out at +94 against a target of +150.
+ */
+const TRIES_PER_STRENGTH_POINT = 0.34
+
+/** How much a side's attacking-versus-defensive lean is worth. Drives the try-bonus race. */
+const ATTACKING_BIAS_WEIGHT = 0.055
+
+/**
+ * Spread of the try count around its expectation.
+ *
+ * Upsets have to remain possible — the underdog-title target is 3-7%, not 0% — but at 1.25
+ * this drowned out the strength signal entirely.
+ */
+const TRY_VARIANCE = 0.85
 
 const TRY_POINTS = 5
 const CONVERSION_POINTS = 2
@@ -131,12 +147,49 @@ export function rateTeam(
   }
 }
 
-/** Expected tries for the attacking side against this defence. */
+/**
+ * Expected tries for the attacking side against this defence.
+ *
+ * Built on the difference in *overall* rating, because both sides are then measured on the
+ * same scale and two equal teams correctly sit at zero. Comparing one side's attack against
+ * the other's defence directly — the obvious formulation — does not: attacking stats
+ * (PAC/EVA/HND/CAR/VIS) and defensive ones (TCK/RUK/FIT) have different baselines, so the
+ * difference carries a constant offset that swamps the real signal between clubs.
+ *
+ * `attackingBias` then adds back the part that genuinely is a style difference: a side built
+ * to attack outscores a side built to defend, and it is centred at zero for balanced teams.
+ */
+/**
+ * Diminishing returns on very large mismatches.
+ *
+ * Left linear, the best club in a league beat the worst in 300 out of 300 — and a sport
+ * where the gap is that certain is not one anybody would watch. Rugby has a bounce of the
+ * ball: a red card, a wet afternoon, a first-choice ten pulling up in the warm-up.
+ *
+ * `tanh` is close to linear for the small edges that decide most league matches, so the
+ * SPEC §2.4 balance targets are untouched, and only flattens where the gap is already
+ * decisive.
+ */
+const MAX_EFFECTIVE_EDGE = 9
+
+function softenEdge(edge: number): number {
+  return MAX_EFFECTIVE_EDGE * Math.tanh(edge / MAX_EFFECTIVE_EDGE)
+}
+
 function expectedTries(attacker: TeamRating, defender: TeamRating, strengthDelta: number): number {
-  const edge = attacker.attack - defender.defence + strengthDelta
+  const edge = attacker.overall - defender.overall + strengthDelta
+  const attackingBias =
+    attacker.attack - attacker.defence - (defender.attack - defender.defence)
   // Platform matters: a side going backwards at scrum time creates less.
-  const platform = (attacker.setPiece - defender.setPiece) * 0.25
-  return Math.max(0.25, BASE_TRIES + (edge + platform) * TRIES_PER_STRENGTH_POINT)
+  const platform = (attacker.setPiece - defender.setPiece) * 0.2
+
+  return Math.max(
+    0.2,
+    BASE_TRIES +
+      softenEdge(edge) * TRIES_PER_STRENGTH_POINT +
+      attackingBias * ATTACKING_BIAS_WEIGHT +
+      platform * TRIES_PER_STRENGTH_POINT,
+  )
 }
 
 function rollTries(rng: Rng, expected: number, variance: number): number {
@@ -261,13 +314,20 @@ export function simulateMatch(args: SimulateMatchArgs): MatchResult {
   // A derby lifts the weaker side and widens the range of plausible results.
   const derby = mods.derbyIntensity ?? 0
   const underdogLift = derby > 0 ? (derby / 10) * 2.5 : 0
-  const homeIsUnderdog = homeRating.overall < awayRating.overall
+  const homeIsUnderdog =
+    homeRating.overall + clubQuality(home.name) + HOME_ADVANTAGE <
+    awayRating.overall + clubQuality(away.name)
 
+  // Club quality counts for both sides, exactly as `squadStrength` measures it.
   const homeDelta =
     HOME_ADVANTAGE +
+    clubQuality(home.name) +
     (mods.homeStrengthDelta ?? 0) +
     (homeIsUnderdog ? underdogLift : 0)
-  const awayDelta = (mods.awayStrengthDelta ?? 0) + (homeIsUnderdog ? 0 : underdogLift)
+  const awayDelta =
+    clubQuality(away.name) +
+    (mods.awayStrengthDelta ?? 0) +
+    (homeIsUnderdog ? 0 : underdogLift)
 
   const variance = TRY_VARIANCE + derby * 0.06
 

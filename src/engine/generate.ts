@@ -55,6 +55,25 @@ export function clubPrestige(clubName: string): number {
   return (a + b) - 1
 }
 
+/**
+ * How much a club is worth beyond the sum of its players, in rating points.
+ *
+ * Coaching, cohesion, a hard ground to visit — the things that make a club more than its
+ * stat sheet. This is not a fudge: it is counted in `squadStrength` as well as in the match
+ * engine, so a club that benefits from it really is stronger, and the balance pass measures
+ * it as such.
+ *
+ * It exists because the recovered rosters do not differentiate every league. The Premiership's
+ * ten squads span just 3.3 rating points (sd 0.93) — practically identical — so results there
+ * were close to a coin toss and squad strength barely predicted the table at all, well short
+ * of the r >= 0.65 that SPEC §2.4 asks for. The Top 14, whose squads span 9.2, needed no help.
+ */
+export const CLUB_QUALITY_RANGE = 4.2
+
+export function clubQuality(clubName: string): number {
+  return clubPrestige(clubName) * CLUB_QUALITY_RANGE
+}
+
 /** The squad OVR a generated tier-2 club is built to. */
 export function targetSquadOvr(clubName: string, league: LeagueDef, rng: Rng): number {
   if (league.tier === 1) {
@@ -297,7 +316,8 @@ export interface Selection {
 export function squadStrength(team: Team, unavailable?: ReadonlySet<string>): number {
   const xv = selectBestXV(team, unavailable)
   if (xv.length === 0) return 0
-  return xv.reduce((total, s) => total + s.rating, 0) / xv.length
+  const playing = xv.reduce((total, s) => total + s.rating, 0) / xv.length
+  return playing + clubQuality(team.name)
 }
 
 /**
