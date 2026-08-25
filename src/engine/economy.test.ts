@@ -26,7 +26,7 @@ import { LEAGUE_LIST, LIFESTYLE, getLeague } from '../data'
 import { createRng } from './rng'
 import type { Ledger, LifestyleState } from '../types/economy'
 
-const CAREER_SEASONS = 20
+import { CAREER_SEASONS } from '../types/career'
 
 describe('ledger basics', () => {
   it('starts empty and reconciled', () => {

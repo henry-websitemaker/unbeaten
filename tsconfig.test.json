@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.test.tsbuildinfo",
+    // Tests read the source tree to enforce the spec, so they need Node's types.
+    // App code never does, which is why this is a separate project.
+    "types": ["node"],
+    "noUnusedLocals": false
+  },
+  "include": ["src/**/*.test.ts", "src/**/*.test.tsx"],
+  "exclude": []
+}
