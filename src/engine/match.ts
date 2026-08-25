@@ -252,8 +252,8 @@ export function simulateMatch(args: SimulateMatchArgs): MatchResult {
 
   const rng = rngFor(seed, 'match', season, round, home.id, away.id)
 
-  const homeXV = selectBestXV(home, mods.unavailableHome)
-  const awayXV = selectBestXV(away, mods.unavailableAway)
+  const homeXV = selectBestXV(home, mods.unavailableHome, mods.selectionAdjustHome)
+  const awayXV = selectBestXV(away, mods.unavailableAway, mods.selectionAdjustAway)
 
   const homeRating = rateTeam(homeXV, leagueId, mods.statWeightOverride)
   const awayRating = rateTeam(awayXV, leagueId, mods.statWeightOverride)

@@ -85,6 +85,78 @@ describe('ageEffect', () => {
     const lateBloomer = getArchetype('late_bloomer')
     expect(ageEffect(34, lateBloomer).decay).toBeLessThan(3)
   })
+
+  it('matures young players and only young players', () => {
+    for (const archetype of ARCHETYPE_LIST) {
+      const peak = archetype.growthCurve.peakAge
+      expect(ageEffect(peak - 6, archetype).maturation).toBeGreaterThan(0)
+      expect(ageEffect(peak, archetype).maturation).toBe(0)
+      expect(ageEffect(peak + 4, archetype).maturation).toBe(0)
+    }
+  })
+
+  it('tapers maturation as the peak approaches', () => {
+    const wonderkid = getArchetype('wonderkid')
+    const peak = wonderkid.growthCurve.peakAge
+    expect(ageEffect(peak - 7, wonderkid).maturation).toBeGreaterThan(
+      ageEffect(peak - 2, wonderkid).maturation,
+    )
+  })
+})
+
+describe('young players develop by playing, not by rating 8 out of 10', () => {
+  it('improves an 18-year-old who merely holds his own', () => {
+    // The bug this pins: a rookie below his squad's average rates around 6.0, never clears
+    // the neutral 6.4, and would otherwise flatline for a whole career.
+    const stats = statsAt('WL', 62)
+    const result = applySeasonProgression({
+      stats,
+      position: 'WL',
+      age: 18,
+      archetype: getArchetype('wonderkid'),
+      avgRating: 6.1,
+      appearances: 16,
+      matchGrowthMultiplier: 1,
+      rng: createRng(77),
+    })
+    expect(result.ovrDelta).toBeGreaterThan(0)
+  })
+
+  it('develops a regular starter faster than someone barely selected', () => {
+    const shared = {
+      stats: statsAt('WL', 62),
+      position: 'WL' as const,
+      age: 19,
+      archetype: getArchetype('wonderkid'),
+      avgRating: 6.2,
+      matchGrowthMultiplier: 1,
+    }
+
+    // Summed across seeds: OVR is an integer, so a single season can round both cases to
+    // the same step even when the underlying development differs.
+    let regular = 0
+    let benched = 0
+    for (let seed = 0; seed < 40; seed++) {
+      regular += applySeasonProgression({ ...shared, appearances: 18, rng: createRng(seed) }).ovrDelta
+      benched += applySeasonProgression({ ...shared, appearances: 1, rng: createRng(seed) }).ovrDelta
+    }
+
+    expect(regular).toBeGreaterThan(benched)
+  })
+
+  it('does not rescue a veteran past his peak', () => {
+    const result = applySeasonProgression({
+      stats: statsAt('WL', 80),
+      position: 'WL',
+      age: 34,
+      archetype: getArchetype('wonderkid'),
+      avgRating: 6.2,
+      appearances: 18,
+      matchGrowthMultiplier: 1,
+      rng: createRng(9),
+    })
+    expect(result.ovrDelta).toBeLessThan(0)
+  })
 })
 
 describe('applySeasonProgression', () => {

@@ -31,6 +31,15 @@ const MAX_SEASON_SWING = 6
 export interface AgeEffect {
   /** Multiplies gains earned from match performance. */
   growthMultiplier: number
+  /**
+   * OVR gained simply by maturing, before performance is considered.
+   *
+   * This is the half of "age curves" that is easy to leave out. Without it a young player
+   * who starts below his squad's average rates around 6.0, never clears the neutral 6.4,
+   * and flatlines for twenty seasons — which is not how a career works. An eighteen-year-old
+   * does not go from 60 to 80 by rating 8/10 at eighteen; he grows into the player.
+   */
+  maturation: number
   /** Flat OVR lost to age, before any gains. */
   decay: number
   phase: 'developing' | 'peak' | 'declining'
@@ -39,18 +48,22 @@ export interface AgeEffect {
 /**
  * What age does to a player, per their archetype's curve.
  *
- * A Wonderkid (peak 26, late multiplier 0.6) falls away sharply in their thirties; a Late
- * Bloomer (peak 31, late multiplier 1.4) is still improving when the Wonderkid is finished.
+ * A Wonderkid (peak 26, early multiplier 1.45) matures fast and then falls away sharply in
+ * their thirties; a Late Bloomer (peak 31, late multiplier 1.4) grows slowly but is still
+ * improving when the Wonderkid is finished.
  */
 export function ageEffect(age: number, archetype: Archetype): AgeEffect {
   const { peakAge, earlyMultiplier, lateMultiplier } = archetype.growthCurve
 
   if (age < peakAge - 1) {
-    return { growthMultiplier: earlyMultiplier, decay: 0, phase: 'developing' }
+    const yearsToPeak = peakAge - age
+    // Tapers as the peak nears, so growth slows rather than stopping dead.
+    const maturation = earlyMultiplier * 1.6 * (yearsToPeak / (yearsToPeak + 2))
+    return { growthMultiplier: earlyMultiplier, maturation, decay: 0, phase: 'developing' }
   }
 
   if (age <= peakAge + 1) {
-    return { growthMultiplier: 1, decay: 0, phase: 'peak' }
+    return { growthMultiplier: 1, maturation: 0, decay: 0, phase: 'peak' }
   }
 
   const yearsPast = age - (peakAge + 1)
@@ -58,6 +71,7 @@ export function ageEffect(age: number, archetype: Archetype): AgeEffect {
   const decay = (yearsPast * 0.45 + yearsPast ** 2 * 0.05) / Math.max(0.4, lateMultiplier)
   return {
     growthMultiplier: Math.max(0.15, 0.55 * lateMultiplier),
+    maturation: 0,
     decay,
     phase: 'declining',
   }
@@ -109,8 +123,12 @@ export function applySeasonProgression(input: SeasonProgressionInput): SeasonPro
       ? rawPerformance * effect.growthMultiplier * input.matchGrowthMultiplier
       : rawPerformance
 
+  // Maturing still depends on playing — a young player kept out of the side develops more
+  // slowly — but not entirely, or being behind in the pecking order would be unrecoverable.
+  const maturation = effect.maturation * (0.35 + 0.65 * involvement) * input.matchGrowthMultiplier
+
   const noise = rng.gaussian(0, 0.35)
-  const delta = clampSwing(performance - effect.decay + noise)
+  const delta = clampSwing(performance + maturation - effect.decay + noise)
 
   const currentOvr = computeOvr(stats, position)
   const targetOvr = clampOvr(currentOvr + delta)
@@ -122,7 +140,8 @@ export function applySeasonProgression(input: SeasonProgressionInput): SeasonPro
     ovrDelta: appliedDelta,
     breakdown: {
       performance: Math.round(performance * 10) / 10,
-      age: Math.round(-effect.decay * 10) / 10,
+      // Net effect of age: maturing while young, decay once past the peak.
+      age: Math.round((maturation - effect.decay) * 10) / 10,
       phase: effect.phase,
     },
   }
@@ -194,6 +213,42 @@ function alignToOvr(stats: StatBlock, position: PositionId, target: number): Sta
 function roundBlock(working: Record<string, number>): StatBlock {
   const out: StatBlock = {}
   for (const [key, value] of Object.entries(working)) out[key as StatKey] = clampStat(value)
+  return out
+}
+
+/**
+ * Raise OVR without ever lowering a single stat.
+ *
+ * `distributeOvrChange` finishes with an alignment pass that shifts the whole block to land
+ * on the target, and that pass can shave a point off an individual stat even when OVR goes
+ * up. That is fine for a season's development, but it breaks the wheel's guarantee that a
+ * positive outcome can never take anything away — so positives use this instead, which only
+ * ever increments.
+ */
+export function raiseOvrOnly(
+  stats: StatBlock,
+  position: PositionId,
+  ovrDelta: number,
+  rng: Rng,
+): StatBlock {
+  if (ovrDelta <= 0) return { ...stats }
+
+  const out: StatBlock = { ...stats }
+  const keys = Object.keys(out) as StatKey[]
+  if (keys.length === 0) return out
+
+  const keyStats = new Set<StatKey>(POSITIONS[position].keyStats)
+  const target = computeOvr(stats, position) + ovrDelta
+
+  // Bounded so a block already at the ceiling cannot spin forever.
+  for (let step = 0; step < 600; step++) {
+    if (computeOvr(out, position) >= target) break
+    const headroom = keys.filter((k) => (out[k] ?? 0) < 99)
+    if (headroom.length === 0) break
+    const stat = rng.weighted(headroom, (k) => (keyStats.has(k) ? 2.2 : 1))
+    out[stat] = clampStat((out[stat] ?? 50) + 1)
+  }
+
   return out
 }
 

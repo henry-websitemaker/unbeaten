@@ -56,6 +56,9 @@ export interface MatchModifiers {
   unavailableAway?: ReadonlySet<string>
   /** Ratings bonus for specific players, e.g. the Sports Psychologist in a final. */
   ratingBonus?: ReadonlyMap<string, number>
+  /** Selection-only nudges — form, morale, and the "Dropped" outcome's penalty. */
+  selectionAdjustHome?: ReadonlyMap<string, number>
+  selectionAdjustAway?: ReadonlyMap<string, number>
   /** Finals and internationals carry more weight in ratings and morale. */
   bigMatch?: boolean
 }

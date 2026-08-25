@@ -310,7 +310,16 @@ export function squadStrength(team: Team, unavailable?: ReadonlySet<string>): nu
  *
  * Returned in shirt order, so callers can render a team sheet directly.
  */
-export function selectBestXV(team: Team, unavailable?: ReadonlySet<string>): Selection[] {
+export function selectBestXV(
+  team: Team,
+  unavailable?: ReadonlySet<string>,
+  /**
+   * Per-player rating nudges applied only for selection purposes — form, morale, and the
+   * "Dropped" wheel outcome's selection penalty. A player can be pushed out of the XV this
+   * way without their actual ability changing.
+   */
+  selectionAdjust?: ReadonlyMap<string, number>,
+): Selection[] {
   const available = team.squad.filter((p) => !unavailable?.has(p.id))
   const used = new Set<string>()
   const picks: Selection[] = []
@@ -328,7 +337,9 @@ export function selectBestXV(team: Team, unavailable?: ReadonlySet<string>): Sel
       const candidate: Selection = {
         slot,
         player,
-        rating: ratingInSlot(player.stats, player.position, slot),
+        rating:
+          ratingInSlot(player.stats, player.position, slot) +
+          (selectionAdjust?.get(player.id) ?? 0),
         outOfPosition: !POSITIONS[player.position].canPlayAt.includes(slot),
       }
 
