@@ -131,8 +131,26 @@ export function MyPlayerScreen() {
         <Stat label="Tries" value={career.careerTries} />
         <Stat label="Points" value={career.careerPoints} />
         <Stat label="Test caps" value={career.internationalCaps} />
+        <Stat label="Test tries" value={career.internationalTries} />
         <Stat label="Trophies" value={career.trophies.length} />
       </Card>
+
+      {career.awards.length > 0 && (
+        <>
+          <SectionTitle>Honours</SectionTitle>
+          <div className="flex flex-col gap-2">
+            {[...career.awards].reverse().map((award, index) => (
+              <div
+                key={`${award.season}:${award.type}:${index}`}
+                className="flex items-center justify-between gap-3 rounded-xl border border-gold/25 bg-gold/5 px-3 py-2.5"
+              >
+                <p className="truncate text-sm font-medium text-white">{award.name}</p>
+                <span className="nums shrink-0 text-xs text-gold">S{award.season}</span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
 
       <SectionTitle>Money</SectionTitle>
       <Card>

@@ -12,6 +12,7 @@ import MenuScreen from './ui/MenuScreen'
 
 const CreateScreen = lazy(() => import('./ui/CreateScreen'))
 const DashboardScreen = lazy(() => import('./ui/DashboardScreen'))
+const MatchScreen = lazy(() => import('./ui/MatchScreen'))
 const TableScreen = lazy(() => import('./ui/TableScreen'))
 const WheelScreen = lazy(() => import('./ui/WheelScreen'))
 const SummerScreen = lazy(() => import('./ui/SummerScreen'))
@@ -26,6 +27,12 @@ const AchievementsScreen = lazy(() =>
 )
 const RivalScreen = lazy(() =>
   import('./ui/PlayerScreens').then((m) => ({ default: m.RivalScreen })),
+)
+const AwardsScreen = lazy(() =>
+  import('./ui/SeasonScreens').then((m) => ({ default: m.AwardsScreen })),
+)
+const InternationalsScreen = lazy(() =>
+  import('./ui/SeasonScreens').then((m) => ({ default: m.InternationalsScreen })),
 )
 const PreviewScreen = lazy(() =>
   import('./ui/ReviewScreens').then((m) => ({ default: m.PreviewScreen })),
@@ -68,12 +75,15 @@ export default function App() {
       {screen === 'create' && <CreateScreen />}
       {screen === 'preview' && <PreviewScreen />}
       {screen === 'dashboard' && <DashboardScreen />}
+      {screen === 'match' && <MatchScreen />}
       {screen === 'table' && <TableScreen />}
       {screen === 'wheel' && <WheelScreen />}
       {screen === 'summer' && <SummerScreen />}
       {screen === 'my-player' && <MyPlayerScreen />}
       {screen === 'achievements' && <AchievementsScreen />}
       {screen === 'rival' && <RivalScreen />}
+      {screen === 'awards' && <AwardsScreen />}
+      {screen === 'internationals' && <InternationalsScreen />}
       {screen === 'season-review' && <SeasonReviewScreen />}
       {screen === 'career-end' && <CareerEndScreen />}
       {screen === 'hall-of-fame' && <HallOfFameScreen />}

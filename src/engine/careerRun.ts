@@ -19,11 +19,19 @@ import {
   creditMatchEarnings,
   creditSeasonSalary,
   endSeason,
+  isPlayerAvailable,
   playerClubModifiers,
   playerLine,
   syncCareerToWorld,
   type SeasonSummary,
 } from './career'
+import {
+  agencyEffects,
+  agencyModifiers,
+  rollDecisions,
+  type OfferedDecision,
+  type ResolvedDecision,
+} from './agency'
 import { assertReconciled } from './economy'
 import { resolveEvent, rollEvent, type EventOutcome } from './events'
 import { rngFor } from './rng'
@@ -60,6 +68,8 @@ export interface RoundLogEntry {
   selected: boolean
   event: EventOutcome | null
   injuryPickedUp: string | null
+  /** Calls the player made in this match (SPEC §3). Empty when they declined or simmed. */
+  decisions: ResolvedDecision[]
 }
 
 /** Start a season: pay the wages, build the fixtures. */
@@ -83,12 +93,32 @@ export function wheelRoundFor(run: CareerRun): number {
 }
 
 /**
+ * The calls this round offers, if any (SPEC §3).
+ *
+ * Derived from the same seed the round itself uses, so what is offered does not change
+ * between opening the screen and playing the match. A player who is not fit to take the
+ * field is not asked to make decisions in it.
+ */
+export function decisionsForRound(run: CareerRun): OfferedDecision[] {
+  if (isRegularSeasonComplete(run.season)) return []
+  if (!isPlayerAvailable(run.career)) return []
+  const round = run.season.roundsPlayed + 1
+  return rollDecisions(
+    rngFor(run.career.seed, 'agency', run.career.season, round),
+    run.career.stats,
+  )
+}
+
+/**
  * Play one round.
  *
  * The event for the round is resolved *before* the match, so a washout re-weights the match
  * it applies to rather than the next one.
+ *
+ * `decisions` are the calls the player made this match. Passing none is the neutral path:
+ * declining costs nothing, and "Sim to season end" takes it for every round.
  */
-export function playRound(run: CareerRun): CareerRun {
+export function playRound(run: CareerRun, decisions: readonly ResolvedDecision[] = []): CareerRun {
   if (isRegularSeasonComplete(run.season)) return run
 
   const round = run.season.roundsPlayed + 1
@@ -101,6 +131,11 @@ export function playRound(run: CareerRun): CareerRun {
   const event = rolled ? resolveEvent(rolled, rng) : null
 
   let career = run.career
+
+  // A call that did not come off costs form or morale, and nothing else.
+  const knocks = agencyEffects(decisions)
+  if (knocks.length > 0) career = attachEffects(career, knocks)
+
   if (event) {
     if (event.effects.length > 0) career = attachEffects(career, event.effects)
     if (event.weeksSuspended > 0) {
@@ -124,7 +159,20 @@ export function playRound(run: CareerRun): CareerRun {
     if (event?.statWeightOverride) base.statWeightOverride = event.statWeightOverride
     if (event) base.conditions = event.event.name
     if (!involvesPlayer) return Object.keys(base).length > 0 ? base : undefined
-    return { ...base, ...playerClubModifiers(career, fixture.homeId === clubId) }
+
+    const isHome = fixture.homeId === clubId
+    const club = playerClubModifiers(career, isHome)
+    const agency = agencyModifiers(decisions, PLAYER_ID, isHome)
+
+    // Both can carry a rating bonus for the player; they add rather than overwrite.
+    const ratingBonus = new Map<string, number>(club.ratingBonus ?? [])
+    for (const [id, bonus] of agency.ratingBonus ?? []) {
+      ratingBonus.set(id, (ratingBonus.get(id) ?? 0) + bonus)
+    }
+
+    const merged: MatchModifiers = { ...base, ...club, ...agency }
+    if (ratingBonus.size > 0) merged.ratingBonus = ratingBonus
+    return merged
   }
 
   const played = simulateRound(season, { modifiersFor })
@@ -145,6 +193,7 @@ export function playRound(run: CareerRun): CareerRun {
     selected: outcome.line !== null,
     event,
     injuryPickedUp: outcome.injuryPickedUp,
+    decisions: [...decisions],
   }
 
   return {

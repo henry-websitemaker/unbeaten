@@ -27,6 +27,13 @@ import { advanceEffects, applySlumpReduction, totalEffects } from './events'
 import { advanceInjury, rollMatchInjury } from './injuries'
 import { rngFor, type Rng } from './rng'
 import { currentLadder, resultsForTeam, type SeasonState } from './season'
+import {
+  computeInternationals,
+  computeSeasonAwards,
+  recentFormRating,
+  type InternationalOutcome,
+  type SeasonAwards,
+} from './seasonClose'
 import { ladderRow } from './ladder'
 import { findTeam, joinClub, teamsInLeague, updatePlayer, type World } from './world'
 import { CAREER_SEASONS, type PlayerCareer, type SeasonRecord, type SquadRole, type TransferOffer } from '../types/career'
@@ -405,6 +412,10 @@ export interface SeasonSummary {
   record: SeasonRecord
   ovrDelta: number
   breakdown: { performance: number; age: number; phase: string }
+  /** SPEC §3: the test season, whether or not the player was in it. */
+  internationals: InternationalOutcome
+  /** SPEC §3: the league awards, the near miss, and World Player of the Year. */
+  awards: SeasonAwards
 }
 
 /**
@@ -412,6 +423,9 @@ export interface SeasonSummary {
  *
  * Progression is the only place OVR moves at a season boundary, and it is driven purely by
  * how the player actually played (SPEC §2.5).
+ *
+ * The order matters. Internationals run first, because World Player of the Year scores on
+ * test caps and would judge the player on a season they had not finished yet.
  */
 export function endSeason(
   career: PlayerCareer,
@@ -435,6 +449,44 @@ export function endSeason(
 
   const ladder = currentLadder(season)
   const position = ladderRow(ladder, clubId)?.position ?? ladder.length
+
+  // --- internationals (SPEC §3) ---
+  const internationals = computeInternationals({
+    seed: career.seed,
+    season: career.season,
+    nationId: career.nationId,
+    ovr: career.ovr,
+    formRating: recentFormRating(lines.map((l) => l.rating)),
+    existingCaps: career.internationalCaps,
+  })
+
+  // --- awards (SPEC §3) ---
+  const awards = computeSeasonAwards({
+    seed: career.seed,
+    season: career.season,
+    leagueId: season.leagueId,
+    results: season.results,
+    teams: season.teams,
+    playerId: PLAYER_ID,
+    playerCandidate:
+      appearances === 0
+        ? null
+        : {
+            playerName: career.name,
+            clubName: club?.name ?? clubId,
+            leagueId: season.leagueId,
+            appearances,
+            tries,
+            // Counted with this season's caps included, which is why internationals run first.
+            internationalCaps: career.internationalCaps + internationals.caps,
+            avgRating: Math.round(avgRating * 100) / 100,
+            // This season's silverware only. The simulated elite pool is scored on a single
+            // season, so a career total here would hand the award to whoever had been
+            // playing longest.
+            trophies:
+              (season.championId === clubId ? 1 : 0) + internationals.trophies.length,
+          },
+  })
 
   const lifestyle = lifestyleEffects(career.lifestyle, career.season)
   const progression = applySeasonProgression({
@@ -463,7 +515,7 @@ export function endSeason(
     salary: career.contract.salary,
     ovrStart: career.ovr,
     ovrEnd: progression.ovr,
-    internationalCaps: 0,
+    internationalCaps: internationals.caps,
     injuries: 0,
   }
 
@@ -473,6 +525,10 @@ export function endSeason(
     ovr: progression.ovr,
     age: career.age + 1,
     history: [...career.history, record],
+    internationalCaps: career.internationalCaps + internationals.caps,
+    internationalTries: career.internationalTries + internationals.tries,
+    trophies: [...career.trophies, ...internationals.trophies],
+    awards: [...career.awards, ...awards.playerWins],
     contract: { ...career.contract, yearsServed: career.contract.yearsServed + 1 },
     // A new season starts fresh: temporary effects and the wheel both reset.
     effects: [],
@@ -488,6 +544,8 @@ export function endSeason(
     record,
     ovrDelta: progression.ovrDelta,
     breakdown: progression.breakdown,
+    internationals,
+    awards,
   }
 }
 

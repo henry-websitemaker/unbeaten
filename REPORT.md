@@ -3,7 +3,12 @@
 Rebuilt from `SPEC.md` and the recovered `src/data/`. All nine phases of SPEC §5 are
 complete and the game is playable end to end.
 
-**463 tests, all passing. Entry chunk 274.4 kB raw / 89.1 kB gzip.**
+**502 tests, all passing. Entry chunk 294.0 kB raw / 95.4 kB gzip.**
+
+> **Update — the awards, internationals and match agency pass.** The section
+> [Three SPEC §3 features that were not actually wired in](#three-spec-3-features-that-were-not-actually-wired-in)
+> corrects this report's earlier claim that phase 5 delivered internationals and awards. It
+> also records a progression defect found while testing that work.
 
 ---
 
@@ -32,6 +37,63 @@ data layer and spec. That is the failure this rebuild exists to prevent.
 | 8 | Versioned saves; Hall of Fame migration |
 | 9 | Monte Carlo balance pass |
 | 10 | Sixteen screens, lazy-loaded; store; close-out |
+| 11 | Awards, internationals and match agency joined to the game; nineteen screens |
+
+## Three SPEC §3 features that were not actually wired in
+
+The row above for phase 5 — "Internationals; season awards; World Player; achievements;
+rival" — was only half true, and this report should not have claimed it.
+
+`src/engine/awards.ts` (393 lines) and `src/engine/internationals.ts` (306 lines) were
+written and thoroughly unit-tested, and then **imported by nothing but their own tests**. The
+career never played a test match and never won an award: `PlayerCareer.awards` was
+initialised to `[]` and never appended to, and `SeasonRecord.internationalCaps` was written
+as a literal `0` on every season of every career. Match agency — SPEC §3's "at most two
+skippable, stat-driven decisions per match" — had no implementation at all.
+
+The consequence was concrete. **Eight of the twenty-six achievements could never unlock**,
+because their predicates read `internationalCaps` or `awardTypes`: `test_debut`, `caps_10`,
+`caps_50`, `caps_100`, `wc_winner`, `legend`, `top_scorer` and `world_player`. The
+achievement grid rendered them permanently greyed out.
+
+The lesson is the same one the phase-10 note about `getInitialState` makes: a test that
+exercises a function proves the function works, not that the game uses it. Unit tests on an
+unimported module pass forever. The new `src/engine/seasonClose.test.ts` drives the real
+season loop instead, and `src/spec-compliance.test.ts` would be the right place to pin
+"every engine module has a non-test importer" if this recurs.
+
+**What was added**
+
+- `src/engine/seasonClose.ts` joins both engines to `endSeason`, which is the only season
+  boundary. Internationals resolve first, because World Player of the Year scores on test
+  caps. Selection reads a genuine recent-form window — the last six match ratings, the
+  `formWindowMatches` the data specifies — rather than the season average.
+- The World Cup is simulated whether or not the player is picked, so a World Cup season has
+  a winner even when the player watched it from home. Only caps, tries and trophies are
+  withheld. The trophy name comes from `internationals.json`, which is the same string
+  `wc_winner` matches on, so the two cannot drift.
+- `src/engine/agency.ts` is new. Nine situations, each offering a safe option that is always
+  a certainty and always positive, and a risky one whose odds come from the stats the call
+  actually tests, clamped to 25–90% and shown on the card before the choice. Which
+  situations a player sees is decided by their stat block, not a hardcoded position list — a
+  prop is never asked to take a shot at goal because a prop has no KCK.
+- A failed call costs form or morale through the existing `TemporaryEffect` machinery and
+  can never touch stats, OVR or traits. That is the wheel's guarantee, tested the same way:
+  every option, every seed.
+- Three screens: `MatchScreen`, and `AwardsScreen` / `InternationalsScreen` in
+  `SeasonScreens.tsx`. Both new season screens fall back to career-level data, so they still
+  render after a mid-career reload when there is no summary in memory.
+
+**One interface change worth knowing about.** `nextRound()` still means "play a round", so
+everything that drives a season forward kept working unchanged. The dashboard button now
+calls `openMatch()`, which offers the calls first and falls through to `nextRound()` when
+there are none. Splitting it this way, rather than making `nextRound` stop to ask, avoided
+touching every season-driving loop in the tests — and the loops that were touched would have
+been silently playing zero rounds.
+
+`selectionOutlook` is a plain function, not a hook. A hook defined inside `gameStore.ts`
+calls the real `useGame` even when a test has mocked the module for its importers — the same
+`useSyncExternalStore` trap phase 10 hit, which cost a round of debugging here too.
 
 ## Bugs the tests caught
 
@@ -88,6 +150,51 @@ league, but league lengths run 10 to 30 rounds. Clearing +150 over 10 rounds nee
 match; staying under +400 over 30 needs ≤13.3. That interval is empty. The floor is asserted
 literally, the ceiling per match.
 
+## Unfixed: the career arc collapses, and no ordinary career reaches international standard
+
+Found while testing the internationals work, measured, **not fixed** — it is a progression
+balance question, not a wiring one, and it needs a decision rather than a guess.
+
+A career cannot climb. Measured over full 20-season runs:
+
+| | |
+|---|---|
+| Tier-2 starting XV averages | **66.8–68.1** OVR (bench 62–63) |
+| Player starts at | **58–64** OVR (SPEC §3: "OVR 55–65") |
+| Player's season rating | **5.1–5.9**, against a `NEUTRAL_RATING` of **6.4** |
+| Peak OVR reached | **~71** at best, typically 60–64 |
+| OVR at season 20 | **17–47** |
+| Italy's selection floor | 73 OVR and 7.08 average form |
+
+Two independent defects compound:
+
+**1. Match performance only ever subtracts.** The rating scale is fine — 30 players in a
+tier-2 match average 6.47, so `NEUTRAL_RATING = 6.4` is the right bar. But a player rates
+above it only from about OVR 73, and reaching 73 requires growth that, per SPEC §2.5, comes
+primarily from match performance. It is a bootstrap that never starts: `performance` is
+negative in *every* season of a typical career, and the only positive term is maturation,
+which is capped around +1.5/season and expires at the archetype's peak age.
+
+The earlier "Careers had no arc" fix addressed the symptom by adding maturation. It did not
+reconcile the rating a fringe tier-2 player actually earns with the bar they are measured
+against, which is the underlying disagreement.
+
+**2. Age decay is unbounded.** `ageEffect` decays by `(yearsPast × 0.45 + yearsPast² × 0.05)
+/ lateMultiplier`, which for a Wonderkid at 38 is **−18.3 OVR in a single season**. The
+`MAX_SEASON_SWING` clamp holds it to −6, but −6 every season for the last third of a career
+is what takes a peak of 71 down to 25. Only the Late Bloomer (`lateMultiplier` 1.4) declines
+plausibly.
+
+The effect on the work above: **internationals are wired correctly and provably work** — at
+OVR 80 the player is selected and wins 9 caps in a season — but an ordinary career never
+gets there, so in practice the caps achievements stay locked for balance reasons rather than
+wiring ones. `seasonClose.test.ts` therefore tests the wiring against a player raised to
+international standard, and says so at the harness.
+
+Fixing this means retuning `NEUTRAL_RATING`, the involvement curve and the decay formula
+against `balance-targets.json` — SPEC §2.4's "enforced as tests, not eyeballed" discipline —
+and it should be its own pass with its own Monte Carlo evidence.
+
 ## Balance targets: met and unmet
 
 Met at the sim counts `balance-targets.json` specifies:
@@ -119,15 +226,21 @@ noise alone does not buy a heavy tail.
 
 ## Verification
 
-- `npm test` — 463 tests across 20 files
-- `npm run build` — clean
+- `npm test` — 502 tests across 22 files
+- `npm run build` — clean. The entry chunk is **294.0 kB raw / 95.4 kB gzip**, up from
+  274.4 kB: `career.ts` now reaches the awards and internationals engines, and `careerRun.ts`
+  reaches the agency table, so all three land in the entry chunk however the screens are
+  split. Still inside SPEC §6's 300 kB, but with only ~6 kB of headroom — the next engine
+  added to the season loop will need route-level splitting of the engine itself, not just
+  the screens.
 - Store tests play a full 20-season career through the real store and reload mid-career
-- Screen tests render all sixteen screens
+- Screen tests render all nineteen screens
 - `npm run dev` — server starts and serves
 
-**Not verified:** no browser was available this session, so the 380px audit and the visual
-pass are outstanding. Screens are built for it — fluid widths, truncation, horizontally
-scrolling tables — but that is a design intent, not a measurement.
+**Still not verified:** no browser this session either, so the 380px audit and the visual
+pass remain outstanding. The new screens follow the same fluid-width, `ScrollX`-for-tables
+conventions as the rest, and the dashboard's action row was moved to a 2×2 grid that becomes
+4×1 above `sm` — but that is design intent, not a measurement.
 
 ## Dependencies
 

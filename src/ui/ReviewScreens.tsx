@@ -18,6 +18,7 @@ import { currentLadder, isPerfectSeason, perfectSeasonTarget } from '../engine/s
 import { ACHIEVEMENT_DEFS } from '../engine/achievements'
 import { rivalVerdict } from '../engine/rival'
 import { hallOfFameView } from '../engine/persistence'
+import { getNation } from '../engine/internationals'
 import { buildSeasonPreview } from '../engine/career'
 import { getLeague, POSITIONS } from '../data'
 import { CAREER_SEASONS } from '../types/career'
@@ -157,6 +158,86 @@ export function SeasonReviewScreen() {
           />
         </div>
       </Card>
+
+      <SectionTitle
+        action={
+          <button
+            onClick={() => go('awards')}
+            className="text-xs font-semibold text-turf-400 hover:text-turf-300"
+          >
+            All awards →
+          </button>
+        }
+      >
+        Awards
+      </SectionTitle>
+      {summary.career.awards.filter((a) => a.season === record.season).length > 0 ? (
+        <div className="flex flex-col gap-2">
+          {summary.career.awards
+            .filter((a) => a.season === record.season)
+            .map((award, index) => (
+              <div
+                key={`${award.type}:${index}`}
+                className="flex items-center justify-between gap-3 rounded-xl border border-gold/40 bg-gold/10 px-3 py-2.5"
+              >
+                <p className="truncate text-sm font-semibold text-gold">{award.name}</p>
+                <span className="shrink-0 text-[10px] font-bold uppercase tracking-wider text-gold">
+                  Won
+                </span>
+              </div>
+            ))}
+        </div>
+      ) : summary.awards.nearMissTries ? (
+        <p className="rounded-xl border border-pitch-700 bg-pitch-900 px-3 py-2.5 text-sm text-pitch-400">
+          {summary.awards.nearMissTries.message}
+        </p>
+      ) : (
+        <Empty>Nothing this season. The shortlist is on the awards screen.</Empty>
+      )}
+
+      <SectionTitle
+        action={
+          <button
+            onClick={() => go('internationals')}
+            className="text-xs font-semibold text-turf-400 hover:text-turf-300"
+          >
+            Details →
+          </button>
+        }
+      >
+        {getNation(summary.career.nationId).name}
+      </SectionTitle>
+      <div
+        className={`rounded-2xl border p-4 ${
+          summary.internationals.verdict.selected
+            ? 'border-turf-600/50 bg-turf-500/10'
+            : 'border-pitch-700 bg-pitch-900'
+        }`}
+      >
+        <p
+          className={`text-sm font-semibold ${
+            summary.internationals.verdict.selected ? 'text-turf-400' : 'text-white'
+          }`}
+        >
+          {summary.internationals.verdict.reason}
+        </p>
+        {summary.internationals.caps > 0 && (
+          <p className="nums mt-1 text-xs text-pitch-500">
+            {summary.internationals.caps} cap
+            {summary.internationals.caps === 1 ? '' : 's'} ·{' '}
+            {summary.internationals.tries} test{' '}
+            {summary.internationals.tries === 1 ? 'try' : 'tries'}
+          </p>
+        )}
+        {summary.internationals.trophies.map((trophy, index) => (
+          <p
+            key={`${trophy.name}:${index}`}
+            className="mt-2 text-sm font-bold text-gold"
+          >
+            {trophy.name} winners.
+          </p>
+        ))}
+      </div>
 
       {newAchievements.length > 0 && (
         <>

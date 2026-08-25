@@ -25,7 +25,7 @@ import type { RoundLogEntry } from '../engine/careerRun'
 export default function DashboardScreen() {
   const run = useGame((s) => s.run)
   const go = useGame((s) => s.go)
-  const nextRound = useGame((s) => s.nextRound)
+  const openMatch = useGame((s) => s.openMatch)
   const simToSeasonEnd = useGame((s) => s.simToSeasonEnd)
   const finishSeason = useGame((s) => s.finishSeason)
   const simming = useGame((s) => s.simming)
@@ -59,7 +59,7 @@ export default function DashboardScreen() {
             </Button>
           ) : (
             <>
-              <Button full onClick={nextRound} disabled={simming}>
+              <Button full onClick={openMatch} disabled={simming}>
                 Play next match
               </Button>
               <Button full variant="secondary" onClick={simToSeasonEnd} disabled={simming}>
@@ -136,7 +136,8 @@ export default function DashboardScreen() {
         </ol>
       )}
 
-      <div className="mt-6 grid grid-cols-3 gap-2">
+      {/* Two columns at 380px, four once there is room. */}
+      <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-4">
         <Button variant="secondary" onClick={() => go('my-player')}>
           My Player
         </Button>
@@ -145,6 +146,9 @@ export default function DashboardScreen() {
         </Button>
         <Button variant="secondary" onClick={() => go('rival')}>
           Rival
+        </Button>
+        <Button variant="secondary" onClick={() => go('internationals')}>
+          Country
         </Button>
       </div>
     </Screen>
@@ -192,11 +196,22 @@ function LogRow({ entry, clubId }: { entry: RoundLogEntry; clubId: string }) {
         )}
       </div>
 
-      {(entry.match.derbyName || entry.event || entry.injuryPickedUp) && (
+      {(entry.match.derbyName ||
+        entry.event ||
+        entry.injuryPickedUp ||
+        entry.decisions.length > 0) && (
         <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 pl-9 text-[11px]">
           {entry.match.derbyName && (
             <span className="text-gold">{entry.match.derbyName}</span>
           )}
+          {entry.decisions.map((decision) => (
+            <span
+              key={decision.situationId}
+              className={decision.succeeded ? 'text-turf-400' : 'text-loss'}
+            >
+              {decision.optionLabel}
+            </span>
+          ))}
           {entry.event && <span className="text-pitch-500">{entry.event.description}</span>}
           {entry.injuryPickedUp && <span className="text-loss">{entry.injuryPickedUp}</span>}
         </div>

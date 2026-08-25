@@ -34,12 +34,14 @@ import { useGame } from '../store/gameStore'
 import MenuScreen from './MenuScreen'
 import CreateScreen from './CreateScreen'
 import DashboardScreen from './DashboardScreen'
+import MatchScreen from './MatchScreen'
 import TableScreen from './TableScreen'
 import WheelScreen from './WheelScreen'
 import SummerScreen from './SummerScreen'
 import QuickSeasonScreen from './QuickSeasonScreen'
 import TeamCareerScreen from './TeamCareerScreen'
 import { AchievementsScreen, MyPlayerScreen, RivalScreen } from './PlayerScreens'
+import { AwardsScreen, InternationalsScreen } from './SeasonScreens'
 import {
   CareerEndScreen,
   HallOfFameScreen,
@@ -48,6 +50,8 @@ import {
   TrophyCabinetScreen,
 } from './ReviewScreens'
 import { isRegularSeasonComplete } from '../engine/season'
+import { decisionsForRound } from '../engine/careerRun'
+import { MAX_DECISIONS_PER_MATCH } from '../engine/agency'
 
 function render(element: ReactElement): string {
   return renderToStaticMarkup(element)
@@ -150,6 +154,56 @@ describe('screens during a season', () => {
   it('renders the rival head-to-head', () => {
     expect(render(<RivalScreen />)).toContain('Head to head')
   })
+
+  it('renders the internationals screen mid-season, before any summary exists', () => {
+    const html = render(<InternationalsScreen />)
+    // The selection bar, from the player's own nation.
+    expect(html).toContain('OVR floor')
+    expect(html).toContain('Form needed')
+    expect(html).toContain('Test caps')
+  })
+
+  it('renders the awards screen with nothing to show yet', () => {
+    expect(render(<AwardsScreen />)).toContain('Awards')
+  })
+})
+
+describe('match agency (SPEC §3)', () => {
+  it('renders the decisions with their odds, and never more than two', () => {
+    const run = useGame.getState().run!
+    const offered = decisionsForRound(run)
+    useGame.setState({ pendingDecisions: offered, resolvedDecisions: [] })
+
+    expect(offered.length).toBeLessThanOrEqual(MAX_DECISIONS_PER_MATCH)
+
+    const html = render(<MatchScreen />)
+    if (offered.length > 0) {
+      // The odds are on the card before the choice is made.
+      expect(html).toMatch(/\d+%/)
+      expect(html).toContain('Get on with it')
+      expect(html).toContain(offered[0]!.title)
+    } else {
+      expect(html).toContain('Play the match')
+    }
+  })
+
+  it('renders the outcome once a call has been taken', () => {
+    const run = useGame.getState().run!
+    const offered = decisionsForRound(run)
+    if (offered.length === 0) return
+
+    useGame.setState({ pendingDecisions: offered, resolvedDecisions: [] })
+    const risky =
+      offered[0]!.options.find((o) => o.stats.length > 0) ?? offered[0]!.options[0]!
+    useGame.getState().decide(offered[0]!.situationId, risky.id)
+
+    const html = render(<MatchScreen />)
+    expect(html).toContain(risky.label)
+    // With every call taken, the only way on is to play.
+    if (offered.length === 1) expect(html).toContain('Play the match')
+
+    useGame.setState({ pendingDecisions: [], resolvedDecisions: [] })
+  })
 })
 
 describe('screens after a match log has built up', () => {
@@ -190,6 +244,28 @@ describe('end-of-season screens', () => {
     expect(html).toContain('Development')
     expect(html).toContain('From how you played')
     expect(html).toContain('From age')
+  })
+
+  it('renders the awards and international blocks in the season review', () => {
+    const html = render(<SeasonReviewScreen />)
+    expect(html).toContain('Awards')
+    expect(html).toContain('All awards')
+    // The nation's verdict on the player, whichever way it went.
+    expect(html).toContain('England')
+  })
+
+  it('renders the awards screen with the World Player shortlist and its justifications', () => {
+    const html = render(<AwardsScreen />)
+    expect(html).toContain('World Player of the Year')
+    expect(html).toContain('Team of the Season')
+    // Every nominee carries a one-line case (SPEC §3).
+    expect(html).toMatch(/average across \d+ games/)
+  })
+
+  it('renders the internationals screen with the season just played', () => {
+    const html = render(<InternationalsScreen />)
+    expect(html).toContain('Test caps')
+    expect(html).toContain('Test silverware')
   })
 
   it('renders Summer Plans with the lifestyle shop and no training step', () => {

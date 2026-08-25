@@ -22,13 +22,21 @@ import {
 import {
   beginSeason,
   closeSeason,
+  decisionsForRound,
   playRound,
   skipWheelSpin,
   takeWheelSpin,
   type CareerRun,
 } from '../engine/careerRun'
+import {
+  resolveDecision,
+  type OfferedDecision,
+  type ResolvedDecision,
+} from '../engine/agency'
 import { canPurchase, purchase } from '../engine/economy'
 import { evaluateAchievements, newlyUnlocked } from '../engine/achievements'
+import { assessSelection } from '../engine/internationals'
+import { recentFormRating } from '../engine/seasonClose'
 import { advanceRival, createRival, type Rival } from '../engine/rival'
 import { isRegularSeasonComplete, totalRounds } from '../engine/season'
 import { createWorld, randomStartingClub, type World } from '../engine/world'
@@ -49,12 +57,15 @@ export type Screen =
   | 'create'
   | 'preview'
   | 'dashboard'
+  | 'match'
   | 'table'
   | 'wheel'
   | 'summer'
   | 'my-player'
   | 'achievements'
   | 'rival'
+  | 'awards'
+  | 'internationals'
   | 'season-review'
   | 'career-end'
   | 'hall-of-fame'
@@ -77,9 +88,17 @@ interface GameState {
   offers: TransferOffer[]
   newAchievements: string[]
 
+  /** The calls this match is offering, and the ones already taken (SPEC §3). */
+  pendingDecisions: OfferedDecision[]
+  resolvedDecisions: ResolvedDecision[]
+
   init: () => Promise<void>
   go: (screen: Screen) => void
   startCareer: (options: CreateCareerOptions) => void
+  /** The dashboard button: ask for any calls first, then play. */
+  openMatch: () => void
+  decide: (situationId: string, optionId: string) => void
+  /** Plays the round with whatever has been decided. */
   nextRound: () => void
   simToSeasonEnd: () => void
   spinWheel: () => void
@@ -122,6 +141,8 @@ export const useGame = create<GameState>((set, get) => ({
   lastSummary: null,
   offers: [],
   newAchievements: [],
+  pendingDecisions: [],
+  resolvedDecisions: [],
 
   async init() {
     const defs = await loadTeams()
@@ -172,16 +193,71 @@ export const useGame = create<GameState>((set, get) => ({
         lastSummary: null,
         offers: [],
         newAchievements: [],
+        pendingDecisions: [],
+        resolvedDecisions: [],
       })
     })
   },
 
-  nextRound() {
+  /**
+   * The dashboard's "Play next match".
+   *
+   * If the match has calls to make, stop and ask — that is the whole point of match agency.
+   * Otherwise go straight to the whistle. `nextRound` is left alone as the thing that
+   * actually plays a round, so anything driving the season forward keeps working.
+   */
+  openMatch() {
     const { run } = get()
     if (!run || isRegularSeasonComplete(run.season)) return
 
-    const next = playRound(run)
-    set({ run: next, screen: next.wheelPending ? 'wheel' : 'dashboard' })
+    const offered = decisionsForRound(run)
+    if (offered.length === 0) {
+      get().nextRound()
+      return
+    }
+    set({ pendingDecisions: offered, resolvedDecisions: [], screen: 'match' })
+  },
+
+  /**
+   * Take one of the calls on offer.
+   *
+   * Each decision resolves on its own rng stream, keyed by the round and the situation, so
+   * the result does not depend on the order the player worked through them.
+   */
+  decide(situationId, optionId) {
+    const state = get()
+    if (!state.run) return
+    if (state.resolvedDecisions.some((d) => d.situationId === situationId)) return
+
+    const { career, season } = state.run
+    const resolved = resolveDecision(
+      rngFor(career.seed, 'agency-resolve', career.season, season.roundsPlayed + 1, situationId),
+      career.stats,
+      situationId,
+      optionId,
+    )
+    if (!resolved) return
+
+    set({ resolvedDecisions: [...state.resolvedDecisions, resolved] })
+  },
+
+  /**
+   * Play the round with whatever was decided.
+   *
+   * Deciding nothing is the neutral path, which is what makes agency skippable and what
+   * "Sim to season end" and the tests both rely on.
+   */
+  nextRound() {
+    const state = get()
+    if (!state.run || isRegularSeasonComplete(state.run.season)) return
+
+    const next = playRound(state.run, state.resolvedDecisions)
+    set({
+      run: next,
+      pendingDecisions: [],
+      resolvedDecisions: [],
+      screen: next.wheelPending ? 'wheel' : 'dashboard',
+    })
   },
 
   /**
@@ -267,6 +343,8 @@ export const useGame = create<GameState>((set, get) => ({
       lastSummary: { ...summary, career },
       newAchievements: unlocked,
       save,
+      pendingDecisions: [],
+      resolvedDecisions: [],
       screen: 'season-review',
     })
   },
@@ -345,6 +423,8 @@ export const useGame = create<GameState>((set, get) => ({
       lastSummary: null,
       offers: [],
       newAchievements: [],
+      pendingDecisions: [],
+      resolvedDecisions: [],
       screen: 'preview',
     })
   },
@@ -357,7 +437,14 @@ export const useGame = create<GameState>((set, get) => ({
       slots: { ...state.save.slots, player: null },
     }
     persist(save)
-    set({ run: null, rival: null, save, screen: 'menu' })
+    set({
+      run: null,
+      rival: null,
+      save,
+      pendingDecisions: [],
+      resolvedDecisions: [],
+      screen: 'menu',
+    })
   },
 }))
 
@@ -382,4 +469,23 @@ export function usePreview() {
 
 export function useAchievements() {
   return useGame((s) => (s.run ? evaluateAchievements(s.run.career) : []))
+}
+
+/**
+ * Where the player stands with their nation right now.
+ *
+ * A plain function rather than a hook: a hook defined in this module would call the real
+ * `useGame` even when a test has mocked the module for its importers, which is the trap
+ * `screens.test.tsx` documents at the top. Screens call this with the run they already hold.
+ */
+export function selectionOutlook(run: CareerRun | null) {
+  if (!run) return null
+  const { career, log } = run
+  const ratings = log.filter((e) => e.line).map((e) => e.line!.rating)
+  return assessSelection({
+    nationId: career.nationId,
+    ovr: career.ovr,
+    formRating: recentFormRating(ratings),
+    existingCaps: career.internationalCaps,
+  })
 }
