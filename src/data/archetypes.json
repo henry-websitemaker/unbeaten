@@ -1,0 +1,42 @@
+[
+  {
+    "id": "wonderkid",
+    "name": "Wonderkid",
+    "description": "Explosive early growth, early peak, sharp decline after 30.",
+    "startAge": 18,
+    "startOvrRange": [58, 64],
+    "growthCurve": { "peakAge": 26, "earlyMultiplier": 1.45, "lateMultiplier": 0.6 },
+    "startingSalaryMultiplier": 1.15
+  },
+  {
+    "id": "late_bloomer",
+    "name": "Late Bloomer",
+    "description": "Slow start, keeps improving into your thirties. Patience pays.",
+    "startAge": 20,
+    "startOvrRange": [53, 58],
+    "growthCurve": { "peakAge": 31, "earlyMultiplier": 0.7, "lateMultiplier": 1.4 },
+    "startingSalaryMultiplier": 0.85
+  },
+  {
+    "id": "iron_man",
+    "name": "Iron Man",
+    "description": "Injury risk halved and FIT decays slowly. Availability is the skill.",
+    "startAge": 19,
+    "startOvrRange": [55, 62],
+    "growthCurve": { "peakAge": 28, "earlyMultiplier": 1.0, "lateMultiplier": 1.0 },
+    "injuryRiskMultiplier": 0.4,
+    "fitDecayMultiplier": 0.5,
+    "startingSalaryMultiplier": 1.0
+  },
+  {
+    "id": "journeyman",
+    "name": "Journeyman",
+    "description": "More transfer offers every window, but clubs move on from you faster.",
+    "startAge": 21,
+    "startOvrRange": [56, 63],
+    "growthCurve": { "peakAge": 28, "earlyMultiplier": 1.0, "lateMultiplier": 0.9 },
+    "extraOffersPerWindow": 2,
+    "contractLengthModifier": -1,
+    "startingSalaryMultiplier": 0.95
+  }
+]

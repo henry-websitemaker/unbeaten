@@ -1,0 +1,873 @@
+{
+  "LHP": {
+    "id": "LHP",
+    "name": "Loosehead Prop",
+    "number": 1,
+    "statSet": "forward",
+    "canPlayAt": [
+      "LHP"
+    ],
+    "ovrWeights": {
+      "SCR": 0.3,
+      "TCK": 0.22,
+      "CAR": 0.2,
+      "LNO": 0.14,
+      "RUK": 0.09,
+      "FIT": 0.05
+    },
+    "statRanges": {
+      "SCR": [
+        65,
+        90
+      ],
+      "LNO": [
+        55,
+        75
+      ],
+      "CAR": [
+        55,
+        75
+      ],
+      "TCK": [
+        60,
+        78
+      ],
+      "RUK": [
+        58,
+        76
+      ],
+      "FIT": [
+        50,
+        70
+      ],
+      "PAC": [
+        40,
+        52
+      ]
+    },
+    "keyStats": [
+      "SCR",
+      "TCK",
+      "CAR"
+    ]
+  },
+  "HOO": {
+    "id": "HOO",
+    "name": "Hooker",
+    "number": 2,
+    "statSet": "forward",
+    "canPlayAt": [
+      "HOO"
+    ],
+    "ovrWeights": {
+      "LNO": 0.28,
+      "SCR": 0.22,
+      "TCK": 0.2,
+      "CAR": 0.14,
+      "RUK": 0.11,
+      "FIT": 0.05
+    },
+    "statRanges": {
+      "SCR": [
+        60,
+        82
+      ],
+      "LNO": [
+        68,
+        90
+      ],
+      "CAR": [
+        55,
+        72
+      ],
+      "TCK": [
+        62,
+        80
+      ],
+      "RUK": [
+        60,
+        78
+      ],
+      "FIT": [
+        55,
+        72
+      ],
+      "PAC": [
+        40,
+        54
+      ]
+    },
+    "keyStats": [
+      "LNO",
+      "SCR",
+      "TCK"
+    ]
+  },
+  "THP": {
+    "id": "THP",
+    "name": "Tighthead Prop",
+    "number": 3,
+    "statSet": "forward",
+    "canPlayAt": [
+      "THP"
+    ],
+    "ovrWeights": {
+      "SCR": 0.32,
+      "TCK": 0.22,
+      "CAR": 0.18,
+      "LNO": 0.13,
+      "RUK": 0.1,
+      "FIT": 0.05
+    },
+    "statRanges": {
+      "SCR": [
+        68,
+        92
+      ],
+      "LNO": [
+        55,
+        74
+      ],
+      "CAR": [
+        52,
+        72
+      ],
+      "TCK": [
+        60,
+        78
+      ],
+      "RUK": [
+        58,
+        76
+      ],
+      "FIT": [
+        48,
+        68
+      ],
+      "PAC": [
+        40,
+        50
+      ]
+    },
+    "keyStats": [
+      "SCR",
+      "TCK",
+      "CAR"
+    ]
+  },
+  "LK1": {
+    "id": "LK1",
+    "name": "Lock",
+    "number": 4,
+    "statSet": "forward",
+    "canPlayAt": [
+      "LK1",
+      "LK2",
+      "BF"
+    ],
+    "ovrWeights": {
+      "LNO": 0.3,
+      "RUK": 0.22,
+      "SCR": 0.18,
+      "TCK": 0.16,
+      "CAR": 0.1,
+      "FIT": 0.04
+    },
+    "statRanges": {
+      "SCR": [
+        60,
+        80
+      ],
+      "LNO": [
+        70,
+        90
+      ],
+      "CAR": [
+        60,
+        78
+      ],
+      "TCK": [
+        62,
+        80
+      ],
+      "RUK": [
+        65,
+        82
+      ],
+      "FIT": [
+        60,
+        78
+      ],
+      "PAC": [
+        40,
+        55
+      ]
+    },
+    "keyStats": [
+      "LNO",
+      "RUK",
+      "SCR"
+    ]
+  },
+  "LK2": {
+    "id": "LK2",
+    "name": "Lock",
+    "number": 5,
+    "statSet": "forward",
+    "canPlayAt": [
+      "LK1",
+      "LK2",
+      "BF"
+    ],
+    "ovrWeights": {
+      "LNO": 0.3,
+      "RUK": 0.22,
+      "SCR": 0.18,
+      "TCK": 0.16,
+      "CAR": 0.1,
+      "FIT": 0.04
+    },
+    "statRanges": {
+      "SCR": [
+        60,
+        80
+      ],
+      "LNO": [
+        70,
+        90
+      ],
+      "CAR": [
+        60,
+        78
+      ],
+      "TCK": [
+        62,
+        80
+      ],
+      "RUK": [
+        65,
+        82
+      ],
+      "FIT": [
+        60,
+        78
+      ],
+      "PAC": [
+        40,
+        55
+      ]
+    },
+    "keyStats": [
+      "LNO",
+      "RUK",
+      "SCR"
+    ]
+  },
+  "BF": {
+    "id": "BF",
+    "name": "Blindside Flanker",
+    "number": 6,
+    "statSet": "hybrid",
+    "canPlayAt": [
+      "BF",
+      "OF",
+      "N8",
+      "LK1",
+      "LK2"
+    ],
+    "ovrWeights": {
+      "TCK": 0.25,
+      "RUK": 0.22,
+      "FIT": 0.18,
+      "CAR": 0.18,
+      "SCR": 0.09,
+      "LNO": 0.08
+    },
+    "statRanges": {
+      "SCR": [
+        50,
+        68
+      ],
+      "LNO": [
+        55,
+        72
+      ],
+      "CAR": [
+        65,
+        85
+      ],
+      "TCK": [
+        70,
+        90
+      ],
+      "RUK": [
+        68,
+        88
+      ],
+      "FIT": [
+        68,
+        88
+      ],
+      "PAC": [
+        52,
+        68
+      ],
+      "HND": [
+        45,
+        65
+      ],
+      "KCK": [
+        40,
+        55
+      ],
+      "EVA": [
+        48,
+        65
+      ],
+      "VIS": [
+        50,
+        68
+      ]
+    },
+    "keyStats": [
+      "TCK",
+      "RUK",
+      "FIT"
+    ]
+  },
+  "OF": {
+    "id": "OF",
+    "name": "Openside Flanker",
+    "number": 7,
+    "statSet": "hybrid",
+    "canPlayAt": [
+      "OF",
+      "BF",
+      "N8"
+    ],
+    "ovrWeights": {
+      "TCK": 0.28,
+      "RUK": 0.25,
+      "FIT": 0.2,
+      "CAR": 0.15,
+      "SCR": 0.07,
+      "LNO": 0.05
+    },
+    "statRanges": {
+      "SCR": [
+        48,
+        65
+      ],
+      "LNO": [
+        52,
+        68
+      ],
+      "CAR": [
+        62,
+        82
+      ],
+      "TCK": [
+        72,
+        92
+      ],
+      "RUK": [
+        70,
+        90
+      ],
+      "FIT": [
+        70,
+        90
+      ],
+      "PAC": [
+        55,
+        72
+      ],
+      "HND": [
+        48,
+        65
+      ],
+      "KCK": [
+        40,
+        55
+      ],
+      "EVA": [
+        52,
+        68
+      ],
+      "VIS": [
+        52,
+        70
+      ]
+    },
+    "keyStats": [
+      "TCK",
+      "RUK",
+      "FIT"
+    ]
+  },
+  "N8": {
+    "id": "N8",
+    "name": "Number 8",
+    "number": 8,
+    "statSet": "hybrid",
+    "canPlayAt": [
+      "N8",
+      "BF",
+      "OF"
+    ],
+    "ovrWeights": {
+      "CAR": 0.26,
+      "TCK": 0.24,
+      "FIT": 0.18,
+      "RUK": 0.18,
+      "SCR": 0.08,
+      "LNO": 0.06
+    },
+    "statRanges": {
+      "SCR": [
+        52,
+        70
+      ],
+      "LNO": [
+        55,
+        72
+      ],
+      "CAR": [
+        68,
+        88
+      ],
+      "TCK": [
+        68,
+        88
+      ],
+      "RUK": [
+        65,
+        85
+      ],
+      "FIT": [
+        68,
+        88
+      ],
+      "PAC": [
+        56,
+        74
+      ],
+      "HND": [
+        50,
+        68
+      ],
+      "KCK": [
+        40,
+        58
+      ],
+      "EVA": [
+        52,
+        70
+      ],
+      "VIS": [
+        54,
+        72
+      ]
+    },
+    "keyStats": [
+      "CAR",
+      "TCK",
+      "FIT"
+    ]
+  },
+  "SH": {
+    "id": "SH",
+    "name": "Scrum-half",
+    "number": 9,
+    "statSet": "back",
+    "canPlayAt": [
+      "SH"
+    ],
+    "ovrWeights": {
+      "HND": 0.3,
+      "VIS": 0.25,
+      "PAC": 0.18,
+      "EVA": 0.14,
+      "KCK": 0.08,
+      "TCK": 0.05
+    },
+    "statRanges": {
+      "PAC": [
+        55,
+        75
+      ],
+      "HND": [
+        70,
+        92
+      ],
+      "KCK": [
+        58,
+        78
+      ],
+      "TCK": [
+        55,
+        72
+      ],
+      "EVA": [
+        62,
+        80
+      ],
+      "VIS": [
+        68,
+        88
+      ]
+    },
+    "keyStats": [
+      "HND",
+      "VIS",
+      "PAC"
+    ]
+  },
+  "FH": {
+    "id": "FH",
+    "name": "Fly-half",
+    "number": 10,
+    "statSet": "back",
+    "canPlayAt": [
+      "FH",
+      "IC",
+      "FB"
+    ],
+    "ovrWeights": {
+      "KCK": 0.3,
+      "VIS": 0.26,
+      "HND": 0.22,
+      "PAC": 0.1,
+      "EVA": 0.07,
+      "TCK": 0.05
+    },
+    "statRanges": {
+      "PAC": [
+        54,
+        72
+      ],
+      "HND": [
+        65,
+        85
+      ],
+      "KCK": [
+        70,
+        92
+      ],
+      "TCK": [
+        50,
+        68
+      ],
+      "EVA": [
+        58,
+        76
+      ],
+      "VIS": [
+        68,
+        88
+      ]
+    },
+    "keyStats": [
+      "KCK",
+      "VIS",
+      "HND"
+    ]
+  },
+  "IC": {
+    "id": "IC",
+    "name": "Inside Centre",
+    "number": 12,
+    "statSet": "hybrid",
+    "canPlayAt": [
+      "IC",
+      "OC"
+    ],
+    "ovrWeights": {
+      "TCK": 0.26,
+      "CAR": 0.22,
+      "HND": 0.18,
+      "PAC": 0.16,
+      "EVA": 0.12,
+      "VIS": 0.06
+    },
+    "statRanges": {
+      "SCR": [
+        40,
+        55
+      ],
+      "LNO": [
+        40,
+        55
+      ],
+      "CAR": [
+        62,
+        82
+      ],
+      "TCK": [
+        65,
+        85
+      ],
+      "RUK": [
+        55,
+        72
+      ],
+      "FIT": [
+        58,
+        76
+      ],
+      "PAC": [
+        60,
+        78
+      ],
+      "HND": [
+        62,
+        80
+      ],
+      "KCK": [
+        45,
+        65
+      ],
+      "EVA": [
+        60,
+        78
+      ],
+      "VIS": [
+        58,
+        76
+      ]
+    },
+    "keyStats": [
+      "TCK",
+      "CAR",
+      "HND"
+    ]
+  },
+  "OC": {
+    "id": "OC",
+    "name": "Outside Centre",
+    "number": 13,
+    "statSet": "hybrid",
+    "canPlayAt": [
+      "OC",
+      "IC"
+    ],
+    "ovrWeights": {
+      "PAC": 0.24,
+      "EVA": 0.22,
+      "TCK": 0.2,
+      "HND": 0.18,
+      "CAR": 0.1,
+      "VIS": 0.06
+    },
+    "statRanges": {
+      "SCR": [
+        40,
+        52
+      ],
+      "LNO": [
+        40,
+        52
+      ],
+      "CAR": [
+        60,
+        80
+      ],
+      "TCK": [
+        60,
+        80
+      ],
+      "RUK": [
+        50,
+        68
+      ],
+      "FIT": [
+        58,
+        76
+      ],
+      "PAC": [
+        65,
+        85
+      ],
+      "HND": [
+        62,
+        80
+      ],
+      "KCK": [
+        45,
+        62
+      ],
+      "EVA": [
+        65,
+        82
+      ],
+      "VIS": [
+        55,
+        74
+      ]
+    },
+    "keyStats": [
+      "PAC",
+      "EVA",
+      "TCK"
+    ]
+  },
+  "WL": {
+    "id": "WL",
+    "name": "Left Wing",
+    "number": 11,
+    "statSet": "back",
+    "canPlayAt": [
+      "WL",
+      "WR",
+      "FB"
+    ],
+    "ovrWeights": {
+      "PAC": 0.35,
+      "EVA": 0.3,
+      "HND": 0.16,
+      "TCK": 0.1,
+      "KCK": 0.05,
+      "VIS": 0.04
+    },
+    "statRanges": {
+      "PAC": [
+        72,
+        95
+      ],
+      "HND": [
+        58,
+        76
+      ],
+      "KCK": [
+        44,
+        65
+      ],
+      "TCK": [
+        50,
+        68
+      ],
+      "EVA": [
+        68,
+        90
+      ],
+      "VIS": [
+        52,
+        70
+      ]
+    },
+    "keyStats": [
+      "PAC",
+      "EVA",
+      "HND"
+    ]
+  },
+  "WR": {
+    "id": "WR",
+    "name": "Right Wing",
+    "number": 14,
+    "statSet": "back",
+    "canPlayAt": [
+      "WR",
+      "WL",
+      "FB"
+    ],
+    "ovrWeights": {
+      "PAC": 0.35,
+      "EVA": 0.3,
+      "HND": 0.16,
+      "TCK": 0.1,
+      "KCK": 0.05,
+      "VIS": 0.04
+    },
+    "statRanges": {
+      "PAC": [
+        72,
+        95
+      ],
+      "HND": [
+        58,
+        76
+      ],
+      "KCK": [
+        44,
+        65
+      ],
+      "TCK": [
+        50,
+        68
+      ],
+      "EVA": [
+        68,
+        90
+      ],
+      "VIS": [
+        52,
+        70
+      ]
+    },
+    "keyStats": [
+      "PAC",
+      "EVA",
+      "HND"
+    ]
+  },
+  "FB": {
+    "id": "FB",
+    "name": "Fullback",
+    "number": 15,
+    "statSet": "back",
+    "canPlayAt": [
+      "FB",
+      "WL",
+      "WR",
+      "FH"
+    ],
+    "ovrWeights": {
+      "PAC": 0.25,
+      "KCK": 0.25,
+      "VIS": 0.22,
+      "HND": 0.16,
+      "EVA": 0.08,
+      "TCK": 0.04
+    },
+    "statRanges": {
+      "PAC": [
+        65,
+        85
+      ],
+      "HND": [
+        62,
+        82
+      ],
+      "KCK": [
+        68,
+        90
+      ],
+      "TCK": [
+        54,
+        72
+      ],
+      "EVA": [
+        62,
+        80
+      ],
+      "VIS": [
+        65,
+        85
+      ]
+    },
+    "keyStats": [
+      "PAC",
+      "KCK",
+      "VIS"
+    ]
+  },
+  "_rules": {
+    "keyStats": "The 3 highest-weighted stats for the position. At creation they start +4..+6 above the player's other stats. In the engine they carry 2.5x weight.",
+    "creationKeyStatBonus": [
+      4,
+      6
+    ],
+    "keyStatEngineWeight": 2.5
+  }
+}

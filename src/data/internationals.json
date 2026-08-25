@@ -1,0 +1,178 @@
+{
+  "selection": {
+    "formWindowMatches": 6,
+    "minAvgRatingForDebut": 7.2,
+    "minOvrForDebut": 74,
+    "squadSize": 33,
+    "note": "Selection is form-based, not OVR-only — a hot streak at a smaller club can force a call-up.",
+    "nationDifficulty": "Selection threshold scales with nation strength — breaking into New Zealand or South Africa needs a higher form average than Italy or Samoa."
+  },
+  "competitions": [
+    {
+      "id": "six_nations",
+      "name": "Six Nations",
+      "hemisphere": "north",
+      "frequency": "annual",
+      "matches": 5,
+      "prestige": 7
+    },
+    {
+      "id": "rugby_championship",
+      "name": "Rugby Championship",
+      "hemisphere": "south",
+      "frequency": "annual",
+      "matches": 6,
+      "prestige": 7
+    },
+    {
+      "id": "autumn_tests",
+      "name": "Autumn Internationals",
+      "hemisphere": "both",
+      "frequency": "annual",
+      "matches": 4,
+      "prestige": 5
+    },
+    {
+      "id": "world_cup",
+      "name": "World Cup",
+      "hemisphere": "both",
+      "frequency": "every_4_seasons",
+      "matches": 7,
+      "prestige": 10,
+      "trophyType": "international",
+      "worldCupSeasons": [
+        4,
+        8,
+        12,
+        16,
+        20
+      ]
+    }
+  ],
+  "nations": [
+    {
+      "id": "nzl",
+      "name": "New Zealand",
+      "hemisphere": "south",
+      "strength": 95,
+      "feederLeagues": [
+        "super_rugby",
+        "npc"
+      ]
+    },
+    {
+      "id": "rsa",
+      "name": "South Africa",
+      "hemisphere": "south",
+      "strength": 95,
+      "feederLeagues": [
+        "urc",
+        "top_14",
+        "premiership"
+      ]
+    },
+    {
+      "id": "irl",
+      "name": "Ireland",
+      "hemisphere": "north",
+      "strength": 93,
+      "feederLeagues": [
+        "urc"
+      ]
+    },
+    {
+      "id": "fra",
+      "name": "France",
+      "hemisphere": "north",
+      "strength": 92,
+      "feederLeagues": [
+        "top_14",
+        "pro_d2"
+      ]
+    },
+    {
+      "id": "eng",
+      "name": "England",
+      "hemisphere": "north",
+      "strength": 89,
+      "feederLeagues": [
+        "premiership",
+        "rfu_championship"
+      ]
+    },
+    {
+      "id": "aus",
+      "name": "Australia",
+      "hemisphere": "south",
+      "strength": 85,
+      "feederLeagues": [
+        "super_rugby",
+        "shute_shield"
+      ]
+    },
+    {
+      "id": "sco",
+      "name": "Scotland",
+      "hemisphere": "north",
+      "strength": 83,
+      "feederLeagues": [
+        "urc",
+        "premiership"
+      ]
+    },
+    {
+      "id": "arg",
+      "name": "Argentina",
+      "hemisphere": "south",
+      "strength": 83,
+      "feederLeagues": [
+        "top_14",
+        "premiership",
+        "urc"
+      ]
+    },
+    {
+      "id": "wal",
+      "name": "Wales",
+      "hemisphere": "north",
+      "strength": 80,
+      "feederLeagues": [
+        "urc"
+      ]
+    },
+    {
+      "id": "ita",
+      "name": "Italy",
+      "hemisphere": "north",
+      "strength": 74,
+      "feederLeagues": [
+        "urc",
+        "top_14"
+      ]
+    },
+    {
+      "id": "fij",
+      "name": "Fiji",
+      "hemisphere": "south",
+      "strength": 78,
+      "feederLeagues": [
+        "super_rugby",
+        "top_14"
+      ]
+    },
+    {
+      "id": "sam",
+      "name": "Samoa",
+      "hemisphere": "south",
+      "strength": 72,
+      "feederLeagues": [
+        "super_rugby",
+        "premiership"
+      ]
+    }
+  ],
+  "display": {
+    "annualTournamentBanner": true,
+    "capsTrackedThroughRetirement": true
+  }
+}

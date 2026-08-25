@@ -1,0 +1,236 @@
+[
+  {
+    "leagueId": "shute_shield",
+    "teams": [
+      "Sydney University",
+      "Warringah"
+    ],
+    "name": "The Rat Pack Derby",
+    "intensity": 9
+  },
+  {
+    "leagueId": "shute_shield",
+    "teams": [
+      "Randwick",
+      "Eastern Suburbs"
+    ],
+    "name": "Eastern Suburbs Derby",
+    "intensity": 9
+  },
+  {
+    "leagueId": "shute_shield",
+    "teams": [
+      "Manly",
+      "Warringah"
+    ],
+    "name": "Northern Beaches Derby",
+    "intensity": 10
+  },
+  {
+    "leagueId": "shute_shield",
+    "teams": [
+      "Gordon",
+      "Northern Suburbs"
+    ],
+    "name": "North Shore Derby",
+    "intensity": 8
+  },
+  {
+    "leagueId": "shute_shield",
+    "teams": [
+      "Sydney University",
+      "Randwick"
+    ],
+    "name": "The Blue and White Clash",
+    "intensity": 8
+  },
+  {
+    "leagueId": "super_rugby",
+    "teams": [
+      "Blues",
+      "Chiefs"
+    ],
+    "name": "Northern Derby",
+    "intensity": 8
+  },
+  {
+    "leagueId": "super_rugby",
+    "teams": [
+      "Crusaders",
+      "Highlanders"
+    ],
+    "name": "Southern Derby",
+    "intensity": 9
+  },
+  {
+    "leagueId": "super_rugby",
+    "teams": [
+      "Reds",
+      "Waratahs"
+    ],
+    "name": "Australian Derby",
+    "intensity": 9
+  },
+  {
+    "leagueId": "super_rugby",
+    "teams": [
+      "Brumbies",
+      "Waratahs"
+    ],
+    "name": "Capital Clash",
+    "intensity": 8
+  },
+  {
+    "leagueId": "premiership",
+    "teams": [
+      "Bath Rugby",
+      "Gloucester Rugby"
+    ],
+    "name": "West Country Derby",
+    "intensity": 10
+  },
+  {
+    "leagueId": "premiership",
+    "teams": [
+      "Harlequins",
+      "Saracens"
+    ],
+    "name": "London Derby",
+    "intensity": 9
+  },
+  {
+    "leagueId": "premiership",
+    "teams": [
+      "Leicester Tigers",
+      "Northampton Saints"
+    ],
+    "name": "East Midlands Derby",
+    "intensity": 10
+  },
+  {
+    "leagueId": "premiership",
+    "teams": [
+      "Bristol Bears",
+      "Bath Rugby"
+    ],
+    "name": "The M4 Derby",
+    "intensity": 9
+  },
+  {
+    "leagueId": "top_14",
+    "teams": [
+      "Toulouse",
+      "Stade Français"
+    ],
+    "name": "Le Classique",
+    "intensity": 10
+  },
+  {
+    "leagueId": "top_14",
+    "teams": [
+      "Aviron Bayonnais",
+      "Section Paloise"
+    ],
+    "name": "Basque Derby",
+    "intensity": 9
+  },
+  {
+    "leagueId": "top_14",
+    "teams": [
+      "Toulouse",
+      "Clermont Auvergne"
+    ],
+    "name": "The Heavyweight Tie",
+    "intensity": 9
+  },
+  {
+    "leagueId": "urc",
+    "teams": [
+      "Leinster Rugby",
+      "Munster Rugby"
+    ],
+    "name": "The Interpro",
+    "intensity": 10
+  },
+  {
+    "leagueId": "urc",
+    "teams": [
+      "Ulster Rugby",
+      "Leinster Rugby"
+    ],
+    "name": "Northern Interpro",
+    "intensity": 8
+  },
+  {
+    "leagueId": "urc",
+    "teams": [
+      "Glasgow Warriors",
+      "Edinburgh Rugby"
+    ],
+    "name": "1872 Cup",
+    "intensity": 10
+  },
+  {
+    "leagueId": "urc",
+    "teams": [
+      "Ospreys",
+      "Scarlets"
+    ],
+    "name": "West Wales Derby",
+    "intensity": 9
+  },
+  {
+    "leagueId": "urc",
+    "teams": [
+      "Cardiff Rugby",
+      "Dragons RFC"
+    ],
+    "name": "Judgement Day",
+    "intensity": 8
+  },
+  {
+    "leagueId": "urc",
+    "teams": [
+      "Stormers",
+      "Bulls"
+    ],
+    "name": "The Cape–Pretoria Clash",
+    "intensity": 9
+  },
+  {
+    "leagueId": "npc",
+    "teams": [
+      "Auckland",
+      "Canterbury"
+    ],
+    "name": "The Ranfurly Rivalry",
+    "intensity": 9
+  },
+  {
+    "leagueId": "npc",
+    "teams": [
+      "Waikato",
+      "Bay of Plenty"
+    ],
+    "name": "Battle of the Bays",
+    "intensity": 8
+  },
+  {
+    "leagueId": "shute_shield",
+    "teams": [
+      "Eastern Suburbs",
+      "Gordon"
+    ],
+    "name": "Easts–Gordon",
+    "intensity": 8
+  },
+  {
+    "leagueId": "shute_shield",
+    "teams": [
+      "Manly",
+      "Northern Suburbs"
+    ],
+    "name": "Manly–Norths",
+    "intensity": 8
+  }
+]

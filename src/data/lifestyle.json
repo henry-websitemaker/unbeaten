@@ -1,0 +1,50 @@
+{
+  "rules": {
+    "location": "Summer Plans → Lifestyle section",
+    "currency": "GBP",
+    "deductsFrom": "careerEarnings",
+    "note": "Purchases must actually reduce career earnings. One-time items grey out once owned and show a badge on My Player. Reconciliation tests required: sum of purchases + remaining balance must equal gross career earnings at every season boundary."
+  },
+  "items": [
+    {
+      "id": "personal_trainer",
+      "name": "Personal Trainer",
+      "cost": 500000,
+      "repeatable": false,
+      "effect": { "matchGrowthMultiplier": 1.25 },
+      "description": "Growth from match performance increases by 25% for the rest of your career."
+    },
+    {
+      "id": "private_physio",
+      "name": "Private Physio",
+      "cost": 750000,
+      "repeatable": false,
+      "effect": { "injuryRiskMultiplier": 0.5, "recoveryWeeksReduction": 1 },
+      "description": "Injury risk halved and every recovery is one week shorter."
+    },
+    {
+      "id": "sports_psychologist",
+      "name": "Sports Psychologist",
+      "cost": 400000,
+      "repeatable": false,
+      "effect": { "slumpDurationMultiplier": 0.5, "bigMatchRatingBonus": 0.5 },
+      "description": "Form slumps last half as long and you rate higher in finals and internationals."
+    },
+    {
+      "id": "elite_agent",
+      "name": "Elite Agent",
+      "cost": 1000000,
+      "repeatable": false,
+      "effect": { "extraOffersPerWindow": 1, "futureSalaryMultiplier": 1.1 },
+      "description": "One extra offer every transfer window and 10% more on every future contract."
+    },
+    {
+      "id": "offseason_retreat",
+      "name": "Off-Season Retreat",
+      "cost": 250000,
+      "repeatable": true,
+      "effect": { "startSeasonInPeakForm": true },
+      "description": "Start next season in peak form. Buy again any summer."
+    }
+  ]
+}

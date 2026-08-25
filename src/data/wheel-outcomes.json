@@ -1,0 +1,22 @@
+{
+  "rules": {
+    "spinsPerSeason": 1,
+    "trigger": "season_midpoint",
+    "optional": true,
+    "targetOdds": { "positive": 0.50, "negative": 0.35, "neutral": 0.15 },
+    "invariant": "Positives are PERMANENT (stats, OVR, traits). Negatives are TEMPORARY ONLY (form, injury, morale). Nothing permanent may ever be lost on a spin — this must be covered by a test that spins every outcome and asserts no permanent stat, OVR or trait decrease."
+  },
+  "outcomes": [
+    { "id": "stat_boost", "type": "positive", "weight": 15, "label": "Breakthrough", "permanent": true, "effect": { "randomStat": 3 } },
+    { "id": "ovr_surge", "type": "positive", "weight": 10, "label": "Level Up", "permanent": true, "effect": { "ovr": 2 } },
+    { "id": "trait_unlock", "type": "positive", "weight": 8, "label": "New Dimension", "permanent": true, "effect": { "grantsRandomTrait": true } },
+    { "id": "captaincy", "type": "positive", "weight": 9, "label": "Named Captain", "permanent": true, "effect": { "isCaptain": true } },
+    { "id": "sponsor", "type": "positive", "weight": 8, "label": "Boot Deal", "permanent": true, "effect": { "salaryBonusPct": 15 } },
+    { "id": "minor_injury", "type": "negative", "weight": 10, "label": "Knock", "permanent": false, "effect": { "weeksOut": 2 } },
+    { "id": "form_slump", "type": "negative", "weight": 10, "label": "Off the Boil", "permanent": false, "effect": { "formModifier": -12, "matches": 3 } },
+    { "id": "dressing_room", "type": "negative", "weight": 8, "label": "Dressing-Room Fallout", "permanent": false, "effect": { "moraleModifier": -15, "matches": 4 } },
+    { "id": "benched", "type": "negative", "weight": 7, "label": "Dropped", "permanent": false, "effect": { "selectionPenalty": 25, "matches": 3 } },
+    { "id": "nothing", "type": "neutral", "weight": 8, "label": "Quiet Week", "permanent": false, "effect": {} },
+    { "id": "media_hype", "type": "neutral", "weight": 7, "label": "Back Page", "permanent": false, "effect": { "cosmetic": true } }
+  ]
+}

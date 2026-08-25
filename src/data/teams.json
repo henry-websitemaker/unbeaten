@@ -1,0 +1,10035 @@
+[
+  {
+    "name": "Blues",
+    "shortName": "BLU",
+    "leagueId": "super_rugby",
+    "roster": [
+      {
+        "name": "Ofa Tu'ungafasi",
+        "position": "LHP",
+        "age": 33,
+        "stats": {
+          "SCR": 85,
+          "LNO": 72,
+          "CAR": 78,
+          "TCK": 74,
+          "RUK": 78,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Kurt Eklund",
+        "position": "HOO",
+        "age": 27,
+        "stats": {
+          "SCR": 86,
+          "LNO": 82,
+          "CAR": 74,
+          "TCK": 77,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Angus Ta'avao",
+        "position": "THP",
+        "age": 33,
+        "stats": {
+          "SCR": 84,
+          "LNO": 70,
+          "CAR": 76,
+          "TCK": 72,
+          "RUK": 76,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Patrick Tuipulotu",
+        "position": "LK1",
+        "age": 31,
+        "stats": {
+          "LNO": 87,
+          "CAR": 82,
+          "TCK": 83,
+          "RUK": 82,
+          "FIT": 86
+        }
+      },
+      {
+        "name": "Sam Darry",
+        "position": "LK2",
+        "age": 26,
+        "stats": {
+          "LNO": 83,
+          "CAR": 79,
+          "TCK": 80,
+          "RUK": 79,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Akira Ioane",
+        "position": "BF",
+        "age": 28,
+        "stats": {
+          "CAR": 88,
+          "TCK": 84,
+          "RUK": 83,
+          "FIT": 88,
+          "PAC": 80
+        }
+      },
+      {
+        "name": "Dalton Papalii",
+        "position": "OF",
+        "age": 26,
+        "stats": {
+          "CAR": 85,
+          "TCK": 87,
+          "RUK": 86,
+          "FIT": 89,
+          "PAC": 78
+        }
+      },
+      {
+        "name": "Hoskins Sotutu",
+        "position": "N8",
+        "age": 26,
+        "stats": {
+          "CAR": 87,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 87,
+          "PAC": 81
+        }
+      },
+      {
+        "name": "Finlay Christie",
+        "position": "SH",
+        "age": 28,
+        "stats": {
+          "PAC": 84,
+          "HND": 85,
+          "VIS": 84,
+          "KCK": 72
+        }
+      },
+      {
+        "name": "Beauden Barrett",
+        "position": "FH",
+        "age": 33,
+        "stats": {
+          "KCK": 91,
+          "HND": 90,
+          "VIS": 93,
+          "PAC": 84,
+          "EVA": 86
+        }
+      },
+      {
+        "name": "Rieko Ioane",
+        "position": "IC",
+        "age": 28,
+        "stats": {
+          "PAC": 89,
+          "HND": 83,
+          "VIS": 82,
+          "EVA": 87,
+          "CAR": 84,
+          "TCK": 74
+        }
+      },
+      {
+        "name": "Roger Tuivasa-Sheck",
+        "position": "OC",
+        "age": 31,
+        "stats": {
+          "PAC": 88,
+          "HND": 82,
+          "VIS": 80,
+          "EVA": 85,
+          "CAR": 82,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Mark Tele'a",
+        "position": "WL",
+        "age": 27,
+        "stats": {
+          "PAC": 92,
+          "EVA": 89,
+          "HND": 80,
+          "CAR": 83,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Caleb Clarke",
+        "position": "WR",
+        "age": 26,
+        "stats": {
+          "PAC": 90,
+          "EVA": 87,
+          "HND": 78,
+          "CAR": 84,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Stephen Perofeta",
+        "position": "FB",
+        "age": 28,
+        "stats": {
+          "PAC": 87,
+          "EVA": 85,
+          "KCK": 83,
+          "HND": 82,
+          "VIS": 83
+        }
+      }
+    ]
+  },
+  {
+    "name": "Chiefs",
+    "shortName": "CHI",
+    "leagueId": "super_rugby",
+    "roster": [
+      {
+        "name": "Aidan Ross",
+        "position": "LHP",
+        "age": 27,
+        "stats": {
+          "SCR": 84,
+          "LNO": 74,
+          "CAR": 77,
+          "TCK": 73,
+          "RUK": 76,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Samisoni Taukei'aho",
+        "position": "HOO",
+        "age": 28,
+        "stats": {
+          "SCR": 88,
+          "LNO": 84,
+          "CAR": 78,
+          "TCK": 80,
+          "FIT": 86
+        }
+      },
+      {
+        "name": "Nepo Laulala",
+        "position": "THP",
+        "age": 32,
+        "stats": {
+          "SCR": 87,
+          "LNO": 72,
+          "CAR": 78,
+          "TCK": 73,
+          "RUK": 78,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Brodie Retallick",
+        "position": "LK1",
+        "age": 33,
+        "stats": {
+          "LNO": 90,
+          "CAR": 84,
+          "TCK": 85,
+          "RUK": 85,
+          "FIT": 86
+        }
+      },
+      {
+        "name": "Tupou Vaa'i",
+        "position": "LK2",
+        "age": 24,
+        "stats": {
+          "LNO": 85,
+          "CAR": 82,
+          "TCK": 81,
+          "RUK": 80,
+          "FIT": 86
+        }
+      },
+      {
+        "name": "Luke Jacobson",
+        "position": "BF",
+        "age": 28,
+        "stats": {
+          "CAR": 84,
+          "TCK": 86,
+          "RUK": 84,
+          "FIT": 87,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Simon Parker",
+        "position": "OF",
+        "age": 27,
+        "stats": {
+          "CAR": 82,
+          "TCK": 85,
+          "RUK": 83,
+          "FIT": 86,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Pita Gus Sowakula",
+        "position": "N8",
+        "age": 27,
+        "stats": {
+          "CAR": 86,
+          "TCK": 81,
+          "RUK": 79,
+          "FIT": 85,
+          "PAC": 80
+        }
+      },
+      {
+        "name": "Brad Weber",
+        "position": "SH",
+        "age": 32,
+        "stats": {
+          "PAC": 82,
+          "HND": 84,
+          "VIS": 83,
+          "KCK": 70
+        }
+      },
+      {
+        "name": "Damian McKenzie",
+        "position": "FH",
+        "age": 29,
+        "stats": {
+          "KCK": 87,
+          "HND": 87,
+          "VIS": 88,
+          "PAC": 88,
+          "EVA": 88
+        }
+      },
+      {
+        "name": "Quinn Tupaea",
+        "position": "IC",
+        "age": 25,
+        "stats": {
+          "PAC": 86,
+          "HND": 82,
+          "VIS": 81,
+          "EVA": 84,
+          "CAR": 80,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Anton Lienert-Brown",
+        "position": "OC",
+        "age": 29,
+        "stats": {
+          "PAC": 84,
+          "HND": 84,
+          "VIS": 83,
+          "EVA": 82,
+          "CAR": 80,
+          "TCK": 75
+        }
+      },
+      {
+        "name": "Emoni Narawa",
+        "position": "WL",
+        "age": 26,
+        "stats": {
+          "PAC": 91,
+          "EVA": 88,
+          "HND": 77,
+          "CAR": 82,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Etene Nanai-Seturo",
+        "position": "WR",
+        "age": 26,
+        "stats": {
+          "PAC": 90,
+          "EVA": 87,
+          "HND": 78,
+          "CAR": 80,
+          "TCK": 67
+        }
+      },
+      {
+        "name": "Shaun Stevenson",
+        "position": "FB",
+        "age": 29,
+        "stats": {
+          "PAC": 90,
+          "EVA": 87,
+          "KCK": 80,
+          "HND": 82,
+          "VIS": 82
+        }
+      }
+    ]
+  },
+  {
+    "name": "Crusaders",
+    "shortName": "CRU",
+    "leagueId": "super_rugby",
+    "roster": [
+      {
+        "name": "George Bower",
+        "position": "LHP",
+        "age": 29,
+        "stats": {
+          "SCR": 85,
+          "LNO": 74,
+          "CAR": 78,
+          "TCK": 74,
+          "RUK": 78,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Codie Taylor",
+        "position": "HOO",
+        "age": 33,
+        "stats": {
+          "SCR": 88,
+          "LNO": 85,
+          "CAR": 76,
+          "TCK": 79,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Fletcher Newell",
+        "position": "THP",
+        "age": 25,
+        "stats": {
+          "SCR": 84,
+          "LNO": 71,
+          "CAR": 76,
+          "TCK": 72,
+          "RUK": 75,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Scott Barrett",
+        "position": "LK1",
+        "age": 30,
+        "stats": {
+          "LNO": 88,
+          "CAR": 85,
+          "TCK": 84,
+          "RUK": 84,
+          "FIT": 87
+        }
+      },
+      {
+        "name": "Sam Whitelock",
+        "position": "LK2",
+        "age": 36,
+        "stats": {
+          "LNO": 88,
+          "CAR": 80,
+          "TCK": 83,
+          "RUK": 83,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Christian Lio-Willie",
+        "position": "BF",
+        "age": 24,
+        "stats": {
+          "CAR": 82,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 86,
+          "PAC": 77
+        }
+      },
+      {
+        "name": "Tom Christie",
+        "position": "OF",
+        "age": 26,
+        "stats": {
+          "CAR": 81,
+          "TCK": 85,
+          "RUK": 83,
+          "FIT": 86,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Cullen Grace",
+        "position": "N8",
+        "age": 27,
+        "stats": {
+          "CAR": 85,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 87,
+          "PAC": 78
+        }
+      },
+      {
+        "name": "Mitchell Drummond",
+        "position": "SH",
+        "age": 30,
+        "stats": {
+          "PAC": 81,
+          "HND": 84,
+          "VIS": 83,
+          "KCK": 72
+        }
+      },
+      {
+        "name": "Richie Mo'unga",
+        "position": "FH",
+        "age": 30,
+        "stats": {
+          "KCK": 91,
+          "HND": 89,
+          "VIS": 91,
+          "PAC": 82,
+          "EVA": 84
+        }
+      },
+      {
+        "name": "David Havili",
+        "position": "IC",
+        "age": 28,
+        "stats": {
+          "PAC": 83,
+          "HND": 85,
+          "VIS": 85,
+          "EVA": 82,
+          "CAR": 80,
+          "TCK": 74
+        }
+      },
+      {
+        "name": "Leicester Fainga'anuku",
+        "position": "OC",
+        "age": 25,
+        "stats": {
+          "PAC": 88,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 85,
+          "CAR": 84,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Sevu Reece",
+        "position": "WL",
+        "age": 28,
+        "stats": {
+          "PAC": 91,
+          "EVA": 89,
+          "HND": 79,
+          "CAR": 82,
+          "TCK": 69
+        }
+      },
+      {
+        "name": "Will Jordan",
+        "position": "WR",
+        "age": 27,
+        "stats": {
+          "PAC": 93,
+          "EVA": 91,
+          "HND": 84,
+          "CAR": 85,
+          "TCK": 72,
+          "KCK": 79
+        }
+      },
+      {
+        "name": "Jos Clutton",
+        "position": "FB",
+        "age": 24,
+        "stats": {
+          "PAC": 84,
+          "EVA": 82,
+          "KCK": 80,
+          "HND": 80,
+          "VIS": 80
+        }
+      }
+    ]
+  },
+  {
+    "name": "Highlanders",
+    "shortName": "HIG",
+    "leagueId": "super_rugby",
+    "roster": [
+      {
+        "name": "Daniel Lienert-Brown",
+        "position": "LHP",
+        "age": 25,
+        "stats": {
+          "SCR": 80,
+          "LNO": 70,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 72,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Liam Coltman",
+        "position": "HOO",
+        "age": 30,
+        "stats": {
+          "SCR": 84,
+          "LNO": 80,
+          "CAR": 73,
+          "TCK": 75,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Saula Ma'u",
+        "position": "THP",
+        "age": 28,
+        "stats": {
+          "SCR": 82,
+          "LNO": 69,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Josh Dickson",
+        "position": "LK1",
+        "age": 29,
+        "stats": {
+          "LNO": 84,
+          "CAR": 79,
+          "TCK": 80,
+          "RUK": 79,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Fabian Holland",
+        "position": "LK2",
+        "age": 26,
+        "stats": {
+          "LNO": 81,
+          "CAR": 77,
+          "TCK": 78,
+          "RUK": 77,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Ethan de Groot",
+        "position": "BF",
+        "age": 26,
+        "stats": {
+          "CAR": 82,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 85,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Tom Franklin",
+        "position": "OF",
+        "age": 26,
+        "stats": {
+          "CAR": 81,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 85,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Billy Harmon",
+        "position": "N8",
+        "age": 28,
+        "stats": {
+          "CAR": 83,
+          "TCK": 80,
+          "RUK": 78,
+          "FIT": 84,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Folau Fakatava",
+        "position": "SH",
+        "age": 24,
+        "stats": {
+          "PAC": 83,
+          "HND": 82,
+          "VIS": 82,
+          "KCK": 68
+        }
+      },
+      {
+        "name": "Taine Plumtree",
+        "position": "FH",
+        "age": 24,
+        "stats": {
+          "KCK": 82,
+          "HND": 82,
+          "VIS": 82,
+          "PAC": 78,
+          "EVA": 78
+        }
+      },
+      {
+        "name": "Fetuli Paea",
+        "position": "IC",
+        "age": 24,
+        "stats": {
+          "PAC": 82,
+          "HND": 79,
+          "VIS": 77,
+          "EVA": 80,
+          "CAR": 78,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Thomas Umaga-Jensen",
+        "position": "OC",
+        "age": 27,
+        "stats": {
+          "PAC": 83,
+          "HND": 81,
+          "VIS": 80,
+          "EVA": 81,
+          "CAR": 78,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Jona Nareki",
+        "position": "WL",
+        "age": 28,
+        "stats": {
+          "PAC": 89,
+          "EVA": 86,
+          "HND": 76,
+          "CAR": 79,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Connor Garden-Bachop",
+        "position": "WR",
+        "age": 26,
+        "stats": {
+          "PAC": 87,
+          "EVA": 85,
+          "HND": 78,
+          "CAR": 78,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Jacob Ratumaitavuki-Kneepkens",
+        "position": "FB",
+        "age": 22,
+        "stats": {
+          "PAC": 86,
+          "EVA": 84,
+          "KCK": 78,
+          "HND": 79,
+          "VIS": 79
+        }
+      }
+    ]
+  },
+  {
+    "name": "Hurricanes",
+    "shortName": "HUR",
+    "leagueId": "super_rugby",
+    "roster": [
+      {
+        "name": "Xavier Numia",
+        "position": "LHP",
+        "age": 25,
+        "stats": {
+          "SCR": 83,
+          "LNO": 72,
+          "CAR": 76,
+          "TCK": 72,
+          "RUK": 75,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Asafo Aumua",
+        "position": "HOO",
+        "age": 27,
+        "stats": {
+          "SCR": 86,
+          "LNO": 82,
+          "CAR": 76,
+          "TCK": 78,
+          "FIT": 85
+        }
+      },
+      {
+        "name": "Tyrel Lomax",
+        "position": "THP",
+        "age": 29,
+        "stats": {
+          "SCR": 86,
+          "LNO": 72,
+          "CAR": 77,
+          "TCK": 73,
+          "RUK": 77,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "James Tucker",
+        "position": "LK1",
+        "age": 27,
+        "stats": {
+          "LNO": 83,
+          "CAR": 79,
+          "TCK": 80,
+          "RUK": 79,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Justin Sangster",
+        "position": "LK2",
+        "age": 27,
+        "stats": {
+          "LNO": 82,
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Du'Plessis Kirifi",
+        "position": "BF",
+        "age": 27,
+        "stats": {
+          "CAR": 85,
+          "TCK": 86,
+          "RUK": 84,
+          "FIT": 88,
+          "PAC": 79
+        }
+      },
+      {
+        "name": "Peter Lakai",
+        "position": "OF",
+        "age": 25,
+        "stats": {
+          "CAR": 81,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 85,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Ardie Savea",
+        "position": "N8",
+        "age": 31,
+        "stats": {
+          "CAR": 92,
+          "TCK": 88,
+          "RUK": 87,
+          "FIT": 90,
+          "PAC": 82
+        }
+      },
+      {
+        "name": "TJ Perenara",
+        "position": "SH",
+        "age": 32,
+        "stats": {
+          "PAC": 85,
+          "HND": 87,
+          "VIS": 86,
+          "KCK": 73
+        }
+      },
+      {
+        "name": "Aidan Morgan",
+        "position": "FH",
+        "age": 24,
+        "stats": {
+          "KCK": 84,
+          "HND": 83,
+          "VIS": 84,
+          "PAC": 78,
+          "EVA": 79
+        }
+      },
+      {
+        "name": "Billy Proctor",
+        "position": "IC",
+        "age": 27,
+        "stats": {
+          "PAC": 82,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 80,
+          "CAR": 79,
+          "TCK": 73
+        }
+      },
+      {
+        "name": "Jordie Barrett",
+        "position": "OC",
+        "age": 28,
+        "stats": {
+          "PAC": 85,
+          "HND": 85,
+          "VIS": 85,
+          "EVA": 83,
+          "CAR": 80,
+          "TCK": 73,
+          "KCK": 82
+        }
+      },
+      {
+        "name": "Salesi Rayasi",
+        "position": "WL",
+        "age": 29,
+        "stats": {
+          "PAC": 89,
+          "EVA": 86,
+          "HND": 77,
+          "CAR": 81,
+          "TCK": 67
+        }
+      },
+      {
+        "name": "Aidan Morgan",
+        "position": "WR",
+        "age": 24,
+        "stats": {
+          "PAC": 86,
+          "EVA": 84,
+          "HND": 77,
+          "CAR": 78,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Chase Tiatia",
+        "position": "FB",
+        "age": 24,
+        "stats": {
+          "PAC": 88,
+          "EVA": 86,
+          "KCK": 79,
+          "HND": 81,
+          "VIS": 81
+        }
+      }
+    ]
+  },
+  {
+    "name": "Brumbies",
+    "shortName": "BRU",
+    "leagueId": "super_rugby",
+    "roster": [
+      {
+        "name": "Scott Sio",
+        "position": "LHP",
+        "age": 34,
+        "stats": {
+          "SCR": 86,
+          "LNO": 73,
+          "CAR": 77,
+          "TCK": 73,
+          "RUK": 77,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Folau Fainga'a",
+        "position": "HOO",
+        "age": 30,
+        "stats": {
+          "SCR": 85,
+          "LNO": 82,
+          "CAR": 74,
+          "TCK": 76,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Blake Schoupp",
+        "position": "THP",
+        "age": 25,
+        "stats": {
+          "SCR": 81,
+          "LNO": 69,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Cadeyrn Neville",
+        "position": "LK1",
+        "age": 34,
+        "stats": {
+          "LNO": 85,
+          "CAR": 79,
+          "TCK": 81,
+          "RUK": 80,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Nick Frost",
+        "position": "LK2",
+        "age": 24,
+        "stats": {
+          "LNO": 84,
+          "CAR": 80,
+          "TCK": 81,
+          "RUK": 80,
+          "FIT": 85
+        }
+      },
+      {
+        "name": "Rob Valetini",
+        "position": "BF",
+        "age": 26,
+        "stats": {
+          "CAR": 87,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 87,
+          "PAC": 80
+        }
+      },
+      {
+        "name": "Tom Hooper",
+        "position": "OF",
+        "age": 27,
+        "stats": {
+          "CAR": 83,
+          "TCK": 86,
+          "RUK": 84,
+          "FIT": 87,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Pete Samu",
+        "position": "N8",
+        "age": 31,
+        "stats": {
+          "CAR": 86,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 85,
+          "PAC": 80
+        }
+      },
+      {
+        "name": "Nic White",
+        "position": "SH",
+        "age": 34,
+        "stats": {
+          "PAC": 80,
+          "HND": 86,
+          "VIS": 87,
+          "KCK": 74
+        }
+      },
+      {
+        "name": "Noah Lolesio",
+        "position": "FH",
+        "age": 25,
+        "stats": {
+          "KCK": 86,
+          "HND": 84,
+          "VIS": 85,
+          "PAC": 76,
+          "EVA": 77
+        }
+      },
+      {
+        "name": "Len Ikitau",
+        "position": "IC",
+        "age": 25,
+        "stats": {
+          "PAC": 85,
+          "HND": 82,
+          "VIS": 81,
+          "EVA": 83,
+          "CAR": 81,
+          "TCK": 74
+        }
+      },
+      {
+        "name": "Irae Simone",
+        "position": "OC",
+        "age": 27,
+        "stats": {
+          "PAC": 83,
+          "HND": 82,
+          "VIS": 81,
+          "EVA": 81,
+          "CAR": 79,
+          "TCK": 73
+        }
+      },
+      {
+        "name": "Andy Muirhead",
+        "position": "WL",
+        "age": 30,
+        "stats": {
+          "PAC": 86,
+          "EVA": 83,
+          "HND": 78,
+          "CAR": 79,
+          "TCK": 67
+        }
+      },
+      {
+        "name": "Corey Toole",
+        "position": "WR",
+        "age": 24,
+        "stats": {
+          "PAC": 91,
+          "EVA": 89,
+          "HND": 78,
+          "CAR": 82,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Tom Wright",
+        "position": "FB",
+        "age": 27,
+        "stats": {
+          "PAC": 87,
+          "EVA": 85,
+          "KCK": 78,
+          "HND": 81,
+          "VIS": 81
+        }
+      }
+    ]
+  },
+  {
+    "name": "Reds",
+    "shortName": "RED",
+    "leagueId": "super_rugby",
+    "roster": [
+      {
+        "name": "James Slipper",
+        "position": "LHP",
+        "age": 35,
+        "stats": {
+          "SCR": 84,
+          "LNO": 72,
+          "CAR": 74,
+          "TCK": 71,
+          "RUK": 74,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Matt Faessler",
+        "position": "HOO",
+        "age": 26,
+        "stats": {
+          "SCR": 84,
+          "LNO": 80,
+          "CAR": 73,
+          "TCK": 75,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Zane Nonggorr",
+        "position": "THP",
+        "age": 26,
+        "stats": {
+          "SCR": 82,
+          "LNO": 69,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Angus Blyth",
+        "position": "LK1",
+        "age": 27,
+        "stats": {
+          "LNO": 83,
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Ryan Smith",
+        "position": "LK2",
+        "age": 27,
+        "stats": {
+          "LNO": 81,
+          "CAR": 77,
+          "TCK": 78,
+          "RUK": 77,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Liam Wright",
+        "position": "BF",
+        "age": 27,
+        "stats": {
+          "CAR": 83,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 86,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Fraser McReight",
+        "position": "OF",
+        "age": 25,
+        "stats": {
+          "CAR": 82,
+          "TCK": 86,
+          "RUK": 84,
+          "FIT": 87,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Harry Wilson",
+        "position": "N8",
+        "age": 24,
+        "stats": {
+          "CAR": 85,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 86,
+          "PAC": 79
+        }
+      },
+      {
+        "name": "Tate McDermott",
+        "position": "SH",
+        "age": 26,
+        "stats": {
+          "PAC": 86,
+          "HND": 85,
+          "VIS": 84,
+          "KCK": 72
+        }
+      },
+      {
+        "name": "Lawson Creighton",
+        "position": "FH",
+        "age": 23,
+        "stats": {
+          "KCK": 82,
+          "HND": 81,
+          "VIS": 82,
+          "PAC": 76,
+          "EVA": 76
+        }
+      },
+      {
+        "name": "Hunter Paisami",
+        "position": "IC",
+        "age": 26,
+        "stats": {
+          "PAC": 84,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 82,
+          "CAR": 82,
+          "TCK": 74
+        }
+      },
+      {
+        "name": "Hamish Stewart",
+        "position": "OC",
+        "age": 27,
+        "stats": {
+          "PAC": 82,
+          "HND": 82,
+          "VIS": 81,
+          "EVA": 80,
+          "CAR": 78,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Filipo Daugunu",
+        "position": "WL",
+        "age": 28,
+        "stats": {
+          "PAC": 90,
+          "EVA": 87,
+          "HND": 77,
+          "CAR": 81,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Mac Grealy",
+        "position": "WR",
+        "age": 23,
+        "stats": {
+          "PAC": 87,
+          "EVA": 84,
+          "HND": 76,
+          "CAR": 78,
+          "TCK": 64
+        }
+      },
+      {
+        "name": "Jock Campbell",
+        "position": "FB",
+        "age": 26,
+        "stats": {
+          "PAC": 89,
+          "EVA": 87,
+          "KCK": 80,
+          "HND": 82,
+          "VIS": 82
+        }
+      }
+    ]
+  },
+  {
+    "name": "Waratahs",
+    "shortName": "WAR",
+    "leagueId": "super_rugby",
+    "roster": [
+      {
+        "name": "Angus Bell",
+        "position": "LHP",
+        "age": 25,
+        "stats": {
+          "SCR": 85,
+          "LNO": 73,
+          "CAR": 77,
+          "TCK": 73,
+          "RUK": 76,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Dave Porecki",
+        "position": "HOO",
+        "age": 29,
+        "stats": {
+          "SCR": 85,
+          "LNO": 81,
+          "CAR": 74,
+          "TCK": 76,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Archer Holz",
+        "position": "THP",
+        "age": 24,
+        "stats": {
+          "SCR": 81,
+          "LNO": 69,
+          "CAR": 73,
+          "TCK": 69,
+          "RUK": 72,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Tom Staniforth",
+        "position": "LK1",
+        "age": 31,
+        "stats": {
+          "LNO": 83,
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Will Skelton",
+        "position": "LK2",
+        "age": 32,
+        "stats": {
+          "LNO": 86,
+          "CAR": 82,
+          "TCK": 80,
+          "RUK": 80,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Langi Gleeson",
+        "position": "BF",
+        "age": 27,
+        "stats": {
+          "CAR": 83,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 85,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Charlie Gamble",
+        "position": "OF",
+        "age": 24,
+        "stats": {
+          "CAR": 80,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 84,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Jed Holloway",
+        "position": "N8",
+        "age": 30,
+        "stats": {
+          "CAR": 82,
+          "TCK": 80,
+          "RUK": 78,
+          "FIT": 83,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Jake Gordon",
+        "position": "SH",
+        "age": 32,
+        "stats": {
+          "PAC": 82,
+          "HND": 84,
+          "VIS": 83,
+          "KCK": 71
+        }
+      },
+      {
+        "name": "Ben Donaldson",
+        "position": "FH",
+        "age": 25,
+        "stats": {
+          "KCK": 84,
+          "HND": 83,
+          "VIS": 83,
+          "PAC": 77,
+          "EVA": 77
+        }
+      },
+      {
+        "name": "Joey Walton",
+        "position": "IC",
+        "age": 26,
+        "stats": {
+          "PAC": 83,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 81,
+          "CAR": 78,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Lalakai Foketi",
+        "position": "OC",
+        "age": 30,
+        "stats": {
+          "PAC": 82,
+          "HND": 81,
+          "VIS": 80,
+          "EVA": 81,
+          "CAR": 78,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Dylan Pietsch",
+        "position": "WL",
+        "age": 25,
+        "stats": {
+          "PAC": 88,
+          "EVA": 85,
+          "HND": 76,
+          "CAR": 79,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Mark Nawaqanitawase",
+        "position": "WR",
+        "age": 26,
+        "stats": {
+          "PAC": 91,
+          "EVA": 88,
+          "HND": 78,
+          "CAR": 81,
+          "TCK": 67
+        }
+      },
+      {
+        "name": "Max Jorgensen",
+        "position": "FB",
+        "age": 22,
+        "stats": {
+          "PAC": 87,
+          "EVA": 85,
+          "KCK": 79,
+          "HND": 80,
+          "VIS": 80
+        }
+      }
+    ]
+  },
+  {
+    "name": "Western Force",
+    "shortName": "FOR",
+    "leagueId": "super_rugby",
+    "roster": [
+      {
+        "name": "Pone Fa'amausili",
+        "position": "LHP",
+        "age": 24,
+        "stats": {
+          "SCR": 81,
+          "LNO": 70,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Andrew Ready",
+        "position": "HOO",
+        "age": 28,
+        "stats": {
+          "SCR": 82,
+          "LNO": 79,
+          "CAR": 71,
+          "TCK": 73,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Fergus Lee-Warner",
+        "position": "THP",
+        "age": 28,
+        "stats": {
+          "SCR": 83,
+          "LNO": 69,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Jeremy Williams",
+        "position": "LK1",
+        "age": 27,
+        "stats": {
+          "LNO": 82,
+          "CAR": 77,
+          "TCK": 78,
+          "RUK": 77,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Kane Koteka",
+        "position": "LK2",
+        "age": 26,
+        "stats": {
+          "LNO": 80,
+          "CAR": 76,
+          "TCK": 77,
+          "RUK": 76,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Richard Kahui",
+        "position": "BF",
+        "age": 25,
+        "stats": {
+          "CAR": 81,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 84,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Michael Wells",
+        "position": "OF",
+        "age": 27,
+        "stats": {
+          "CAR": 80,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 83,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Ollie Callan",
+        "position": "N8",
+        "age": 26,
+        "stats": {
+          "CAR": 82,
+          "TCK": 79,
+          "RUK": 77,
+          "FIT": 82,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Ian Prior",
+        "position": "SH",
+        "age": 34,
+        "stats": {
+          "PAC": 79,
+          "HND": 83,
+          "VIS": 82,
+          "KCK": 71
+        }
+      },
+      {
+        "name": "Domingo Miotti",
+        "position": "FH",
+        "age": 27,
+        "stats": {
+          "KCK": 83,
+          "HND": 82,
+          "VIS": 82,
+          "PAC": 76,
+          "EVA": 76
+        }
+      },
+      {
+        "name": "Kyle Godwin",
+        "position": "IC",
+        "age": 29,
+        "stats": {
+          "PAC": 80,
+          "HND": 79,
+          "VIS": 78,
+          "EVA": 79,
+          "CAR": 76,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Siosaia Fifita",
+        "position": "OC",
+        "age": 26,
+        "stats": {
+          "PAC": 83,
+          "HND": 79,
+          "VIS": 77,
+          "EVA": 81,
+          "CAR": 80,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Manasa Mataele",
+        "position": "WL",
+        "age": 27,
+        "stats": {
+          "PAC": 87,
+          "EVA": 84,
+          "HND": 75,
+          "CAR": 78,
+          "TCK": 63
+        }
+      },
+      {
+        "name": "Toni Pulu",
+        "position": "WR",
+        "age": 30,
+        "stats": {
+          "PAC": 85,
+          "EVA": 82,
+          "HND": 75,
+          "CAR": 76,
+          "TCK": 62
+        }
+      },
+      {
+        "name": "Reesjan Pasitoa",
+        "position": "FB",
+        "age": 22,
+        "stats": {
+          "PAC": 85,
+          "EVA": 83,
+          "KCK": 77,
+          "HND": 78,
+          "VIS": 78
+        }
+      }
+    ]
+  },
+  {
+    "name": "Fijian Drua",
+    "shortName": "DRU",
+    "leagueId": "super_rugby",
+    "roster": [
+      {
+        "name": "Haereiti Hetet",
+        "position": "LHP",
+        "age": 26,
+        "stats": {
+          "SCR": 80,
+          "LNO": 70,
+          "CAR": 75,
+          "TCK": 71,
+          "RUK": 73,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Mesulame Dolokoto",
+        "position": "HOO",
+        "age": 27,
+        "stats": {
+          "SCR": 82,
+          "LNO": 78,
+          "CAR": 72,
+          "TCK": 74,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Luke Tagi",
+        "position": "THP",
+        "age": 28,
+        "stats": {
+          "SCR": 81,
+          "LNO": 68,
+          "CAR": 73,
+          "TCK": 69,
+          "RUK": 72,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Isoa Nasilasila",
+        "position": "LK1",
+        "age": 27,
+        "stats": {
+          "LNO": 81,
+          "CAR": 78,
+          "TCK": 78,
+          "RUK": 77,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Te Ahiwaru Cirikidaveta",
+        "position": "LK2",
+        "age": 26,
+        "stats": {
+          "LNO": 80,
+          "CAR": 77,
+          "TCK": 77,
+          "RUK": 76,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Meli Derenalagi",
+        "position": "BF",
+        "age": 26,
+        "stats": {
+          "CAR": 83,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 86,
+          "PAC": 78
+        }
+      },
+      {
+        "name": "Vilive Miramira",
+        "position": "OF",
+        "age": 25,
+        "stats": {
+          "CAR": 81,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 85,
+          "PAC": 77
+        }
+      },
+      {
+        "name": "Viliame Mata",
+        "position": "N8",
+        "age": 32,
+        "stats": {
+          "CAR": 86,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 84,
+          "PAC": 80
+        }
+      },
+      {
+        "name": "Frank Lomani",
+        "position": "SH",
+        "age": 29,
+        "stats": {
+          "PAC": 83,
+          "HND": 84,
+          "VIS": 82,
+          "KCK": 71
+        }
+      },
+      {
+        "name": "Caleb Muntz",
+        "position": "FH",
+        "age": 27,
+        "stats": {
+          "KCK": 82,
+          "HND": 81,
+          "VIS": 81,
+          "PAC": 75,
+          "EVA": 75
+        }
+      },
+      {
+        "name": "Kalaveti Ravouvou",
+        "position": "IC",
+        "age": 27,
+        "stats": {
+          "PAC": 86,
+          "HND": 79,
+          "VIS": 77,
+          "EVA": 84,
+          "CAR": 81,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Apisalome Vota",
+        "position": "OC",
+        "age": 25,
+        "stats": {
+          "PAC": 85,
+          "HND": 78,
+          "VIS": 76,
+          "EVA": 83,
+          "CAR": 79,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Jiuta Wainiqolo",
+        "position": "WL",
+        "age": 26,
+        "stats": {
+          "PAC": 92,
+          "EVA": 90,
+          "HND": 78,
+          "CAR": 82,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Selestino Ravutaumada",
+        "position": "WR",
+        "age": 23,
+        "stats": {
+          "PAC": 90,
+          "EVA": 88,
+          "HND": 77,
+          "CAR": 80,
+          "TCK": 63
+        }
+      },
+      {
+        "name": "Ilaisa Droasese",
+        "position": "FB",
+        "age": 24,
+        "stats": {
+          "PAC": 88,
+          "EVA": 86,
+          "KCK": 76,
+          "HND": 79,
+          "VIS": 79
+        }
+      }
+    ]
+  },
+  {
+    "name": "Moana Pasifika",
+    "shortName": "MOA",
+    "leagueId": "super_rugby",
+    "roster": [
+      {
+        "name": "Abraham Papali'i",
+        "position": "LHP",
+        "age": 26,
+        "stats": {
+          "SCR": 80,
+          "LNO": 70,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 72,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Samiuela Taukei'aho",
+        "position": "HOO",
+        "age": 25,
+        "stats": {
+          "SCR": 81,
+          "LNO": 77,
+          "CAR": 71,
+          "TCK": 72,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Lotu Inisi",
+        "position": "THP",
+        "age": 26,
+        "stats": {
+          "SCR": 80,
+          "LNO": 67,
+          "CAR": 72,
+          "TCK": 68,
+          "RUK": 71,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Moni Tuilagi",
+        "position": "LK1",
+        "age": 24,
+        "stats": {
+          "LNO": 79,
+          "CAR": 76,
+          "TCK": 76,
+          "RUK": 75,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Kylan Nonu",
+        "position": "LK2",
+        "age": 24,
+        "stats": {
+          "LNO": 78,
+          "CAR": 75,
+          "TCK": 75,
+          "RUK": 74,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Miracle Fai'ilagi",
+        "position": "BF",
+        "age": 24,
+        "stats": {
+          "CAR": 81,
+          "TCK": 82,
+          "RUK": 79,
+          "FIT": 84,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Fine Inisi",
+        "position": "OF",
+        "age": 26,
+        "stats": {
+          "CAR": 80,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 84,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Henry Time-Stowers",
+        "position": "N8",
+        "age": 24,
+        "stats": {
+          "CAR": 82,
+          "TCK": 79,
+          "RUK": 77,
+          "FIT": 83,
+          "PAC": 77
+        }
+      },
+      {
+        "name": "Jonathan Taumateine",
+        "position": "SH",
+        "age": 24,
+        "stats": {
+          "PAC": 84,
+          "HND": 82,
+          "VIS": 81,
+          "KCK": 69
+        }
+      },
+      {
+        "name": "Christian Leali'ifano",
+        "position": "FH",
+        "age": 36,
+        "stats": {
+          "KCK": 84,
+          "HND": 84,
+          "VIS": 84,
+          "PAC": 73,
+          "EVA": 73
+        }
+      },
+      {
+        "name": "Levi Aumua",
+        "position": "IC",
+        "age": 24,
+        "stats": {
+          "PAC": 82,
+          "HND": 78,
+          "VIS": 76,
+          "EVA": 80,
+          "CAR": 78,
+          "TCK": 69
+        }
+      },
+      {
+        "name": "Danny Toala",
+        "position": "OC",
+        "age": 26,
+        "stats": {
+          "PAC": 83,
+          "HND": 79,
+          "VIS": 77,
+          "EVA": 81,
+          "CAR": 78,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Neria Fomai",
+        "position": "WL",
+        "age": 24,
+        "stats": {
+          "PAC": 88,
+          "EVA": 85,
+          "HND": 76,
+          "CAR": 79,
+          "TCK": 62
+        }
+      },
+      {
+        "name": "Tomasi Alosio",
+        "position": "WR",
+        "age": 24,
+        "stats": {
+          "PAC": 87,
+          "EVA": 84,
+          "HND": 75,
+          "CAR": 78,
+          "TCK": 62
+        }
+      },
+      {
+        "name": "Lolagi Visinia",
+        "position": "FB",
+        "age": 24,
+        "stats": {
+          "PAC": 86,
+          "EVA": 84,
+          "KCK": 76,
+          "HND": 78,
+          "VIS": 78
+        }
+      }
+    ]
+  },
+  {
+    "name": "Bath Rugby",
+    "shortName": "BAT",
+    "leagueId": "premiership",
+    "roster": [
+      {
+        "name": "Beno Obano",
+        "position": "LHP",
+        "age": 29,
+        "stats": {
+          "SCR": 85,
+          "LNO": 73,
+          "CAR": 78,
+          "TCK": 74,
+          "RUK": 78,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Tom Dunn",
+        "position": "HOO",
+        "age": 30,
+        "stats": {
+          "SCR": 85,
+          "LNO": 82,
+          "CAR": 74,
+          "TCK": 76,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Thomas du Toit",
+        "position": "THP",
+        "age": 29,
+        "stats": {
+          "SCR": 86,
+          "LNO": 72,
+          "CAR": 77,
+          "TCK": 73,
+          "RUK": 77,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Charlie Ewels",
+        "position": "LK1",
+        "age": 30,
+        "stats": {
+          "LNO": 85,
+          "CAR": 79,
+          "TCK": 82,
+          "RUK": 81,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Quinn Roux",
+        "position": "LK2",
+        "age": 35,
+        "stats": {
+          "LNO": 84,
+          "CAR": 79,
+          "TCK": 80,
+          "RUK": 79,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Ted Hill",
+        "position": "BF",
+        "age": 27,
+        "stats": {
+          "CAR": 83,
+          "TCK": 85,
+          "RUK": 83,
+          "FIT": 86,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Sam Underhill",
+        "position": "OF",
+        "age": 28,
+        "stats": {
+          "CAR": 82,
+          "TCK": 89,
+          "RUK": 86,
+          "FIT": 87,
+          "PAC": 77
+        }
+      },
+      {
+        "name": "Jaco Coetzee",
+        "position": "N8",
+        "age": 27,
+        "stats": {
+          "CAR": 84,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 85,
+          "PAC": 77
+        }
+      },
+      {
+        "name": "Ben Spencer",
+        "position": "SH",
+        "age": 30,
+        "stats": {
+          "PAC": 81,
+          "HND": 86,
+          "VIS": 85,
+          "KCK": 72
+        }
+      },
+      {
+        "name": "Finn Russell",
+        "position": "FH",
+        "age": 32,
+        "stats": {
+          "KCK": 88,
+          "HND": 89,
+          "VIS": 92,
+          "PAC": 74,
+          "EVA": 78
+        }
+      },
+      {
+        "name": "Ollie Lawrence",
+        "position": "IC",
+        "age": 25,
+        "stats": {
+          "PAC": 82,
+          "HND": 81,
+          "VIS": 80,
+          "EVA": 79,
+          "CAR": 83,
+          "TCK": 76
+        }
+      },
+      {
+        "name": "Cameron Redpath",
+        "position": "OC",
+        "age": 26,
+        "stats": {
+          "PAC": 81,
+          "HND": 82,
+          "VIS": 82,
+          "EVA": 79,
+          "CAR": 79,
+          "TCK": 73
+        }
+      },
+      {
+        "name": "Joe Cokanasiga",
+        "position": "WL",
+        "age": 27,
+        "stats": {
+          "PAC": 89,
+          "EVA": 83,
+          "HND": 77,
+          "CAR": 85,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Ruaridh McConnochie",
+        "position": "WR",
+        "age": 32,
+        "stats": {
+          "PAC": 85,
+          "EVA": 82,
+          "HND": 78,
+          "CAR": 79,
+          "TCK": 67
+        }
+      },
+      {
+        "name": "Matt Gallagher",
+        "position": "FB",
+        "age": 29,
+        "stats": {
+          "PAC": 86,
+          "EVA": 84,
+          "KCK": 81,
+          "HND": 82,
+          "VIS": 83
+        }
+      }
+    ]
+  },
+  {
+    "name": "Bristol Bears",
+    "shortName": "BRI",
+    "leagueId": "premiership",
+    "roster": [
+      {
+        "name": "Jake Woolmore",
+        "position": "LHP",
+        "age": 26,
+        "stats": {
+          "SCR": 82,
+          "LNO": 71,
+          "CAR": 75,
+          "TCK": 71,
+          "RUK": 74,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Harry Thacker",
+        "position": "HOO",
+        "age": 31,
+        "stats": {
+          "SCR": 84,
+          "LNO": 81,
+          "CAR": 73,
+          "TCK": 75,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Jake Armstrong",
+        "position": "THP",
+        "age": 27,
+        "stats": {
+          "SCR": 83,
+          "LNO": 70,
+          "CAR": 75,
+          "TCK": 71,
+          "RUK": 74,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Joe Joyce",
+        "position": "LK1",
+        "age": 29,
+        "stats": {
+          "LNO": 83,
+          "CAR": 78,
+          "TCK": 80,
+          "RUK": 79,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Chris Vui",
+        "position": "LK2",
+        "age": 30,
+        "stats": {
+          "LNO": 82,
+          "CAR": 79,
+          "TCK": 80,
+          "RUK": 79,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Ben Earl",
+        "position": "BF",
+        "age": 27,
+        "stats": {
+          "CAR": 85,
+          "TCK": 86,
+          "RUK": 84,
+          "FIT": 88,
+          "PAC": 78
+        }
+      },
+      {
+        "name": "Jake Heenan",
+        "position": "OF",
+        "age": 32,
+        "stats": {
+          "CAR": 82,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 84,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Nathan Hughes",
+        "position": "N8",
+        "age": 33,
+        "stats": {
+          "CAR": 85,
+          "TCK": 81,
+          "RUK": 79,
+          "FIT": 82,
+          "PAC": 79
+        }
+      },
+      {
+        "name": "Harry Randall",
+        "position": "SH",
+        "age": 27,
+        "stats": {
+          "PAC": 85,
+          "HND": 85,
+          "VIS": 83,
+          "KCK": 72
+        }
+      },
+      {
+        "name": "Callum Sheedy",
+        "position": "FH",
+        "age": 28,
+        "stats": {
+          "KCK": 86,
+          "HND": 84,
+          "VIS": 85,
+          "PAC": 75,
+          "EVA": 76
+        }
+      },
+      {
+        "name": "Siva Naulago",
+        "position": "IC",
+        "age": 30,
+        "stats": {
+          "PAC": 88,
+          "HND": 77,
+          "VIS": 74,
+          "EVA": 84,
+          "CAR": 83,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Piers O'Conor",
+        "position": "OC",
+        "age": 29,
+        "stats": {
+          "PAC": 82,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 80,
+          "CAR": 78,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Gabriel Ibitoye",
+        "position": "WL",
+        "age": 27,
+        "stats": {
+          "PAC": 88,
+          "EVA": 85,
+          "HND": 75,
+          "CAR": 80,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Max Malins",
+        "position": "WR",
+        "age": 28,
+        "stats": {
+          "PAC": 87,
+          "EVA": 85,
+          "HND": 79,
+          "CAR": 79,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Charles Piutau",
+        "position": "FB",
+        "age": 33,
+        "stats": {
+          "PAC": 88,
+          "EVA": 86,
+          "KCK": 80,
+          "HND": 83,
+          "VIS": 83
+        }
+      }
+    ]
+  },
+  {
+    "name": "Exeter Chiefs",
+    "shortName": "EXE",
+    "leagueId": "premiership",
+    "roster": [
+      {
+        "name": "Ben Moon",
+        "position": "LHP",
+        "age": 34,
+        "stats": {
+          "SCR": 84,
+          "LNO": 72,
+          "CAR": 75,
+          "TCK": 72,
+          "RUK": 75,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Jack Yeandle",
+        "position": "HOO",
+        "age": 35,
+        "stats": {
+          "SCR": 83,
+          "LNO": 80,
+          "CAR": 72,
+          "TCK": 74,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Marcus Street",
+        "position": "THP",
+        "age": 28,
+        "stats": {
+          "SCR": 83,
+          "LNO": 70,
+          "CAR": 75,
+          "TCK": 71,
+          "RUK": 74,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Jonny Hill",
+        "position": "LK1",
+        "age": 29,
+        "stats": {
+          "LNO": 83,
+          "CAR": 78,
+          "TCK": 80,
+          "RUK": 79,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Ruben van Heerden",
+        "position": "LK2",
+        "age": 27,
+        "stats": {
+          "LNO": 82,
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Jannes Kirsten",
+        "position": "BF",
+        "age": 29,
+        "stats": {
+          "CAR": 83,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 85,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Dave Ewers",
+        "position": "OF",
+        "age": 32,
+        "stats": {
+          "CAR": 83,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 83,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Sam Simmonds",
+        "position": "N8",
+        "age": 30,
+        "stats": {
+          "CAR": 87,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 86,
+          "PAC": 79
+        }
+      },
+      {
+        "name": "Stu Townsend",
+        "position": "SH",
+        "age": 29,
+        "stats": {
+          "PAC": 80,
+          "HND": 83,
+          "VIS": 82,
+          "KCK": 70
+        }
+      },
+      {
+        "name": "Joe Simmonds",
+        "position": "FH",
+        "age": 28,
+        "stats": {
+          "KCK": 84,
+          "HND": 83,
+          "VIS": 84,
+          "PAC": 74,
+          "EVA": 75
+        }
+      },
+      {
+        "name": "Henry Slade",
+        "position": "IC",
+        "age": 31,
+        "stats": {
+          "PAC": 81,
+          "HND": 84,
+          "VIS": 84,
+          "EVA": 79,
+          "CAR": 78,
+          "TCK": 73,
+          "KCK": 80
+        }
+      },
+      {
+        "name": "Ian Whitten",
+        "position": "OC",
+        "age": 35,
+        "stats": {
+          "PAC": 79,
+          "HND": 80,
+          "VIS": 80,
+          "EVA": 77,
+          "CAR": 76,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Tom O'Flaherty",
+        "position": "WL",
+        "age": 29,
+        "stats": {
+          "PAC": 88,
+          "EVA": 85,
+          "HND": 77,
+          "CAR": 79,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Olly Woodburn",
+        "position": "WR",
+        "age": 32,
+        "stats": {
+          "PAC": 84,
+          "EVA": 81,
+          "HND": 76,
+          "CAR": 76,
+          "TCK": 64
+        }
+      },
+      {
+        "name": "Stuart Hogg",
+        "position": "FB",
+        "age": 33,
+        "stats": {
+          "PAC": 87,
+          "EVA": 86,
+          "KCK": 84,
+          "HND": 83,
+          "VIS": 83
+        }
+      }
+    ]
+  },
+  {
+    "name": "Gloucester Rugby",
+    "shortName": "GLO",
+    "leagueId": "premiership",
+    "roster": [
+      {
+        "name": "Val Rapava-Ruskin",
+        "position": "LHP",
+        "age": 31,
+        "stats": {
+          "SCR": 84,
+          "LNO": 71,
+          "CAR": 75,
+          "TCK": 71,
+          "RUK": 74,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Santiago Socino",
+        "position": "HOO",
+        "age": 31,
+        "stats": {
+          "SCR": 83,
+          "LNO": 80,
+          "CAR": 72,
+          "TCK": 74,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Jamal Ford-Robinson",
+        "position": "THP",
+        "age": 28,
+        "stats": {
+          "SCR": 83,
+          "LNO": 70,
+          "CAR": 75,
+          "TCK": 71,
+          "RUK": 74,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Freddie Clarke",
+        "position": "LK1",
+        "age": 24,
+        "stats": {
+          "LNO": 81,
+          "CAR": 76,
+          "TCK": 78,
+          "RUK": 77,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Matias Alemanno",
+        "position": "LK2",
+        "age": 29,
+        "stats": {
+          "LNO": 83,
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Lewis Ludlow",
+        "position": "BF",
+        "age": 29,
+        "stats": {
+          "CAR": 81,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 84,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Ruan Ackermann",
+        "position": "OF",
+        "age": 30,
+        "stats": {
+          "CAR": 82,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 84,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Jack Clement",
+        "position": "N8",
+        "age": 26,
+        "stats": {
+          "CAR": 81,
+          "TCK": 79,
+          "RUK": 77,
+          "FIT": 83,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Caolan Englefield",
+        "position": "SH",
+        "age": 23,
+        "stats": {
+          "PAC": 81,
+          "HND": 81,
+          "VIS": 80,
+          "KCK": 69
+        }
+      },
+      {
+        "name": "Lloyd Evans",
+        "position": "FH",
+        "age": 28,
+        "stats": {
+          "KCK": 83,
+          "HND": 82,
+          "VIS": 82,
+          "PAC": 74,
+          "EVA": 74
+        }
+      },
+      {
+        "name": "Seb Atkinson",
+        "position": "IC",
+        "age": 26,
+        "stats": {
+          "PAC": 80,
+          "HND": 79,
+          "VIS": 78,
+          "EVA": 78,
+          "CAR": 76,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Giorgi Kveseladze",
+        "position": "OC",
+        "age": 27,
+        "stats": {
+          "PAC": 83,
+          "HND": 79,
+          "VIS": 77,
+          "EVA": 81,
+          "CAR": 79,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Louis Rees-Zammit",
+        "position": "WL",
+        "age": 24,
+        "stats": {
+          "PAC": 92,
+          "EVA": 88,
+          "HND": 78,
+          "CAR": 82,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Charlie Atkinson",
+        "position": "WR",
+        "age": 23,
+        "stats": {
+          "PAC": 86,
+          "EVA": 83,
+          "HND": 76,
+          "CAR": 77,
+          "TCK": 64
+        }
+      },
+      {
+        "name": "Santiago Carreras",
+        "position": "FB",
+        "age": 26,
+        "stats": {
+          "PAC": 87,
+          "EVA": 85,
+          "KCK": 82,
+          "HND": 81,
+          "VIS": 81
+        }
+      }
+    ]
+  },
+  {
+    "name": "Harlequins",
+    "shortName": "HAR",
+    "leagueId": "premiership",
+    "roster": [
+      {
+        "name": "Joe Marler",
+        "position": "LHP",
+        "age": 34,
+        "stats": {
+          "SCR": 86,
+          "LNO": 72,
+          "CAR": 76,
+          "TCK": 72,
+          "RUK": 76,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Jack Walker",
+        "position": "HOO",
+        "age": 26,
+        "stats": {
+          "SCR": 84,
+          "LNO": 81,
+          "CAR": 73,
+          "TCK": 75,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Will Collier",
+        "position": "THP",
+        "age": 30,
+        "stats": {
+          "SCR": 83,
+          "LNO": 70,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Dino Lamb",
+        "position": "LK1",
+        "age": 24,
+        "stats": {
+          "LNO": 81,
+          "CAR": 77,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Glen Young",
+        "position": "LK2",
+        "age": 28,
+        "stats": {
+          "LNO": 82,
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Alex Dombrandt",
+        "position": "BF",
+        "age": 27,
+        "stats": {
+          "CAR": 86,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 86,
+          "PAC": 78
+        }
+      },
+      {
+        "name": "Will Evans",
+        "position": "OF",
+        "age": 28,
+        "stats": {
+          "CAR": 82,
+          "TCK": 85,
+          "RUK": 83,
+          "FIT": 86,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Chandler Cunningham-South",
+        "position": "N8",
+        "age": 23,
+        "stats": {
+          "CAR": 83,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 85,
+          "PAC": 77
+        }
+      },
+      {
+        "name": "Danny Care",
+        "position": "SH",
+        "age": 37,
+        "stats": {
+          "PAC": 80,
+          "HND": 86,
+          "VIS": 85,
+          "KCK": 71
+        }
+      },
+      {
+        "name": "Marcus Smith",
+        "position": "FH",
+        "age": 26,
+        "stats": {
+          "KCK": 87,
+          "HND": 89,
+          "VIS": 90,
+          "PAC": 79,
+          "EVA": 82
+        }
+      },
+      {
+        "name": "Luke Northmore",
+        "position": "IC",
+        "age": 26,
+        "stats": {
+          "PAC": 82,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 80,
+          "CAR": 78,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Andre Esterhuizen",
+        "position": "OC",
+        "age": 31,
+        "stats": {
+          "PAC": 81,
+          "HND": 80,
+          "VIS": 78,
+          "EVA": 78,
+          "CAR": 83,
+          "TCK": 77
+        }
+      },
+      {
+        "name": "Tyrone Green",
+        "position": "WL",
+        "age": 29,
+        "stats": {
+          "PAC": 88,
+          "EVA": 86,
+          "HND": 78,
+          "CAR": 80,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Cadan Murley",
+        "position": "WR",
+        "age": 25,
+        "stats": {
+          "PAC": 89,
+          "EVA": 86,
+          "HND": 78,
+          "CAR": 79,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Freddie Steward",
+        "position": "FB",
+        "age": 24,
+        "stats": {
+          "PAC": 87,
+          "EVA": 84,
+          "KCK": 83,
+          "HND": 83,
+          "VIS": 84
+        }
+      }
+    ]
+  },
+  {
+    "name": "Leicester Tigers",
+    "shortName": "LEI",
+    "leagueId": "premiership",
+    "roster": [
+      {
+        "name": "Ellis Genge",
+        "position": "LHP",
+        "age": 29,
+        "stats": {
+          "SCR": 87,
+          "LNO": 73,
+          "CAR": 81,
+          "TCK": 76,
+          "RUK": 80,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Nic Dolly",
+        "position": "HOO",
+        "age": 26,
+        "stats": {
+          "SCR": 83,
+          "LNO": 80,
+          "CAR": 73,
+          "TCK": 74,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Dan Cole",
+        "position": "THP",
+        "age": 37,
+        "stats": {
+          "SCR": 86,
+          "LNO": 72,
+          "CAR": 74,
+          "TCK": 71,
+          "RUK": 75,
+          "FIT": 77
+        }
+      },
+      {
+        "name": "Harry Wells",
+        "position": "LK1",
+        "age": 29,
+        "stats": {
+          "LNO": 83,
+          "CAR": 79,
+          "TCK": 80,
+          "RUK": 79,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Calum Green",
+        "position": "LK2",
+        "age": 30,
+        "stats": {
+          "LNO": 82,
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Hanro Liebenberg",
+        "position": "BF",
+        "age": 29,
+        "stats": {
+          "CAR": 83,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 85,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Tommy Reffell",
+        "position": "OF",
+        "age": 25,
+        "stats": {
+          "CAR": 82,
+          "TCK": 87,
+          "RUK": 85,
+          "FIT": 87,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Jasper Wiese",
+        "position": "N8",
+        "age": 28,
+        "stats": {
+          "CAR": 86,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 84,
+          "PAC": 78
+        }
+      },
+      {
+        "name": "Jack van Poortvliet",
+        "position": "SH",
+        "age": 24,
+        "stats": {
+          "PAC": 83,
+          "HND": 83,
+          "VIS": 82,
+          "KCK": 71
+        }
+      },
+      {
+        "name": "Handré Pollard",
+        "position": "FH",
+        "age": 30,
+        "stats": {
+          "KCK": 91,
+          "HND": 86,
+          "VIS": 88,
+          "PAC": 74,
+          "EVA": 76
+        }
+      },
+      {
+        "name": "Dan Kelly",
+        "position": "IC",
+        "age": 22,
+        "stats": {
+          "PAC": 84,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 82,
+          "CAR": 79,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Matt Scott",
+        "position": "OC",
+        "age": 33,
+        "stats": {
+          "PAC": 79,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 77,
+          "CAR": 78,
+          "TCK": 73
+        }
+      },
+      {
+        "name": "Tinie Fakuitau",
+        "position": "WL",
+        "age": 24,
+        "stats": {
+          "PAC": 88,
+          "EVA": 85,
+          "HND": 76,
+          "CAR": 79,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Nemani Nadolo",
+        "position": "WR",
+        "age": 35,
+        "stats": {
+          "PAC": 84,
+          "EVA": 78,
+          "HND": 76,
+          "CAR": 85,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "George Ford",
+        "position": "FB",
+        "age": 32,
+        "stats": {
+          "PAC": 77,
+          "EVA": 78,
+          "KCK": 88,
+          "HND": 87,
+          "VIS": 88
+        }
+      }
+    ]
+  },
+  {
+    "name": "Newcastle Falcons",
+    "shortName": "NEW",
+    "leagueId": "premiership",
+    "roster": [
+      {
+        "name": "Jon Welsh",
+        "position": "LHP",
+        "age": 34,
+        "stats": {
+          "SCR": 82,
+          "LNO": 70,
+          "CAR": 73,
+          "TCK": 70,
+          "RUK": 72,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "George McGuigan",
+        "position": "HOO",
+        "age": 30,
+        "stats": {
+          "SCR": 82,
+          "LNO": 79,
+          "CAR": 71,
+          "TCK": 73,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Trevor Davison",
+        "position": "THP",
+        "age": 29,
+        "stats": {
+          "SCR": 83,
+          "LNO": 69,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Tim Swinson",
+        "position": "LK1",
+        "age": 36,
+        "stats": {
+          "LNO": 80,
+          "CAR": 75,
+          "TCK": 77,
+          "RUK": 76,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Marco Fuser",
+        "position": "LK2",
+        "age": 29,
+        "stats": {
+          "LNO": 80,
+          "CAR": 76,
+          "TCK": 77,
+          "RUK": 76,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Gary Graham",
+        "position": "BF",
+        "age": 30,
+        "stats": {
+          "CAR": 82,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 83,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Callum Chick",
+        "position": "OF",
+        "age": 28,
+        "stats": {
+          "CAR": 81,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 84,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Luke Sherburn",
+        "position": "N8",
+        "age": 25,
+        "stats": {
+          "CAR": 81,
+          "TCK": 78,
+          "RUK": 76,
+          "FIT": 82,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Brett Connon",
+        "position": "SH",
+        "age": 31,
+        "stats": {
+          "PAC": 78,
+          "HND": 81,
+          "VIS": 80,
+          "KCK": 74
+        }
+      },
+      {
+        "name": "Tian Schoeman",
+        "position": "FH",
+        "age": 30,
+        "stats": {
+          "KCK": 84,
+          "HND": 81,
+          "VIS": 81,
+          "PAC": 73,
+          "EVA": 73
+        }
+      },
+      {
+        "name": "Luther Burrell",
+        "position": "IC",
+        "age": 35,
+        "stats": {
+          "PAC": 79,
+          "HND": 79,
+          "VIS": 77,
+          "EVA": 77,
+          "CAR": 79,
+          "TCK": 73
+        }
+      },
+      {
+        "name": "Sam Stuart",
+        "position": "OC",
+        "age": 26,
+        "stats": {
+          "PAC": 82,
+          "HND": 78,
+          "VIS": 76,
+          "EVA": 80,
+          "CAR": 77,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Adam Radwan",
+        "position": "WL",
+        "age": 27,
+        "stats": {
+          "PAC": 88,
+          "EVA": 85,
+          "HND": 75,
+          "CAR": 78,
+          "TCK": 63
+        }
+      },
+      {
+        "name": "Alex Hearle",
+        "position": "WR",
+        "age": 25,
+        "stats": {
+          "PAC": 84,
+          "EVA": 81,
+          "HND": 74,
+          "CAR": 75,
+          "TCK": 62
+        }
+      },
+      {
+        "name": "Mike Brown",
+        "position": "FB",
+        "age": 39,
+        "stats": {
+          "PAC": 80,
+          "EVA": 80,
+          "KCK": 80,
+          "HND": 80,
+          "VIS": 81
+        }
+      }
+    ]
+  },
+  {
+    "name": "Northampton Saints",
+    "shortName": "NOR",
+    "leagueId": "premiership",
+    "roster": [
+      {
+        "name": "Alex Waller",
+        "position": "LHP",
+        "age": 35,
+        "stats": {
+          "SCR": 83,
+          "LNO": 71,
+          "CAR": 73,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Mike Haywood",
+        "position": "HOO",
+        "age": 31,
+        "stats": {
+          "SCR": 83,
+          "LNO": 80,
+          "CAR": 72,
+          "TCK": 73,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Ehren Painter",
+        "position": "THP",
+        "age": 26,
+        "stats": {
+          "SCR": 82,
+          "LNO": 69,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "David Ribbans",
+        "position": "LK1",
+        "age": 28,
+        "stats": {
+          "LNO": 83,
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Alex Moon",
+        "position": "LK2",
+        "age": 28,
+        "stats": {
+          "LNO": 81,
+          "CAR": 77,
+          "TCK": 78,
+          "RUK": 77,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Tom Pearson",
+        "position": "BF",
+        "age": 26,
+        "stats": {
+          "CAR": 82,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 85,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Henry Taylor",
+        "position": "OF",
+        "age": 24,
+        "stats": {
+          "CAR": 80,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 83,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Juarno Augustus",
+        "position": "N8",
+        "age": 28,
+        "stats": {
+          "CAR": 84,
+          "TCK": 81,
+          "RUK": 79,
+          "FIT": 84,
+          "PAC": 78
+        }
+      },
+      {
+        "name": "Alex Mitchell",
+        "position": "SH",
+        "age": 27,
+        "stats": {
+          "PAC": 82,
+          "HND": 84,
+          "VIS": 83,
+          "KCK": 70
+        }
+      },
+      {
+        "name": "Fin Smith",
+        "position": "FH",
+        "age": 23,
+        "stats": {
+          "KCK": 85,
+          "HND": 84,
+          "VIS": 85,
+          "PAC": 76,
+          "EVA": 77
+        }
+      },
+      {
+        "name": "Rory Hutchinson",
+        "position": "IC",
+        "age": 29,
+        "stats": {
+          "PAC": 81,
+          "HND": 81,
+          "VIS": 80,
+          "EVA": 79,
+          "CAR": 78,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Fraser Dingwall",
+        "position": "OC",
+        "age": 25,
+        "stats": {
+          "PAC": 82,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 80,
+          "CAR": 78,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Tommy Freeman",
+        "position": "WL",
+        "age": 24,
+        "stats": {
+          "PAC": 90,
+          "EVA": 87,
+          "HND": 78,
+          "CAR": 81,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Ollie Sleightholme",
+        "position": "WR",
+        "age": 22,
+        "stats": {
+          "PAC": 89,
+          "EVA": 86,
+          "HND": 77,
+          "CAR": 79,
+          "TCK": 64
+        }
+      },
+      {
+        "name": "George Furbank",
+        "position": "FB",
+        "age": 28,
+        "stats": {
+          "PAC": 86,
+          "EVA": 84,
+          "KCK": 83,
+          "HND": 82,
+          "VIS": 83
+        }
+      }
+    ]
+  },
+  {
+    "name": "Sale Sharks",
+    "shortName": "SAL",
+    "leagueId": "premiership",
+    "roster": [
+      {
+        "name": "Bevan Rodd",
+        "position": "LHP",
+        "age": 24,
+        "stats": {
+          "SCR": 83,
+          "LNO": 71,
+          "CAR": 75,
+          "TCK": 71,
+          "RUK": 74,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Akker van der Merwe",
+        "position": "HOO",
+        "age": 32,
+        "stats": {
+          "SCR": 85,
+          "LNO": 81,
+          "CAR": 74,
+          "TCK": 76,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Coenie Oosthuizen",
+        "position": "THP",
+        "age": 35,
+        "stats": {
+          "SCR": 85,
+          "LNO": 71,
+          "CAR": 75,
+          "TCK": 71,
+          "RUK": 75,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Jean-Pierre du Preez",
+        "position": "LK1",
+        "age": 30,
+        "stats": {
+          "LNO": 83,
+          "CAR": 79,
+          "TCK": 80,
+          "RUK": 79,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Lood de Jager",
+        "position": "LK2",
+        "age": 31,
+        "stats": {
+          "LNO": 86,
+          "CAR": 80,
+          "TCK": 82,
+          "RUK": 81,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Dan du Preez",
+        "position": "BF",
+        "age": 29,
+        "stats": {
+          "CAR": 84,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 84,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Ben Curry",
+        "position": "OF",
+        "age": 27,
+        "stats": {
+          "CAR": 82,
+          "TCK": 85,
+          "RUK": 83,
+          "FIT": 86,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Jono Ross",
+        "position": "N8",
+        "age": 34,
+        "stats": {
+          "CAR": 82,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 82,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Gus Warr",
+        "position": "SH",
+        "age": 23,
+        "stats": {
+          "PAC": 82,
+          "HND": 83,
+          "VIS": 82,
+          "KCK": 70
+        }
+      },
+      {
+        "name": "Tom Curtis",
+        "position": "FH",
+        "age": 26,
+        "stats": {
+          "KCK": 83,
+          "HND": 82,
+          "VIS": 82,
+          "PAC": 74,
+          "EVA": 74
+        }
+      },
+      {
+        "name": "Sam James",
+        "position": "IC",
+        "age": 29,
+        "stats": {
+          "PAC": 81,
+          "HND": 79,
+          "VIS": 78,
+          "EVA": 79,
+          "CAR": 79,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Rohan Janse van Rensburg",
+        "position": "OC",
+        "age": 31,
+        "stats": {
+          "PAC": 82,
+          "HND": 79,
+          "VIS": 77,
+          "EVA": 80,
+          "CAR": 82,
+          "TCK": 74
+        }
+      },
+      {
+        "name": "Arron Reed",
+        "position": "WL",
+        "age": 26,
+        "stats": {
+          "PAC": 89,
+          "EVA": 86,
+          "HND": 76,
+          "CAR": 80,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Tom O'Flaherty",
+        "position": "WR",
+        "age": 29,
+        "stats": {
+          "PAC": 88,
+          "EVA": 85,
+          "HND": 76,
+          "CAR": 79,
+          "TCK": 64
+        }
+      },
+      {
+        "name": "Simon Hammersley",
+        "position": "FB",
+        "age": 29,
+        "stats": {
+          "PAC": 85,
+          "EVA": 83,
+          "KCK": 79,
+          "HND": 80,
+          "VIS": 80
+        }
+      }
+    ]
+  },
+  {
+    "name": "Saracens",
+    "shortName": "SAR",
+    "leagueId": "premiership",
+    "roster": [
+      {
+        "name": "Mako Vunipola",
+        "position": "LHP",
+        "age": 33,
+        "stats": {
+          "SCR": 87,
+          "LNO": 73,
+          "CAR": 80,
+          "TCK": 75,
+          "RUK": 79,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Jamie George",
+        "position": "HOO",
+        "age": 33,
+        "stats": {
+          "SCR": 87,
+          "LNO": 84,
+          "CAR": 76,
+          "TCK": 78,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Vincent Koch",
+        "position": "THP",
+        "age": 34,
+        "stats": {
+          "SCR": 87,
+          "LNO": 72,
+          "CAR": 77,
+          "TCK": 73,
+          "RUK": 77,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Maro Itoje",
+        "position": "LK1",
+        "age": 31,
+        "stats": {
+          "LNO": 92,
+          "CAR": 85,
+          "TCK": 84,
+          "RUK": 84,
+          "FIT": 87
+        }
+      },
+      {
+        "name": "Hugh Tizard",
+        "position": "LK2",
+        "age": 24,
+        "stats": {
+          "LNO": 81,
+          "CAR": 77,
+          "TCK": 78,
+          "RUK": 77,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Billy Vunipola",
+        "position": "BF",
+        "age": 32,
+        "stats": {
+          "CAR": 87,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 82,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Tom Willis",
+        "position": "OF",
+        "age": 27,
+        "stats": {
+          "CAR": 82,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 85,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Ben Earl",
+        "position": "N8",
+        "age": 27,
+        "stats": {
+          "CAR": 86,
+          "TCK": 86,
+          "RUK": 84,
+          "FIT": 88,
+          "PAC": 79
+        }
+      },
+      {
+        "name": "Aled Davies",
+        "position": "SH",
+        "age": 31,
+        "stats": {
+          "PAC": 80,
+          "HND": 84,
+          "VIS": 83,
+          "KCK": 71
+        }
+      },
+      {
+        "name": "Owen Farrell",
+        "position": "FH",
+        "age": 33,
+        "stats": {
+          "KCK": 91,
+          "HND": 87,
+          "VIS": 89,
+          "PAC": 72,
+          "EVA": 74
+        }
+      },
+      {
+        "name": "Nick Tompkins",
+        "position": "IC",
+        "age": 29,
+        "stats": {
+          "PAC": 82,
+          "HND": 82,
+          "VIS": 81,
+          "EVA": 80,
+          "CAR": 79,
+          "TCK": 74
+        }
+      },
+      {
+        "name": "Alex Lewington",
+        "position": "OC",
+        "age": 32,
+        "stats": {
+          "PAC": 84,
+          "HND": 78,
+          "VIS": 77,
+          "EVA": 82,
+          "CAR": 78,
+          "TCK": 69
+        }
+      },
+      {
+        "name": "Sean Maitland",
+        "position": "WL",
+        "age": 36,
+        "stats": {
+          "PAC": 84,
+          "EVA": 81,
+          "HND": 77,
+          "CAR": 77,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Rotimi Segun",
+        "position": "WR",
+        "age": 26,
+        "stats": {
+          "PAC": 89,
+          "EVA": 86,
+          "HND": 76,
+          "CAR": 80,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Elliot Daly",
+        "position": "FB",
+        "age": 32,
+        "stats": {
+          "PAC": 86,
+          "EVA": 84,
+          "KCK": 84,
+          "HND": 82,
+          "VIS": 83
+        }
+      }
+    ]
+  },
+  {
+    "name": "Toulouse",
+    "shortName": "TOU",
+    "leagueId": "top_14",
+    "roster": [
+      {
+        "name": "Rodrigue Neti",
+        "position": "LHP",
+        "age": 31,
+        "stats": {
+          "SCR": 86,
+          "LNO": 74,
+          "CAR": 79,
+          "TCK": 74,
+          "RUK": 78,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Julien Marchand",
+        "position": "HOO",
+        "age": 29,
+        "stats": {
+          "SCR": 88,
+          "LNO": 86,
+          "CAR": 77,
+          "TCK": 80,
+          "FIT": 86
+        }
+      },
+      {
+        "name": "Dorian Aldegheri",
+        "position": "THP",
+        "age": 28,
+        "stats": {
+          "SCR": 86,
+          "LNO": 73,
+          "CAR": 78,
+          "TCK": 73,
+          "RUK": 77,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Emmanuel Meafou",
+        "position": "LK1",
+        "age": 25,
+        "stats": {
+          "LNO": 87,
+          "CAR": 83,
+          "TCK": 83,
+          "RUK": 82,
+          "FIT": 87
+        }
+      },
+      {
+        "name": "Richie Arnold",
+        "position": "LK2",
+        "age": 32,
+        "stats": {
+          "LNO": 85,
+          "CAR": 79,
+          "TCK": 81,
+          "RUK": 80,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "François Cros",
+        "position": "BF",
+        "age": 29,
+        "stats": {
+          "CAR": 84,
+          "TCK": 86,
+          "RUK": 84,
+          "FIT": 87,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Anthony Jelonch",
+        "position": "OF",
+        "age": 29,
+        "stats": {
+          "CAR": 83,
+          "TCK": 85,
+          "RUK": 83,
+          "FIT": 86,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Théo Ntamack",
+        "position": "N8",
+        "age": 21,
+        "stats": {
+          "CAR": 83,
+          "TCK": 80,
+          "RUK": 78,
+          "FIT": 84,
+          "PAC": 78
+        }
+      },
+      {
+        "name": "Antoine Dupont",
+        "position": "SH",
+        "age": 28,
+        "stats": {
+          "PAC": 93,
+          "HND": 94,
+          "VIS": 93,
+          "KCK": 82,
+          "EVA": 90
+        }
+      },
+      {
+        "name": "Romain Ntamack",
+        "position": "FH",
+        "age": 26,
+        "stats": {
+          "KCK": 89,
+          "HND": 86,
+          "VIS": 89,
+          "PAC": 77,
+          "EVA": 80
+        }
+      },
+      {
+        "name": "Pita Ahki",
+        "position": "IC",
+        "age": 31,
+        "stats": {
+          "PAC": 83,
+          "HND": 81,
+          "VIS": 80,
+          "EVA": 81,
+          "CAR": 81,
+          "TCK": 74
+        }
+      },
+      {
+        "name": "Juan Cruz Mallia",
+        "position": "OC",
+        "age": 27,
+        "stats": {
+          "PAC": 87,
+          "HND": 82,
+          "VIS": 81,
+          "EVA": 85,
+          "CAR": 80,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Matthis Lebel",
+        "position": "WL",
+        "age": 24,
+        "stats": {
+          "PAC": 90,
+          "EVA": 87,
+          "HND": 79,
+          "CAR": 81,
+          "TCK": 67
+        }
+      },
+      {
+        "name": "Cheslin Kolbe",
+        "position": "WR",
+        "age": 31,
+        "stats": {
+          "PAC": 93,
+          "EVA": 92,
+          "HND": 82,
+          "CAR": 82,
+          "TCK": 68,
+          "KCK": 79
+        }
+      },
+      {
+        "name": "Thomas Ramos",
+        "position": "FB",
+        "age": 29,
+        "stats": {
+          "PAC": 88,
+          "EVA": 87,
+          "KCK": 87,
+          "HND": 84,
+          "VIS": 85
+        }
+      }
+    ]
+  },
+  {
+    "name": "La Rochelle",
+    "shortName": "LRO",
+    "leagueId": "top_14",
+    "roster": [
+      {
+        "name": "Dany Priso",
+        "position": "LHP",
+        "age": 28,
+        "stats": {
+          "SCR": 85,
+          "LNO": 73,
+          "CAR": 78,
+          "TCK": 73,
+          "RUK": 77,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Pierre Bourgarit",
+        "position": "HOO",
+        "age": 28,
+        "stats": {
+          "SCR": 86,
+          "LNO": 84,
+          "CAR": 76,
+          "TCK": 78,
+          "FIT": 85
+        }
+      },
+      {
+        "name": "Uini Atonio",
+        "position": "THP",
+        "age": 34,
+        "stats": {
+          "SCR": 88,
+          "LNO": 73,
+          "CAR": 79,
+          "TCK": 73,
+          "RUK": 78,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Thomas Lavault",
+        "position": "LK1",
+        "age": 27,
+        "stats": {
+          "LNO": 84,
+          "CAR": 80,
+          "TCK": 80,
+          "RUK": 79,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Will Skelton",
+        "position": "LK2",
+        "age": 32,
+        "stats": {
+          "LNO": 87,
+          "CAR": 83,
+          "TCK": 81,
+          "RUK": 81,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Wiaan Liebenberg",
+        "position": "BF",
+        "age": 31,
+        "stats": {
+          "CAR": 83,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 85,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Levani Botia",
+        "position": "OF",
+        "age": 33,
+        "stats": {
+          "CAR": 84,
+          "TCK": 86,
+          "RUK": 83,
+          "FIT": 84,
+          "PAC": 77
+        }
+      },
+      {
+        "name": "Gregory Alldritt",
+        "position": "N8",
+        "age": 27,
+        "stats": {
+          "CAR": 89,
+          "TCK": 85,
+          "RUK": 83,
+          "FIT": 88,
+          "PAC": 80
+        }
+      },
+      {
+        "name": "Tawera Kerr-Barlow",
+        "position": "SH",
+        "age": 35,
+        "stats": {
+          "PAC": 79,
+          "HND": 83,
+          "VIS": 82,
+          "KCK": 70
+        }
+      },
+      {
+        "name": "Antoine Hastoy",
+        "position": "FH",
+        "age": 27,
+        "stats": {
+          "KCK": 87,
+          "HND": 83,
+          "VIS": 85,
+          "PAC": 74,
+          "EVA": 76
+        }
+      },
+      {
+        "name": "Pierre Popelin",
+        "position": "IC",
+        "age": 26,
+        "stats": {
+          "PAC": 80,
+          "HND": 79,
+          "VIS": 78,
+          "EVA": 78,
+          "CAR": 77,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Jonathan Danty",
+        "position": "OC",
+        "age": 30,
+        "stats": {
+          "PAC": 82,
+          "HND": 80,
+          "VIS": 78,
+          "EVA": 79,
+          "CAR": 83,
+          "TCK": 77
+        }
+      },
+      {
+        "name": "Raymond Rhule",
+        "position": "WL",
+        "age": 30,
+        "stats": {
+          "PAC": 87,
+          "EVA": 84,
+          "HND": 76,
+          "CAR": 79,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Dillyn Leyds",
+        "position": "WR",
+        "age": 32,
+        "stats": {
+          "PAC": 88,
+          "EVA": 86,
+          "HND": 79,
+          "CAR": 79,
+          "TCK": 66,
+          "KCK": 77
+        }
+      },
+      {
+        "name": "Arthur Retière",
+        "position": "FB",
+        "age": 24,
+        "stats": {
+          "PAC": 85,
+          "EVA": 83,
+          "KCK": 80,
+          "HND": 80,
+          "VIS": 80
+        }
+      }
+    ]
+  },
+  {
+    "name": "Racing 92",
+    "shortName": "RAC",
+    "leagueId": "top_14",
+    "roster": [
+      {
+        "name": "Hassane Kolingar",
+        "position": "LHP",
+        "age": 31,
+        "stats": {
+          "SCR": 84,
+          "LNO": 72,
+          "CAR": 77,
+          "TCK": 72,
+          "RUK": 76,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Janick Tarrit",
+        "position": "HOO",
+        "age": 27,
+        "stats": {
+          "SCR": 83,
+          "LNO": 80,
+          "CAR": 73,
+          "TCK": 74,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Cedate Gomes Sa",
+        "position": "THP",
+        "age": 31,
+        "stats": {
+          "SCR": 85,
+          "LNO": 71,
+          "CAR": 76,
+          "TCK": 72,
+          "RUK": 76,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Donovan Taofifenua",
+        "position": "LK1",
+        "age": 32,
+        "stats": {
+          "LNO": 83,
+          "CAR": 79,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Cameron Woki",
+        "position": "LK2",
+        "age": 25,
+        "stats": {
+          "LNO": 83,
+          "CAR": 80,
+          "TCK": 80,
+          "RUK": 79,
+          "FIT": 85
+        }
+      },
+      {
+        "name": "Yoan Tanga",
+        "position": "BF",
+        "age": 30,
+        "stats": {
+          "CAR": 84,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 85,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Baptiste Chouzenoux",
+        "position": "OF",
+        "age": 30,
+        "stats": {
+          "CAR": 81,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 83,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Wenceslas Lauret",
+        "position": "N8",
+        "age": 35,
+        "stats": {
+          "CAR": 81,
+          "TCK": 80,
+          "RUK": 78,
+          "FIT": 81,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Nolann Le Garrec",
+        "position": "SH",
+        "age": 23,
+        "stats": {
+          "PAC": 84,
+          "HND": 84,
+          "VIS": 83,
+          "KCK": 72
+        }
+      },
+      {
+        "name": "Finn Russell",
+        "position": "FH",
+        "age": 32,
+        "stats": {
+          "KCK": 86,
+          "HND": 88,
+          "VIS": 91,
+          "PAC": 73,
+          "EVA": 76
+        }
+      },
+      {
+        "name": "Virimi Vakatawa",
+        "position": "IC",
+        "age": 31,
+        "stats": {
+          "PAC": 87,
+          "HND": 81,
+          "VIS": 79,
+          "EVA": 85,
+          "CAR": 82,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Henry Chavancy",
+        "position": "OC",
+        "age": 34,
+        "stats": {
+          "PAC": 79,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 77,
+          "CAR": 76,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Teddy Thomas",
+        "position": "WL",
+        "age": 32,
+        "stats": {
+          "PAC": 90,
+          "EVA": 88,
+          "HND": 78,
+          "CAR": 80,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Juan Imhoff",
+        "position": "WR",
+        "age": 36,
+        "stats": {
+          "PAC": 88,
+          "EVA": 86,
+          "HND": 77,
+          "CAR": 78,
+          "TCK": 64
+        }
+      },
+      {
+        "name": "Brice Dulin",
+        "position": "FB",
+        "age": 33,
+        "stats": {
+          "PAC": 86,
+          "EVA": 85,
+          "KCK": 84,
+          "HND": 82,
+          "VIS": 83
+        }
+      }
+    ]
+  },
+  {
+    "name": "Bordeaux-Bègles",
+    "shortName": "BOR",
+    "leagueId": "top_14",
+    "roster": [
+      {
+        "name": "Jefferson Poirot",
+        "position": "LHP",
+        "age": 32,
+        "stats": {
+          "SCR": 85,
+          "LNO": 72,
+          "CAR": 77,
+          "TCK": 72,
+          "RUK": 76,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Maxime Lamothe",
+        "position": "HOO",
+        "age": 29,
+        "stats": {
+          "SCR": 83,
+          "LNO": 80,
+          "CAR": 72,
+          "TCK": 74,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Lekso Kaulashvili",
+        "position": "THP",
+        "age": 28,
+        "stats": {
+          "SCR": 83,
+          "LNO": 70,
+          "CAR": 75,
+          "TCK": 71,
+          "RUK": 74,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Kane Douglas",
+        "position": "LK1",
+        "age": 34,
+        "stats": {
+          "LNO": 82,
+          "CAR": 77,
+          "TCK": 78,
+          "RUK": 77,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Nico Chapuis",
+        "position": "LK2",
+        "age": 32,
+        "stats": {
+          "LNO": 80,
+          "CAR": 76,
+          "TCK": 76,
+          "RUK": 75,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Mahamadou Diaby",
+        "position": "BF",
+        "age": 26,
+        "stats": {
+          "CAR": 83,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 85,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Yoram Moefana",
+        "position": "OF",
+        "age": 24,
+        "stats": {
+          "CAR": 82,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 84,
+          "PAC": 78
+        }
+      },
+      {
+        "name": "Cameron Woki",
+        "position": "N8",
+        "age": 25,
+        "stats": {
+          "CAR": 85,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 86,
+          "PAC": 79
+        }
+      },
+      {
+        "name": "Maxime Lucu",
+        "position": "SH",
+        "age": 30,
+        "stats": {
+          "PAC": 81,
+          "HND": 84,
+          "VIS": 83,
+          "KCK": 72
+        }
+      },
+      {
+        "name": "Matthieu Jalibert",
+        "position": "FH",
+        "age": 26,
+        "stats": {
+          "KCK": 87,
+          "HND": 86,
+          "VIS": 87,
+          "PAC": 76,
+          "EVA": 79
+        }
+      },
+      {
+        "name": "Yoram Moefana",
+        "position": "IC",
+        "age": 24,
+        "stats": {
+          "PAC": 84,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 82,
+          "CAR": 80,
+          "TCK": 73
+        }
+      },
+      {
+        "name": "Ben Lam",
+        "position": "OC",
+        "age": 32,
+        "stats": {
+          "PAC": 87,
+          "HND": 77,
+          "VIS": 75,
+          "EVA": 84,
+          "CAR": 80,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Damian Penaud",
+        "position": "WL",
+        "age": 27,
+        "stats": {
+          "PAC": 91,
+          "EVA": 89,
+          "HND": 80,
+          "CAR": 82,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Louis Bielle-Biarrey",
+        "position": "WR",
+        "age": 22,
+        "stats": {
+          "PAC": 92,
+          "EVA": 90,
+          "HND": 80,
+          "CAR": 82,
+          "TCK": 67
+        }
+      },
+      {
+        "name": "Nans Ducuing",
+        "position": "FB",
+        "age": 29,
+        "stats": {
+          "PAC": 86,
+          "EVA": 85,
+          "KCK": 80,
+          "HND": 80,
+          "VIS": 80
+        }
+      }
+    ]
+  },
+  {
+    "name": "Clermont Auvergne",
+    "shortName": "CLR",
+    "leagueId": "top_14",
+    "roster": [
+      {
+        "name": "Etienne Falgoux",
+        "position": "LHP",
+        "age": 29,
+        "stats": {
+          "SCR": 83,
+          "LNO": 71,
+          "CAR": 75,
+          "TCK": 71,
+          "RUK": 74,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Étienne Setiano",
+        "position": "HOO",
+        "age": 28,
+        "stats": {
+          "SCR": 83,
+          "LNO": 79,
+          "CAR": 72,
+          "TCK": 73,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Cristian Ojovan",
+        "position": "THP",
+        "age": 28,
+        "stats": {
+          "SCR": 82,
+          "LNO": 69,
+          "CAR": 73,
+          "TCK": 69,
+          "RUK": 72,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Paul Jedrasiak",
+        "position": "LK1",
+        "age": 31,
+        "stats": {
+          "LNO": 82,
+          "CAR": 77,
+          "TCK": 78,
+          "RUK": 77,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Sébastien Vahaamahina",
+        "position": "LK2",
+        "age": 32,
+        "stats": {
+          "LNO": 83,
+          "CAR": 79,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Alexandre Fischer",
+        "position": "BF",
+        "age": 25,
+        "stats": {
+          "CAR": 80,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 83,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Peceli Yato",
+        "position": "OF",
+        "age": 30,
+        "stats": {
+          "CAR": 86,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 85,
+          "PAC": 79
+        }
+      },
+      {
+        "name": "Fritz Lee",
+        "position": "N8",
+        "age": 34,
+        "stats": {
+          "CAR": 83,
+          "TCK": 81,
+          "RUK": 79,
+          "FIT": 82,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Sébastien Bezy",
+        "position": "SH",
+        "age": 33,
+        "stats": {
+          "PAC": 79,
+          "HND": 82,
+          "VIS": 81,
+          "KCK": 70
+        }
+      },
+      {
+        "name": "Florian Viel",
+        "position": "FH",
+        "age": 26,
+        "stats": {
+          "KCK": 82,
+          "HND": 81,
+          "VIS": 81,
+          "PAC": 73,
+          "EVA": 73
+        }
+      },
+      {
+        "name": "George Moala",
+        "position": "IC",
+        "age": 32,
+        "stats": {
+          "PAC": 82,
+          "HND": 79,
+          "VIS": 77,
+          "EVA": 80,
+          "CAR": 80,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Alivereti Raka",
+        "position": "OC",
+        "age": 31,
+        "stats": {
+          "PAC": 86,
+          "HND": 78,
+          "VIS": 76,
+          "EVA": 83,
+          "CAR": 79,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Kotaro Matsushima",
+        "position": "WL",
+        "age": 31,
+        "stats": {
+          "PAC": 90,
+          "EVA": 88,
+          "HND": 79,
+          "CAR": 80,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "George Moala",
+        "position": "WR",
+        "age": 32,
+        "stats": {
+          "PAC": 85,
+          "EVA": 82,
+          "HND": 77,
+          "CAR": 80,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Nick Abendanon",
+        "position": "FB",
+        "age": 37,
+        "stats": {
+          "PAC": 83,
+          "EVA": 82,
+          "KCK": 79,
+          "HND": 80,
+          "VIS": 80
+        }
+      }
+    ]
+  },
+  {
+    "name": "Montpellier",
+    "shortName": "MTL",
+    "leagueId": "top_14",
+    "roster": [
+      {
+        "name": "Titi Lamositele",
+        "position": "LHP",
+        "age": 30,
+        "stats": {
+          "SCR": 85,
+          "LNO": 72,
+          "CAR": 77,
+          "TCK": 72,
+          "RUK": 76,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Benoît Paillaugue",
+        "position": "HOO",
+        "age": 36,
+        "stats": {
+          "SCR": 82,
+          "LNO": 79,
+          "CAR": 70,
+          "TCK": 72,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Mohamed Haouas",
+        "position": "THP",
+        "age": 30,
+        "stats": {
+          "SCR": 85,
+          "LNO": 71,
+          "CAR": 77,
+          "TCK": 72,
+          "RUK": 76,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Albertus Marais",
+        "position": "LK1",
+        "age": 31,
+        "stats": {
+          "LNO": 83,
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Florian Verhaeghe",
+        "position": "LK2",
+        "age": 26,
+        "stats": {
+          "LNO": 80,
+          "CAR": 76,
+          "TCK": 77,
+          "RUK": 76,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Kelian Galletier",
+        "position": "BF",
+        "age": 30,
+        "stats": {
+          "CAR": 83,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 84,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Yacouba Camara",
+        "position": "OF",
+        "age": 33,
+        "stats": {
+          "CAR": 82,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 83,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Zak Fagerson",
+        "position": "N8",
+        "age": 29,
+        "stats": {
+          "CAR": 83,
+          "TCK": 80,
+          "RUK": 78,
+          "FIT": 83,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Cobus Reinach",
+        "position": "SH",
+        "age": 33,
+        "stats": {
+          "PAC": 84,
+          "HND": 85,
+          "VIS": 83,
+          "KCK": 72
+        }
+      },
+      {
+        "name": "Louis Foursans",
+        "position": "FH",
+        "age": 25,
+        "stats": {
+          "KCK": 83,
+          "HND": 81,
+          "VIS": 81,
+          "PAC": 73,
+          "EVA": 73
+        }
+      },
+      {
+        "name": "Joël Kpoku",
+        "position": "IC",
+        "age": 22,
+        "stats": {
+          "PAC": 81,
+          "HND": 79,
+          "VIS": 77,
+          "EVA": 79,
+          "CAR": 78,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Nemani Nadolo",
+        "position": "OC",
+        "age": 35,
+        "stats": {
+          "PAC": 83,
+          "HND": 77,
+          "VIS": 75,
+          "EVA": 79,
+          "CAR": 83,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Sofiane Guitoune",
+        "position": "WL",
+        "age": 33,
+        "stats": {
+          "PAC": 85,
+          "EVA": 83,
+          "HND": 76,
+          "CAR": 78,
+          "TCK": 64
+        }
+      },
+      {
+        "name": "Mamadou Ouedraogo",
+        "position": "WR",
+        "age": 22,
+        "stats": {
+          "PAC": 88,
+          "EVA": 85,
+          "HND": 75,
+          "CAR": 78,
+          "TCK": 63
+        }
+      },
+      {
+        "name": "Anthony Bouthier",
+        "position": "FB",
+        "age": 29,
+        "stats": {
+          "PAC": 86,
+          "EVA": 84,
+          "KCK": 81,
+          "HND": 80,
+          "VIS": 80
+        }
+      }
+    ]
+  },
+  {
+    "name": "Stade Français",
+    "shortName": "SFP",
+    "leagueId": "top_14",
+    "roster": [
+      {
+        "name": "Clément Castets",
+        "position": "LHP",
+        "age": 27,
+        "stats": {
+          "SCR": 82,
+          "LNO": 70,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Julien Lagarde",
+        "position": "HOO",
+        "age": 32,
+        "stats": {
+          "SCR": 82,
+          "LNO": 79,
+          "CAR": 71,
+          "TCK": 73,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Sipili Falatea",
+        "position": "THP",
+        "age": 27,
+        "stats": {
+          "SCR": 84,
+          "LNO": 71,
+          "CAR": 76,
+          "TCK": 71,
+          "RUK": 75,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Sekou Macalou",
+        "position": "LK1",
+        "age": 29,
+        "stats": {
+          "LNO": 82,
+          "CAR": 83,
+          "TCK": 81,
+          "RUK": 80,
+          "FIT": 86
+        }
+      },
+      {
+        "name": "Baptiste Pesenti",
+        "position": "LK2",
+        "age": 25,
+        "stats": {
+          "LNO": 80,
+          "CAR": 76,
+          "TCK": 77,
+          "RUK": 76,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Ibrahim Diallo",
+        "position": "BF",
+        "age": 24,
+        "stats": {
+          "CAR": 81,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 83,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Dylan Cretin",
+        "position": "OF",
+        "age": 28,
+        "stats": {
+          "CAR": 81,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 83,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Lester Etien",
+        "position": "N8",
+        "age": 22,
+        "stats": {
+          "CAR": 82,
+          "TCK": 79,
+          "RUK": 77,
+          "FIT": 83,
+          "PAC": 77
+        }
+      },
+      {
+        "name": "Joris Segonds",
+        "position": "SH",
+        "age": 26,
+        "stats": {
+          "PAC": 80,
+          "HND": 82,
+          "VIS": 81,
+          "KCK": 70
+        }
+      },
+      {
+        "name": "Joris Segonds",
+        "position": "FH",
+        "age": 26,
+        "stats": {
+          "KCK": 84,
+          "HND": 82,
+          "VIS": 82,
+          "PAC": 73,
+          "EVA": 74
+        }
+      },
+      {
+        "name": "Jonathan Danty",
+        "position": "IC",
+        "age": 30,
+        "stats": {
+          "PAC": 82,
+          "HND": 79,
+          "VIS": 77,
+          "EVA": 80,
+          "CAR": 82,
+          "TCK": 75
+        }
+      },
+      {
+        "name": "Geoffrey Doumayrou",
+        "position": "OC",
+        "age": 29,
+        "stats": {
+          "PAC": 80,
+          "HND": 78,
+          "VIS": 77,
+          "EVA": 78,
+          "CAR": 77,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Paul Gabrillagues",
+        "position": "WL",
+        "age": 29,
+        "stats": {
+          "PAC": 84,
+          "EVA": 81,
+          "HND": 74,
+          "CAR": 77,
+          "TCK": 63
+        }
+      },
+      {
+        "name": "Alban Placines",
+        "position": "WR",
+        "age": 25,
+        "stats": {
+          "PAC": 86,
+          "EVA": 83,
+          "HND": 74,
+          "CAR": 77,
+          "TCK": 62
+        }
+      },
+      {
+        "name": "Kylan Hamdaoui",
+        "position": "FB",
+        "age": 23,
+        "stats": {
+          "PAC": 85,
+          "EVA": 83,
+          "KCK": 79,
+          "HND": 78,
+          "VIS": 78
+        }
+      }
+    ]
+  },
+  {
+    "name": "Lyon OU",
+    "shortName": "LYO",
+    "leagueId": "top_14",
+    "roster": [
+      {
+        "name": "Charlie Faumuina",
+        "position": "LHP",
+        "age": 37,
+        "stats": {
+          "SCR": 83,
+          "LNO": 70,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 77
+        }
+      },
+      {
+        "name": "Romain Peillard",
+        "position": "HOO",
+        "age": 28,
+        "stats": {
+          "SCR": 82,
+          "LNO": 78,
+          "CAR": 70,
+          "TCK": 72,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Pierre-Louis Barassi",
+        "position": "THP",
+        "age": 26,
+        "stats": {
+          "SCR": 82,
+          "LNO": 69,
+          "CAR": 73,
+          "TCK": 69,
+          "RUK": 72,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Killian Tixeront",
+        "position": "LK1",
+        "age": 26,
+        "stats": {
+          "LNO": 81,
+          "CAR": 76,
+          "TCK": 77,
+          "RUK": 76,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Colby Fainga'a",
+        "position": "LK2",
+        "age": 29,
+        "stats": {
+          "LNO": 80,
+          "CAR": 76,
+          "TCK": 77,
+          "RUK": 76,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Etienne Oosthuizen",
+        "position": "BF",
+        "age": 34,
+        "stats": {
+          "CAR": 82,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 82,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Julien Puricelli",
+        "position": "OF",
+        "age": 29,
+        "stats": {
+          "CAR": 79,
+          "TCK": 81,
+          "RUK": 79,
+          "FIT": 82,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Baptiste Couilloud",
+        "position": "N8",
+        "age": 27,
+        "stats": {
+          "CAR": 80,
+          "TCK": 78,
+          "RUK": 76,
+          "FIT": 82,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Baptiste Couilloud",
+        "position": "SH",
+        "age": 27,
+        "stats": {
+          "PAC": 83,
+          "HND": 83,
+          "VIS": 82,
+          "KCK": 70
+        }
+      },
+      {
+        "name": "Léo Berdeu",
+        "position": "FH",
+        "age": 26,
+        "stats": {
+          "KCK": 82,
+          "HND": 80,
+          "VIS": 80,
+          "PAC": 73,
+          "EVA": 73
+        }
+      },
+      {
+        "name": "Pierre-Louis Barassi",
+        "position": "IC",
+        "age": 26,
+        "stats": {
+          "PAC": 81,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 79,
+          "CAR": 77,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Manu Samoa",
+        "position": "OC",
+        "age": 27,
+        "stats": {
+          "PAC": 82,
+          "HND": 78,
+          "VIS": 76,
+          "EVA": 80,
+          "CAR": 79,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Alexis Buros",
+        "position": "WL",
+        "age": 31,
+        "stats": {
+          "PAC": 86,
+          "EVA": 83,
+          "HND": 76,
+          "CAR": 77,
+          "TCK": 63
+        }
+      },
+      {
+        "name": "Josua Tuisova",
+        "position": "WR",
+        "age": 30,
+        "stats": {
+          "PAC": 87,
+          "EVA": 80,
+          "HND": 75,
+          "CAR": 86,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Toby Arnold",
+        "position": "FB",
+        "age": 27,
+        "stats": {
+          "PAC": 84,
+          "EVA": 82,
+          "KCK": 80,
+          "HND": 79,
+          "VIS": 79
+        }
+      }
+    ]
+  },
+  {
+    "name": "Section Paloise",
+    "shortName": "PAU",
+    "leagueId": "top_14",
+    "roster": [
+      {
+        "name": "Quentin Walcker",
+        "position": "LHP",
+        "age": 28,
+        "stats": {
+          "SCR": 81,
+          "LNO": 70,
+          "CAR": 73,
+          "TCK": 69,
+          "RUK": 72,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Adrien Pélissié",
+        "position": "HOO",
+        "age": 27,
+        "stats": {
+          "SCR": 80,
+          "LNO": 77,
+          "CAR": 69,
+          "TCK": 70,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Paul Kochert",
+        "position": "THP",
+        "age": 27,
+        "stats": {
+          "SCR": 81,
+          "LNO": 68,
+          "CAR": 72,
+          "TCK": 68,
+          "RUK": 71,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Sitaleki Timani",
+        "position": "LK1",
+        "age": 35,
+        "stats": {
+          "LNO": 82,
+          "CAR": 77,
+          "TCK": 77,
+          "RUK": 76,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Bastien Camus",
+        "position": "LK2",
+        "age": 26,
+        "stats": {
+          "LNO": 78,
+          "CAR": 74,
+          "TCK": 75,
+          "RUK": 74,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Cameron Woki",
+        "position": "BF",
+        "age": 25,
+        "stats": {
+          "CAR": 80,
+          "TCK": 81,
+          "RUK": 79,
+          "FIT": 82,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Lucas Bachelier",
+        "position": "OF",
+        "age": 26,
+        "stats": {
+          "CAR": 79,
+          "TCK": 80,
+          "RUK": 78,
+          "FIT": 81,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Arnaud Sébille",
+        "position": "N8",
+        "age": 29,
+        "stats": {
+          "CAR": 80,
+          "TCK": 77,
+          "RUK": 75,
+          "FIT": 81,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Mickaël Meslier",
+        "position": "SH",
+        "age": 26,
+        "stats": {
+          "PAC": 80,
+          "HND": 81,
+          "VIS": 80,
+          "KCK": 68
+        }
+      },
+      {
+        "name": "Zack Henry",
+        "position": "FH",
+        "age": 29,
+        "stats": {
+          "KCK": 84,
+          "HND": 80,
+          "VIS": 80,
+          "PAC": 73,
+          "EVA": 73
+        }
+      },
+      {
+        "name": "Sam Arnold",
+        "position": "IC",
+        "age": 29,
+        "stats": {
+          "PAC": 79,
+          "HND": 78,
+          "VIS": 76,
+          "EVA": 77,
+          "CAR": 77,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Romain Lonca",
+        "position": "OC",
+        "age": 25,
+        "stats": {
+          "PAC": 81,
+          "HND": 77,
+          "VIS": 75,
+          "EVA": 79,
+          "CAR": 76,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Steffon Armitage",
+        "position": "WL",
+        "age": 38,
+        "stats": {
+          "PAC": 76,
+          "EVA": 73,
+          "HND": 72,
+          "CAR": 79,
+          "TCK": 77
+        }
+      },
+      {
+        "name": "Banite Mataitoga",
+        "position": "WR",
+        "age": 24,
+        "stats": {
+          "PAC": 86,
+          "EVA": 83,
+          "HND": 73,
+          "CAR": 77,
+          "TCK": 62
+        }
+      },
+      {
+        "name": "Benjamin Lapeyre",
+        "position": "FB",
+        "age": 27,
+        "stats": {
+          "PAC": 84,
+          "EVA": 82,
+          "KCK": 78,
+          "HND": 78,
+          "VIS": 78
+        }
+      }
+    ]
+  },
+  {
+    "name": "USA Perpignan",
+    "shortName": "PER",
+    "leagueId": "top_14",
+    "roster": [
+      {
+        "name": "Sione Taufa",
+        "position": "LHP",
+        "age": 30,
+        "stats": {
+          "SCR": 80,
+          "LNO": 69,
+          "CAR": 73,
+          "TCK": 69,
+          "RUK": 72,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Cody Walker",
+        "position": "HOO",
+        "age": 27,
+        "stats": {
+          "SCR": 79,
+          "LNO": 76,
+          "CAR": 68,
+          "TCK": 69,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Madiu Batiboia",
+        "position": "THP",
+        "age": 27,
+        "stats": {
+          "SCR": 80,
+          "LNO": 67,
+          "CAR": 71,
+          "TCK": 67,
+          "RUK": 70,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Maël Moustin",
+        "position": "LK1",
+        "age": 25,
+        "stats": {
+          "LNO": 77,
+          "CAR": 73,
+          "TCK": 74,
+          "RUK": 73,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Thibault Lassalle",
+        "position": "LK2",
+        "age": 28,
+        "stats": {
+          "LNO": 77,
+          "CAR": 73,
+          "TCK": 74,
+          "RUK": 73,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Samuel Ezeala",
+        "position": "BF",
+        "age": 25,
+        "stats": {
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 77,
+          "FIT": 80,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Arthur Coville",
+        "position": "OF",
+        "age": 23,
+        "stats": {
+          "CAR": 76,
+          "TCK": 78,
+          "RUK": 76,
+          "FIT": 79,
+          "PAC": 71
+        }
+      },
+      {
+        "name": "Mathieu Bonello",
+        "position": "N8",
+        "age": 28,
+        "stats": {
+          "CAR": 78,
+          "TCK": 75,
+          "RUK": 73,
+          "FIT": 79,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Alexi Bales",
+        "position": "SH",
+        "age": 28,
+        "stats": {
+          "PAC": 78,
+          "HND": 79,
+          "VIS": 78,
+          "KCK": 67
+        }
+      },
+      {
+        "name": "Arthur Coville",
+        "position": "FH",
+        "age": 23,
+        "stats": {
+          "KCK": 79,
+          "HND": 78,
+          "VIS": 78,
+          "PAC": 71,
+          "EVA": 71
+        }
+      },
+      {
+        "name": "Mathieu Acebes",
+        "position": "IC",
+        "age": 29,
+        "stats": {
+          "PAC": 78,
+          "HND": 76,
+          "VIS": 74,
+          "EVA": 76,
+          "CAR": 75,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Sylvain Taumalolo",
+        "position": "OC",
+        "age": 27,
+        "stats": {
+          "PAC": 80,
+          "HND": 75,
+          "VIS": 73,
+          "EVA": 78,
+          "CAR": 77,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Nelson Epée",
+        "position": "WL",
+        "age": 26,
+        "stats": {
+          "PAC": 85,
+          "EVA": 82,
+          "HND": 72,
+          "CAR": 75,
+          "TCK": 61
+        }
+      },
+      {
+        "name": "Kisi Pulu",
+        "position": "WR",
+        "age": 24,
+        "stats": {
+          "PAC": 84,
+          "EVA": 81,
+          "HND": 71,
+          "CAR": 74,
+          "TCK": 60
+        }
+      },
+      {
+        "name": "Thomas Fortunel",
+        "position": "FB",
+        "age": 33,
+        "stats": {
+          "PAC": 82,
+          "EVA": 80,
+          "KCK": 77,
+          "HND": 76,
+          "VIS": 76
+        }
+      }
+    ]
+  },
+  {
+    "name": "Castres Olympique",
+    "shortName": "CAS",
+    "leagueId": "top_14",
+    "roster": [
+      {
+        "name": "Yann Laousse-Azpiazu",
+        "position": "LHP",
+        "age": 32,
+        "stats": {
+          "SCR": 82,
+          "LNO": 70,
+          "CAR": 73,
+          "TCK": 69,
+          "RUK": 72,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Gaëtan Barlot",
+        "position": "HOO",
+        "age": 31,
+        "stats": {
+          "SCR": 82,
+          "LNO": 78,
+          "CAR": 70,
+          "TCK": 71,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Luc Marchetti",
+        "position": "THP",
+        "age": 28,
+        "stats": {
+          "SCR": 82,
+          "LNO": 68,
+          "CAR": 72,
+          "TCK": 68,
+          "RUK": 71,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Sébastien Vahaamahina",
+        "position": "LK1",
+        "age": 32,
+        "stats": {
+          "LNO": 82,
+          "CAR": 77,
+          "TCK": 78,
+          "RUK": 77,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Julien Brennan",
+        "position": "LK2",
+        "age": 28,
+        "stats": {
+          "LNO": 79,
+          "CAR": 74,
+          "TCK": 75,
+          "RUK": 74,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Mathieu Babillot",
+        "position": "BF",
+        "age": 31,
+        "stats": {
+          "CAR": 80,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 82,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Filipo Nakosi",
+        "position": "OF",
+        "age": 31,
+        "stats": {
+          "CAR": 79,
+          "TCK": 79,
+          "RUK": 77,
+          "FIT": 80,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Pierre-Henry Broncan",
+        "position": "N8",
+        "age": 27,
+        "stats": {
+          "CAR": 79,
+          "TCK": 77,
+          "RUK": 75,
+          "FIT": 80,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Romain Bézy",
+        "position": "SH",
+        "age": 33,
+        "stats": {
+          "PAC": 78,
+          "HND": 81,
+          "VIS": 80,
+          "KCK": 70
+        }
+      },
+      {
+        "name": "Benjamin Urdapilleta",
+        "position": "FH",
+        "age": 35,
+        "stats": {
+          "KCK": 85,
+          "HND": 81,
+          "VIS": 81,
+          "PAC": 71,
+          "EVA": 71
+        }
+      },
+      {
+        "name": "Wesley Fofana",
+        "position": "IC",
+        "age": 35,
+        "stats": {
+          "PAC": 81,
+          "HND": 79,
+          "VIS": 78,
+          "EVA": 79,
+          "CAR": 77,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Thomas Combezou",
+        "position": "OC",
+        "age": 31,
+        "stats": {
+          "PAC": 79,
+          "HND": 77,
+          "VIS": 75,
+          "EVA": 77,
+          "CAR": 76,
+          "TCK": 69
+        }
+      },
+      {
+        "name": "Filipo Nakosi",
+        "position": "WL",
+        "age": 31,
+        "stats": {
+          "PAC": 87,
+          "EVA": 84,
+          "HND": 74,
+          "CAR": 78,
+          "TCK": 63
+        }
+      },
+      {
+        "name": "Julien Dumora",
+        "position": "WR",
+        "age": 31,
+        "stats": {
+          "PAC": 84,
+          "EVA": 82,
+          "HND": 74,
+          "CAR": 76,
+          "TCK": 62
+        }
+      },
+      {
+        "name": "Benjamin Urdapilleta",
+        "position": "FB",
+        "age": 35,
+        "stats": {
+          "PAC": 78,
+          "EVA": 77,
+          "KCK": 84,
+          "HND": 80,
+          "VIS": 80
+        }
+      }
+    ]
+  },
+  {
+    "name": "Aviron Bayonnais",
+    "shortName": "BAY",
+    "leagueId": "top_14",
+    "roster": [
+      {
+        "name": "Manuel Leindekar",
+        "position": "LHP",
+        "age": 30,
+        "stats": {
+          "SCR": 81,
+          "LNO": 69,
+          "CAR": 73,
+          "TCK": 69,
+          "RUK": 71,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Mataora Doilalo",
+        "position": "HOO",
+        "age": 27,
+        "stats": {
+          "SCR": 80,
+          "LNO": 76,
+          "CAR": 68,
+          "TCK": 69,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Marcel van der Merwe",
+        "position": "THP",
+        "age": 34,
+        "stats": {
+          "SCR": 82,
+          "LNO": 68,
+          "CAR": 72,
+          "TCK": 68,
+          "RUK": 71,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Tevita Cavubati",
+        "position": "LK1",
+        "age": 34,
+        "stats": {
+          "LNO": 81,
+          "CAR": 76,
+          "TCK": 76,
+          "RUK": 75,
+          "FIT": 77
+        }
+      },
+      {
+        "name": "Martin Laveau",
+        "position": "LK2",
+        "age": 25,
+        "stats": {
+          "LNO": 77,
+          "CAR": 73,
+          "TCK": 74,
+          "RUK": 73,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Thomas Tchaptchet",
+        "position": "BF",
+        "age": 26,
+        "stats": {
+          "CAR": 79,
+          "TCK": 80,
+          "RUK": 78,
+          "FIT": 82,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Pierre Hurou",
+        "position": "OF",
+        "age": 25,
+        "stats": {
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 77,
+          "FIT": 81,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Rémi Bourdeau",
+        "position": "N8",
+        "age": 26,
+        "stats": {
+          "CAR": 79,
+          "TCK": 76,
+          "RUK": 74,
+          "FIT": 80,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Maxime Machenaud",
+        "position": "SH",
+        "age": 35,
+        "stats": {
+          "PAC": 77,
+          "HND": 82,
+          "VIS": 81,
+          "KCK": 74
+        }
+      },
+      {
+        "name": "Zack Henry",
+        "position": "FH",
+        "age": 29,
+        "stats": {
+          "KCK": 83,
+          "HND": 79,
+          "VIS": 79,
+          "PAC": 71,
+          "EVA": 71
+        }
+      },
+      {
+        "name": "Asier Usarraga",
+        "position": "IC",
+        "age": 27,
+        "stats": {
+          "PAC": 78,
+          "HND": 76,
+          "VIS": 74,
+          "EVA": 76,
+          "CAR": 75,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Bautista Ezcurra",
+        "position": "OC",
+        "age": 27,
+        "stats": {
+          "PAC": 80,
+          "HND": 76,
+          "VIS": 74,
+          "EVA": 78,
+          "CAR": 76,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Steevy Cerqueira",
+        "position": "WL",
+        "age": 27,
+        "stats": {
+          "PAC": 84,
+          "EVA": 81,
+          "HND": 72,
+          "CAR": 75,
+          "TCK": 61
+        }
+      },
+      {
+        "name": "Marvin O'Connor",
+        "position": "WR",
+        "age": 28,
+        "stats": {
+          "PAC": 83,
+          "EVA": 80,
+          "HND": 72,
+          "CAR": 74,
+          "TCK": 61
+        }
+      },
+      {
+        "name": "Nicolas Depoortère",
+        "position": "FB",
+        "age": 23,
+        "stats": {
+          "PAC": 84,
+          "EVA": 82,
+          "KCK": 77,
+          "HND": 77,
+          "VIS": 77
+        }
+      }
+    ]
+  },
+  {
+    "name": "RC Vannes",
+    "shortName": "VAN",
+    "leagueId": "top_14",
+    "roster": [
+      {
+        "name": "Thibault Lassalle",
+        "position": "LHP",
+        "age": 28,
+        "stats": {
+          "SCR": 79,
+          "LNO": 68,
+          "CAR": 71,
+          "TCK": 67,
+          "RUK": 70,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Lucas Dupont",
+        "position": "HOO",
+        "age": 25,
+        "stats": {
+          "SCR": 78,
+          "LNO": 74,
+          "CAR": 67,
+          "TCK": 68,
+          "FIT": 77
+        }
+      },
+      {
+        "name": "Baptiste Pesenti",
+        "position": "THP",
+        "age": 25,
+        "stats": {
+          "SCR": 79,
+          "LNO": 66,
+          "CAR": 70,
+          "TCK": 66,
+          "RUK": 69,
+          "FIT": 77
+        }
+      },
+      {
+        "name": "Romain Taofifenua",
+        "position": "LK1",
+        "age": 29,
+        "stats": {
+          "LNO": 78,
+          "CAR": 73,
+          "TCK": 73,
+          "RUK": 72,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Victor Lebas",
+        "position": "LK2",
+        "age": 26,
+        "stats": {
+          "LNO": 75,
+          "CAR": 71,
+          "TCK": 71,
+          "RUK": 70,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Afa Amosa",
+        "position": "BF",
+        "age": 28,
+        "stats": {
+          "CAR": 77,
+          "TCK": 78,
+          "RUK": 76,
+          "FIT": 79,
+          "PAC": 71
+        }
+      },
+      {
+        "name": "Rhys Crane",
+        "position": "OF",
+        "age": 27,
+        "stats": {
+          "CAR": 76,
+          "TCK": 77,
+          "RUK": 75,
+          "FIT": 78,
+          "PAC": 70
+        }
+      },
+      {
+        "name": "Thomas Ceyte",
+        "position": "N8",
+        "age": 26,
+        "stats": {
+          "CAR": 77,
+          "TCK": 74,
+          "RUK": 72,
+          "FIT": 78,
+          "PAC": 71
+        }
+      },
+      {
+        "name": "Robin Tchale-Watchou",
+        "position": "SH",
+        "age": 27,
+        "stats": {
+          "PAC": 78,
+          "HND": 78,
+          "VIS": 77,
+          "KCK": 66
+        }
+      },
+      {
+        "name": "Yann Wisniewski",
+        "position": "FH",
+        "age": 29,
+        "stats": {
+          "KCK": 79,
+          "HND": 77,
+          "VIS": 77,
+          "PAC": 70,
+          "EVA": 70
+        }
+      },
+      {
+        "name": "Clovis Le Bail",
+        "position": "IC",
+        "age": 24,
+        "stats": {
+          "PAC": 77,
+          "HND": 74,
+          "VIS": 72,
+          "EVA": 75,
+          "CAR": 73,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Théo Vallée",
+        "position": "OC",
+        "age": 23,
+        "stats": {
+          "PAC": 78,
+          "HND": 73,
+          "VIS": 71,
+          "EVA": 76,
+          "CAR": 73,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Mathieu Belie",
+        "position": "WL",
+        "age": 26,
+        "stats": {
+          "PAC": 83,
+          "EVA": 80,
+          "HND": 70,
+          "CAR": 73,
+          "TCK": 59
+        }
+      },
+      {
+        "name": "Raphaël Lagarde",
+        "position": "WR",
+        "age": 25,
+        "stats": {
+          "PAC": 82,
+          "EVA": 79,
+          "HND": 69,
+          "CAR": 72,
+          "TCK": 58
+        }
+      },
+      {
+        "name": "Boris Palu",
+        "position": "FB",
+        "age": 29,
+        "stats": {
+          "PAC": 81,
+          "EVA": 79,
+          "KCK": 74,
+          "HND": 74,
+          "VIS": 74
+        }
+      }
+    ]
+  },
+  {
+    "name": "Oyonnax Rugby",
+    "shortName": "OYO",
+    "leagueId": "top_14",
+    "roster": [
+      {
+        "name": "Quentin Walcker",
+        "position": "LHP",
+        "age": 28,
+        "stats": {
+          "SCR": 79,
+          "LNO": 68,
+          "CAR": 71,
+          "TCK": 67,
+          "RUK": 70,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Lucas Dessaigne",
+        "position": "HOO",
+        "age": 26,
+        "stats": {
+          "SCR": 78,
+          "LNO": 74,
+          "CAR": 67,
+          "TCK": 68,
+          "FIT": 77
+        }
+      },
+      {
+        "name": "Giorgi Tetrashvili",
+        "position": "THP",
+        "age": 28,
+        "stats": {
+          "SCR": 80,
+          "LNO": 66,
+          "CAR": 71,
+          "TCK": 67,
+          "RUK": 70,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Julien Fumat",
+        "position": "LK1",
+        "age": 30,
+        "stats": {
+          "LNO": 77,
+          "CAR": 72,
+          "TCK": 73,
+          "RUK": 72,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Vincent Giudicelli",
+        "position": "LK2",
+        "age": 26,
+        "stats": {
+          "LNO": 75,
+          "CAR": 71,
+          "TCK": 71,
+          "RUK": 70,
+          "FIT": 77
+        }
+      },
+      {
+        "name": "Nicolas Lamothe",
+        "position": "BF",
+        "age": 28,
+        "stats": {
+          "CAR": 77,
+          "TCK": 78,
+          "RUK": 76,
+          "FIT": 79,
+          "PAC": 71
+        }
+      },
+      {
+        "name": "Pierre Aguillon",
+        "position": "OF",
+        "age": 26,
+        "stats": {
+          "CAR": 75,
+          "TCK": 77,
+          "RUK": 75,
+          "FIT": 78,
+          "PAC": 70
+        }
+      },
+      {
+        "name": "Filipo Nakosi",
+        "position": "N8",
+        "age": 31,
+        "stats": {
+          "CAR": 79,
+          "TCK": 75,
+          "RUK": 73,
+          "FIT": 79,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Lucas Tordo",
+        "position": "SH",
+        "age": 25,
+        "stats": {
+          "PAC": 78,
+          "HND": 78,
+          "VIS": 77,
+          "KCK": 66
+        }
+      },
+      {
+        "name": "Antoine Hastoy",
+        "position": "FH",
+        "age": 27,
+        "stats": {
+          "KCK": 82,
+          "HND": 79,
+          "VIS": 79,
+          "PAC": 71,
+          "EVA": 71
+        }
+      },
+      {
+        "name": "Pierre Fouassier",
+        "position": "IC",
+        "age": 27,
+        "stats": {
+          "PAC": 77,
+          "HND": 74,
+          "VIS": 72,
+          "EVA": 75,
+          "CAR": 73,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Romain Lonca",
+        "position": "OC",
+        "age": 25,
+        "stats": {
+          "PAC": 79,
+          "HND": 73,
+          "VIS": 71,
+          "EVA": 77,
+          "CAR": 73,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Alivereti Veitokani",
+        "position": "WL",
+        "age": 27,
+        "stats": {
+          "PAC": 85,
+          "EVA": 82,
+          "HND": 72,
+          "CAR": 76,
+          "TCK": 62
+        }
+      },
+      {
+        "name": "Geoffrey Cros",
+        "position": "WR",
+        "age": 24,
+        "stats": {
+          "PAC": 83,
+          "EVA": 80,
+          "HND": 71,
+          "CAR": 74,
+          "TCK": 60
+        }
+      },
+      {
+        "name": "Clément Laporte",
+        "position": "FB",
+        "age": 27,
+        "stats": {
+          "PAC": 82,
+          "EVA": 80,
+          "KCK": 76,
+          "HND": 75,
+          "VIS": 75
+        }
+      }
+    ]
+  },
+  {
+    "name": "Leinster Rugby",
+    "shortName": "LEI",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Andrew Porter",
+        "position": "LHP",
+        "age": 29,
+        "stats": {
+          "SCR": 88,
+          "LNO": 74,
+          "CAR": 80,
+          "TCK": 75,
+          "RUK": 79,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Dan Sheehan",
+        "position": "HOO",
+        "age": 27,
+        "stats": {
+          "SCR": 87,
+          "LNO": 85,
+          "CAR": 78,
+          "TCK": 80,
+          "FIT": 87
+        }
+      },
+      {
+        "name": "Tadhg Furlong",
+        "position": "THP",
+        "age": 32,
+        "stats": {
+          "SCR": 92,
+          "LNO": 74,
+          "CAR": 81,
+          "TCK": 76,
+          "RUK": 80,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Ryan Baird",
+        "position": "LK1",
+        "age": 26,
+        "stats": {
+          "LNO": 86,
+          "CAR": 83,
+          "TCK": 83,
+          "RUK": 82,
+          "FIT": 87
+        }
+      },
+      {
+        "name": "James Ryan",
+        "position": "LK2",
+        "age": 29,
+        "stats": {
+          "LNO": 88,
+          "CAR": 82,
+          "TCK": 83,
+          "RUK": 82,
+          "FIT": 86
+        }
+      },
+      {
+        "name": "Caelan Doris",
+        "position": "BF",
+        "age": 26,
+        "stats": {
+          "CAR": 88,
+          "TCK": 86,
+          "RUK": 84,
+          "FIT": 90,
+          "PAC": 80
+        }
+      },
+      {
+        "name": "Josh van der Flier",
+        "position": "OF",
+        "age": 29,
+        "stats": {
+          "CAR": 84,
+          "TCK": 90,
+          "RUK": 88,
+          "FIT": 90,
+          "PAC": 77
+        }
+      },
+      {
+        "name": "Jack Conan",
+        "position": "N8",
+        "age": 32,
+        "stats": {
+          "CAR": 86,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 86,
+          "PAC": 78
+        }
+      },
+      {
+        "name": "Jamison Gibson-Park",
+        "position": "SH",
+        "age": 32,
+        "stats": {
+          "PAC": 87,
+          "HND": 88,
+          "VIS": 87,
+          "KCK": 74
+        }
+      },
+      {
+        "name": "Johnny Sexton",
+        "position": "FH",
+        "age": 39,
+        "stats": {
+          "KCK": 90,
+          "HND": 88,
+          "VIS": 92,
+          "PAC": 72,
+          "EVA": 74
+        }
+      },
+      {
+        "name": "Garry Ringrose",
+        "position": "IC",
+        "age": 29,
+        "stats": {
+          "PAC": 84,
+          "HND": 85,
+          "VIS": 84,
+          "EVA": 82,
+          "CAR": 81,
+          "TCK": 77
+        }
+      },
+      {
+        "name": "Robbie Henshaw",
+        "position": "OC",
+        "age": 31,
+        "stats": {
+          "PAC": 82,
+          "HND": 84,
+          "VIS": 82,
+          "EVA": 80,
+          "CAR": 82,
+          "TCK": 78
+        }
+      },
+      {
+        "name": "James Lowe",
+        "position": "WL",
+        "age": 32,
+        "stats": {
+          "PAC": 89,
+          "EVA": 86,
+          "HND": 80,
+          "CAR": 83,
+          "TCK": 69,
+          "KCK": 79
+        }
+      },
+      {
+        "name": "Jordan Larmour",
+        "position": "WR",
+        "age": 27,
+        "stats": {
+          "PAC": 92,
+          "EVA": 89,
+          "HND": 80,
+          "CAR": 82,
+          "TCK": 67
+        }
+      },
+      {
+        "name": "Hugo Keenan",
+        "position": "FB",
+        "age": 28,
+        "stats": {
+          "PAC": 89,
+          "EVA": 87,
+          "KCK": 82,
+          "HND": 83,
+          "VIS": 84
+        }
+      }
+    ]
+  },
+  {
+    "name": "Munster Rugby",
+    "shortName": "MUN",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Jeremy Loughman",
+        "position": "LHP",
+        "age": 27,
+        "stats": {
+          "SCR": 84,
+          "LNO": 72,
+          "CAR": 76,
+          "TCK": 72,
+          "RUK": 75,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Niall Scannell",
+        "position": "HOO",
+        "age": 31,
+        "stats": {
+          "SCR": 84,
+          "LNO": 82,
+          "CAR": 73,
+          "TCK": 75,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "John Ryan",
+        "position": "THP",
+        "age": 31,
+        "stats": {
+          "SCR": 85,
+          "LNO": 71,
+          "CAR": 76,
+          "TCK": 72,
+          "RUK": 75,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Tadhg Beirne",
+        "position": "LK1",
+        "age": 32,
+        "stats": {
+          "LNO": 87,
+          "CAR": 83,
+          "TCK": 84,
+          "RUK": 83,
+          "FIT": 86
+        }
+      },
+      {
+        "name": "Jean Kleyn",
+        "position": "LK2",
+        "age": 31,
+        "stats": {
+          "LNO": 84,
+          "CAR": 80,
+          "TCK": 80,
+          "RUK": 79,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Peter O'Mahony",
+        "position": "BF",
+        "age": 35,
+        "stats": {
+          "CAR": 82,
+          "TCK": 87,
+          "RUK": 85,
+          "FIT": 85,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Gavin Coombes",
+        "position": "OF",
+        "age": 27,
+        "stats": {
+          "CAR": 85,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 86,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Jack O'Donoghue",
+        "position": "N8",
+        "age": 30,
+        "stats": {
+          "CAR": 83,
+          "TCK": 81,
+          "RUK": 79,
+          "FIT": 84,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Craig Casey",
+        "position": "SH",
+        "age": 25,
+        "stats": {
+          "PAC": 83,
+          "HND": 84,
+          "VIS": 83,
+          "KCK": 70
+        }
+      },
+      {
+        "name": "Jack Crowley",
+        "position": "FH",
+        "age": 24,
+        "stats": {
+          "KCK": 86,
+          "HND": 84,
+          "VIS": 86,
+          "PAC": 75,
+          "EVA": 77
+        }
+      },
+      {
+        "name": "Malakai Fekitoa",
+        "position": "IC",
+        "age": 31,
+        "stats": {
+          "PAC": 83,
+          "HND": 81,
+          "VIS": 79,
+          "EVA": 81,
+          "CAR": 82,
+          "TCK": 75
+        }
+      },
+      {
+        "name": "Keith Earls",
+        "position": "OC",
+        "age": 36,
+        "stats": {
+          "PAC": 84,
+          "HND": 80,
+          "VIS": 80,
+          "EVA": 82,
+          "CAR": 78,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Shane Daly",
+        "position": "WL",
+        "age": 28,
+        "stats": {
+          "PAC": 87,
+          "EVA": 85,
+          "HND": 78,
+          "CAR": 79,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Calvin Nash",
+        "position": "WR",
+        "age": 27,
+        "stats": {
+          "PAC": 88,
+          "EVA": 86,
+          "HND": 77,
+          "CAR": 79,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Mike Haley",
+        "position": "FB",
+        "age": 31,
+        "stats": {
+          "PAC": 86,
+          "EVA": 85,
+          "KCK": 79,
+          "HND": 80,
+          "VIS": 81
+        }
+      }
+    ]
+  },
+  {
+    "name": "Ulster Rugby",
+    "shortName": "ULS",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Eric O'Sullivan",
+        "position": "LHP",
+        "age": 28,
+        "stats": {
+          "SCR": 83,
+          "LNO": 71,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Rob Herring",
+        "position": "HOO",
+        "age": 33,
+        "stats": {
+          "SCR": 83,
+          "LNO": 81,
+          "CAR": 72,
+          "TCK": 73,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Tom O'Toole",
+        "position": "THP",
+        "age": 26,
+        "stats": {
+          "SCR": 83,
+          "LNO": 70,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Alan O'Connor",
+        "position": "LK1",
+        "age": 29,
+        "stats": {
+          "LNO": 83,
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Kieran Treadwell",
+        "position": "LK2",
+        "age": 29,
+        "stats": {
+          "LNO": 82,
+          "CAR": 77,
+          "TCK": 78,
+          "RUK": 77,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Marcus Rea",
+        "position": "BF",
+        "age": 27,
+        "stats": {
+          "CAR": 82,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 84,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "David McCann",
+        "position": "OF",
+        "age": 26,
+        "stats": {
+          "CAR": 81,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 84,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Nick Timoney",
+        "position": "N8",
+        "age": 27,
+        "stats": {
+          "CAR": 83,
+          "TCK": 81,
+          "RUK": 79,
+          "FIT": 84,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "John Cooney",
+        "position": "SH",
+        "age": 33,
+        "stats": {
+          "PAC": 80,
+          "HND": 84,
+          "VIS": 83,
+          "KCK": 73
+        }
+      },
+      {
+        "name": "Billy Burns",
+        "position": "FH",
+        "age": 30,
+        "stats": {
+          "KCK": 84,
+          "HND": 82,
+          "VIS": 83,
+          "PAC": 73,
+          "EVA": 74
+        }
+      },
+      {
+        "name": "Stuart McCloskey",
+        "position": "IC",
+        "age": 31,
+        "stats": {
+          "PAC": 81,
+          "HND": 81,
+          "VIS": 79,
+          "EVA": 79,
+          "CAR": 81,
+          "TCK": 75
+        }
+      },
+      {
+        "name": "Luke Marshall",
+        "position": "OC",
+        "age": 33,
+        "stats": {
+          "PAC": 80,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 78,
+          "CAR": 78,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Robert Baloucoune",
+        "position": "WL",
+        "age": 26,
+        "stats": {
+          "PAC": 91,
+          "EVA": 88,
+          "HND": 77,
+          "CAR": 80,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Jacob Stockdale",
+        "position": "WR",
+        "age": 29,
+        "stats": {
+          "PAC": 87,
+          "EVA": 84,
+          "HND": 78,
+          "CAR": 79,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Mike Lowry",
+        "position": "FB",
+        "age": 25,
+        "stats": {
+          "PAC": 88,
+          "EVA": 87,
+          "KCK": 79,
+          "HND": 81,
+          "VIS": 81
+        }
+      }
+    ]
+  },
+  {
+    "name": "Connacht Rugby",
+    "shortName": "CON",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Denis Buckley",
+        "position": "LHP",
+        "age": 33,
+        "stats": {
+          "SCR": 82,
+          "LNO": 70,
+          "CAR": 73,
+          "TCK": 69,
+          "RUK": 72,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Dave Heffernan",
+        "position": "HOO",
+        "age": 33,
+        "stats": {
+          "SCR": 82,
+          "LNO": 79,
+          "CAR": 70,
+          "TCK": 72,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Finlay Bealham",
+        "position": "THP",
+        "age": 32,
+        "stats": {
+          "SCR": 83,
+          "LNO": 70,
+          "CAR": 73,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Ultan Dillane",
+        "position": "LK1",
+        "age": 30,
+        "stats": {
+          "LNO": 83,
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Niall Murray",
+        "position": "LK2",
+        "age": 25,
+        "stats": {
+          "LNO": 80,
+          "CAR": 75,
+          "TCK": 76,
+          "RUK": 75,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Cian Prendergast",
+        "position": "BF",
+        "age": 24,
+        "stats": {
+          "CAR": 82,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 84,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Paul Boyle",
+        "position": "OF",
+        "age": 27,
+        "stats": {
+          "CAR": 80,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 83,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Jarrad Butler",
+        "position": "N8",
+        "age": 35,
+        "stats": {
+          "CAR": 80,
+          "TCK": 79,
+          "RUK": 77,
+          "FIT": 79,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Caolin Blade",
+        "position": "SH",
+        "age": 29,
+        "stats": {
+          "PAC": 81,
+          "HND": 82,
+          "VIS": 81,
+          "KCK": 68
+        }
+      },
+      {
+        "name": "Jack Carty",
+        "position": "FH",
+        "age": 32,
+        "stats": {
+          "KCK": 84,
+          "HND": 82,
+          "VIS": 83,
+          "PAC": 73,
+          "EVA": 73
+        }
+      },
+      {
+        "name": "Tom Daly",
+        "position": "IC",
+        "age": 29,
+        "stats": {
+          "PAC": 81,
+          "HND": 79,
+          "VIS": 78,
+          "EVA": 79,
+          "CAR": 78,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Bundee Aki",
+        "position": "OC",
+        "age": 33,
+        "stats": {
+          "PAC": 82,
+          "HND": 82,
+          "VIS": 80,
+          "EVA": 80,
+          "CAR": 83,
+          "TCK": 78
+        }
+      },
+      {
+        "name": "Mack Hansen",
+        "position": "WL",
+        "age": 27,
+        "stats": {
+          "PAC": 89,
+          "EVA": 87,
+          "HND": 78,
+          "CAR": 80,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "John Porch",
+        "position": "WR",
+        "age": 27,
+        "stats": {
+          "PAC": 87,
+          "EVA": 85,
+          "HND": 78,
+          "CAR": 79,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Tiernan O'Halloran",
+        "position": "FB",
+        "age": 34,
+        "stats": {
+          "PAC": 85,
+          "EVA": 84,
+          "KCK": 78,
+          "HND": 79,
+          "VIS": 79
+        }
+      }
+    ]
+  },
+  {
+    "name": "Glasgow Warriors",
+    "shortName": "GLA",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Jamie Bhatti",
+        "position": "LHP",
+        "age": 29,
+        "stats": {
+          "SCR": 84,
+          "LNO": 71,
+          "CAR": 76,
+          "TCK": 71,
+          "RUK": 74,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "George Turner",
+        "position": "HOO",
+        "age": 31,
+        "stats": {
+          "SCR": 83,
+          "LNO": 81,
+          "CAR": 72,
+          "TCK": 74,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Zander Fagerson",
+        "position": "THP",
+        "age": 29,
+        "stats": {
+          "SCR": 86,
+          "LNO": 72,
+          "CAR": 77,
+          "TCK": 72,
+          "RUK": 76,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Scott Cummings",
+        "position": "LK1",
+        "age": 28,
+        "stats": {
+          "LNO": 84,
+          "CAR": 79,
+          "TCK": 80,
+          "RUK": 79,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Richie Gray",
+        "position": "LK2",
+        "age": 35,
+        "stats": {
+          "LNO": 85,
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Matt Fagerson",
+        "position": "BF",
+        "age": 27,
+        "stats": {
+          "CAR": 83,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 84,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Rory Darge",
+        "position": "OF",
+        "age": 24,
+        "stats": {
+          "CAR": 83,
+          "TCK": 86,
+          "RUK": 84,
+          "FIT": 87,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Jack Dempsey",
+        "position": "N8",
+        "age": 30,
+        "stats": {
+          "CAR": 84,
+          "TCK": 81,
+          "RUK": 79,
+          "FIT": 84,
+          "PAC": 77
+        }
+      },
+      {
+        "name": "Ben White",
+        "position": "SH",
+        "age": 27,
+        "stats": {
+          "PAC": 82,
+          "HND": 83,
+          "VIS": 82,
+          "KCK": 70
+        }
+      },
+      {
+        "name": "Ross Thompson",
+        "position": "FH",
+        "age": 26,
+        "stats": {
+          "KCK": 84,
+          "HND": 82,
+          "VIS": 83,
+          "PAC": 74,
+          "EVA": 75
+        }
+      },
+      {
+        "name": "Sione Tuipulotu",
+        "position": "IC",
+        "age": 25,
+        "stats": {
+          "PAC": 83,
+          "HND": 82,
+          "VIS": 81,
+          "EVA": 81,
+          "CAR": 79,
+          "TCK": 73
+        }
+      },
+      {
+        "name": "Huw Jones",
+        "position": "OC",
+        "age": 30,
+        "stats": {
+          "PAC": 84,
+          "HND": 81,
+          "VIS": 80,
+          "EVA": 82,
+          "CAR": 79,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Kyle Steyn",
+        "position": "WL",
+        "age": 29,
+        "stats": {
+          "PAC": 88,
+          "EVA": 85,
+          "HND": 77,
+          "CAR": 80,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Sebastian Cancelliere",
+        "position": "WR",
+        "age": 27,
+        "stats": {
+          "PAC": 87,
+          "EVA": 84,
+          "HND": 76,
+          "CAR": 78,
+          "TCK": 64
+        }
+      },
+      {
+        "name": "Rufus McLean",
+        "position": "FB",
+        "age": 25,
+        "stats": {
+          "PAC": 87,
+          "EVA": 85,
+          "KCK": 79,
+          "HND": 80,
+          "VIS": 80
+        }
+      }
+    ]
+  },
+  {
+    "name": "Edinburgh Rugby",
+    "shortName": "EDI",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Pierre Schoeman",
+        "position": "LHP",
+        "age": 29,
+        "stats": {
+          "SCR": 84,
+          "LNO": 71,
+          "CAR": 77,
+          "TCK": 72,
+          "RUK": 75,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Stuart McInally",
+        "position": "HOO",
+        "age": 34,
+        "stats": {
+          "SCR": 82,
+          "LNO": 80,
+          "CAR": 71,
+          "TCK": 72,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "WP Nel",
+        "position": "THP",
+        "age": 36,
+        "stats": {
+          "SCR": 85,
+          "LNO": 71,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 74,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Grant Gilchrist",
+        "position": "LK1",
+        "age": 33,
+        "stats": {
+          "LNO": 82,
+          "CAR": 77,
+          "TCK": 78,
+          "RUK": 77,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Marshall Sykes",
+        "position": "LK2",
+        "age": 28,
+        "stats": {
+          "LNO": 81,
+          "CAR": 76,
+          "TCK": 77,
+          "RUK": 76,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Magnus Bradbury",
+        "position": "BF",
+        "age": 29,
+        "stats": {
+          "CAR": 82,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 83,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Luke Crosbie",
+        "position": "OF",
+        "age": 27,
+        "stats": {
+          "CAR": 81,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 84,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Bill Mata",
+        "position": "N8",
+        "age": 29,
+        "stats": {
+          "CAR": 83,
+          "TCK": 80,
+          "RUK": 78,
+          "FIT": 82,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Charlie Shiel",
+        "position": "SH",
+        "age": 29,
+        "stats": {
+          "PAC": 79,
+          "HND": 82,
+          "VIS": 81,
+          "KCK": 68
+        }
+      },
+      {
+        "name": "Blair Kinghorn",
+        "position": "FH",
+        "age": 28,
+        "stats": {
+          "KCK": 85,
+          "HND": 82,
+          "VIS": 83,
+          "PAC": 78,
+          "EVA": 77
+        }
+      },
+      {
+        "name": "James Lang",
+        "position": "IC",
+        "age": 28,
+        "stats": {
+          "PAC": 80,
+          "HND": 79,
+          "VIS": 78,
+          "EVA": 78,
+          "CAR": 77,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Mark Bennett",
+        "position": "OC",
+        "age": 32,
+        "stats": {
+          "PAC": 81,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 79,
+          "CAR": 77,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Duhan van der Merwe",
+        "position": "WL",
+        "age": 28,
+        "stats": {
+          "PAC": 89,
+          "EVA": 83,
+          "HND": 77,
+          "CAR": 85,
+          "TCK": 69
+        }
+      },
+      {
+        "name": "Darcy Graham",
+        "position": "WR",
+        "age": 28,
+        "stats": {
+          "PAC": 91,
+          "EVA": 89,
+          "HND": 78,
+          "CAR": 80,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Waisake Naholo",
+        "position": "FB",
+        "age": 33,
+        "stats": {
+          "PAC": 87,
+          "EVA": 84,
+          "KCK": 75,
+          "HND": 78,
+          "VIS": 78
+        }
+      }
+    ]
+  },
+  {
+    "name": "Scarlets",
+    "shortName": "SCA",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Wyn Jones",
+        "position": "LHP",
+        "age": 32,
+        "stats": {
+          "SCR": 84,
+          "LNO": 71,
+          "CAR": 75,
+          "TCK": 71,
+          "RUK": 74,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Ken Owens",
+        "position": "HOO",
+        "age": 36,
+        "stats": {
+          "SCR": 84,
+          "LNO": 82,
+          "CAR": 72,
+          "TCK": 74,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Samson Lee",
+        "position": "THP",
+        "age": 31,
+        "stats": {
+          "SCR": 84,
+          "LNO": 70,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Sam Lousi",
+        "position": "LK1",
+        "age": 30,
+        "stats": {
+          "LNO": 82,
+          "CAR": 78,
+          "TCK": 78,
+          "RUK": 77,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Joe Roberts",
+        "position": "LK2",
+        "age": 25,
+        "stats": {
+          "LNO": 80,
+          "CAR": 76,
+          "TCK": 77,
+          "RUK": 76,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Aaron Shingler",
+        "position": "BF",
+        "age": 34,
+        "stats": {
+          "CAR": 80,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 82,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Jac Morgan",
+        "position": "OF",
+        "age": 23,
+        "stats": {
+          "CAR": 82,
+          "TCK": 86,
+          "RUK": 84,
+          "FIT": 86,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Taulupe Faletau",
+        "position": "N8",
+        "age": 33,
+        "stats": {
+          "CAR": 86,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 84,
+          "PAC": 77
+        }
+      },
+      {
+        "name": "Kieran Hardy",
+        "position": "SH",
+        "age": 28,
+        "stats": {
+          "PAC": 82,
+          "HND": 83,
+          "VIS": 82,
+          "KCK": 69
+        }
+      },
+      {
+        "name": "Dan Jones",
+        "position": "FH",
+        "age": 30,
+        "stats": {
+          "KCK": 84,
+          "HND": 81,
+          "VIS": 81,
+          "PAC": 72,
+          "EVA": 72
+        }
+      },
+      {
+        "name": "Joe Roberts",
+        "position": "IC",
+        "age": 25,
+        "stats": {
+          "PAC": 79,
+          "HND": 78,
+          "VIS": 77,
+          "EVA": 77,
+          "CAR": 76,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Jonathan Davies",
+        "position": "OC",
+        "age": 36,
+        "stats": {
+          "PAC": 80,
+          "HND": 82,
+          "VIS": 81,
+          "EVA": 79,
+          "CAR": 78,
+          "TCK": 74
+        }
+      },
+      {
+        "name": "Tom Rogers",
+        "position": "WL",
+        "age": 26,
+        "stats": {
+          "PAC": 88,
+          "EVA": 85,
+          "HND": 77,
+          "CAR": 79,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Ryan Conbeer",
+        "position": "WR",
+        "age": 28,
+        "stats": {
+          "PAC": 88,
+          "EVA": 85,
+          "HND": 75,
+          "CAR": 78,
+          "TCK": 63
+        }
+      },
+      {
+        "name": "Johnny McNicholl",
+        "position": "FB",
+        "age": 33,
+        "stats": {
+          "PAC": 87,
+          "EVA": 85,
+          "KCK": 79,
+          "HND": 79,
+          "VIS": 80
+        }
+      }
+    ]
+  },
+  {
+    "name": "Ospreys",
+    "shortName": "OSP",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Gareth Thomas",
+        "position": "LHP",
+        "age": 24,
+        "stats": {
+          "SCR": 81,
+          "LNO": 70,
+          "CAR": 73,
+          "TCK": 69,
+          "RUK": 72,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Dewi Lake",
+        "position": "HOO",
+        "age": 25,
+        "stats": {
+          "SCR": 82,
+          "LNO": 79,
+          "CAR": 70,
+          "TCK": 71,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Tom Botha",
+        "position": "THP",
+        "age": 34,
+        "stats": {
+          "SCR": 83,
+          "LNO": 69,
+          "CAR": 73,
+          "TCK": 69,
+          "RUK": 72,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Will Griffiths",
+        "position": "LK1",
+        "age": 28,
+        "stats": {
+          "LNO": 80,
+          "CAR": 75,
+          "TCK": 76,
+          "RUK": 75,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Adam Beard",
+        "position": "LK2",
+        "age": 28,
+        "stats": {
+          "LNO": 83,
+          "CAR": 78,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Morgan Morris",
+        "position": "BF",
+        "age": 26,
+        "stats": {
+          "CAR": 81,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 83,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Justin Tipuric",
+        "position": "OF",
+        "age": 34,
+        "stats": {
+          "CAR": 82,
+          "TCK": 86,
+          "RUK": 84,
+          "FIT": 83,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Harri Taylor",
+        "position": "N8",
+        "age": 26,
+        "stats": {
+          "CAR": 80,
+          "TCK": 78,
+          "RUK": 76,
+          "FIT": 81,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Rhodri Williams",
+        "position": "SH",
+        "age": 31,
+        "stats": {
+          "PAC": 80,
+          "HND": 81,
+          "VIS": 80,
+          "KCK": 68
+        }
+      },
+      {
+        "name": "Josh Thomas",
+        "position": "FH",
+        "age": 24,
+        "stats": {
+          "KCK": 82,
+          "HND": 80,
+          "VIS": 80,
+          "PAC": 72,
+          "EVA": 72
+        }
+      },
+      {
+        "name": "Owen Watkin",
+        "position": "IC",
+        "age": 28,
+        "stats": {
+          "PAC": 81,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 79,
+          "CAR": 78,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Keiran Williams",
+        "position": "OC",
+        "age": 24,
+        "stats": {
+          "PAC": 82,
+          "HND": 78,
+          "VIS": 76,
+          "EVA": 80,
+          "CAR": 77,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Luke Morgan",
+        "position": "WL",
+        "age": 30,
+        "stats": {
+          "PAC": 87,
+          "EVA": 84,
+          "HND": 75,
+          "CAR": 77,
+          "TCK": 63
+        }
+      },
+      {
+        "name": "Mat Protheroe",
+        "position": "WR",
+        "age": 26,
+        "stats": {
+          "PAC": 87,
+          "EVA": 85,
+          "HND": 76,
+          "CAR": 78,
+          "TCK": 64
+        }
+      },
+      {
+        "name": "Dan Evans",
+        "position": "FB",
+        "age": 33,
+        "stats": {
+          "PAC": 84,
+          "EVA": 83,
+          "KCK": 79,
+          "HND": 79,
+          "VIS": 79
+        }
+      }
+    ]
+  },
+  {
+    "name": "Cardiff Rugby",
+    "shortName": "CAR",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Rhys Carre",
+        "position": "LHP",
+        "age": 27,
+        "stats": {
+          "SCR": 83,
+          "LNO": 70,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Liam Belcher",
+        "position": "HOO",
+        "age": 28,
+        "stats": {
+          "SCR": 81,
+          "LNO": 78,
+          "CAR": 69,
+          "TCK": 71,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Keiron Assiratti",
+        "position": "THP",
+        "age": 27,
+        "stats": {
+          "SCR": 82,
+          "LNO": 69,
+          "CAR": 73,
+          "TCK": 69,
+          "RUK": 72,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Rory Thornton",
+        "position": "LK1",
+        "age": 29,
+        "stats": {
+          "LNO": 81,
+          "CAR": 76,
+          "TCK": 77,
+          "RUK": 76,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Josh Turnbull",
+        "position": "LK2",
+        "age": 33,
+        "stats": {
+          "LNO": 80,
+          "CAR": 75,
+          "TCK": 76,
+          "RUK": 75,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "James Botham",
+        "position": "BF",
+        "age": 26,
+        "stats": {
+          "CAR": 81,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 83,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Shane Lewis-Hughes",
+        "position": "OF",
+        "age": 25,
+        "stats": {
+          "CAR": 80,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 82,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Taulupe Faletau",
+        "position": "N8",
+        "age": 33,
+        "stats": {
+          "CAR": 84,
+          "TCK": 81,
+          "RUK": 79,
+          "FIT": 82,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Tomos Williams",
+        "position": "SH",
+        "age": 29,
+        "stats": {
+          "PAC": 83,
+          "HND": 83,
+          "VIS": 82,
+          "KCK": 70
+        }
+      },
+      {
+        "name": "Jarrod Evans",
+        "position": "FH",
+        "age": 27,
+        "stats": {
+          "KCK": 83,
+          "HND": 81,
+          "VIS": 82,
+          "PAC": 73,
+          "EVA": 73
+        }
+      },
+      {
+        "name": "Ben Thomas",
+        "position": "IC",
+        "age": 24,
+        "stats": {
+          "PAC": 81,
+          "HND": 79,
+          "VIS": 78,
+          "EVA": 79,
+          "CAR": 77,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Rey Lee-Lo",
+        "position": "OC",
+        "age": 33,
+        "stats": {
+          "PAC": 80,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 78,
+          "CAR": 81,
+          "TCK": 74
+        }
+      },
+      {
+        "name": "Josh Adams",
+        "position": "WL",
+        "age": 29,
+        "stats": {
+          "PAC": 88,
+          "EVA": 85,
+          "HND": 78,
+          "CAR": 81,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Owen Lane",
+        "position": "WR",
+        "age": 27,
+        "stats": {
+          "PAC": 88,
+          "EVA": 85,
+          "HND": 76,
+          "CAR": 79,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "Hallam Amos",
+        "position": "FB",
+        "age": 28,
+        "stats": {
+          "PAC": 86,
+          "EVA": 84,
+          "KCK": 77,
+          "HND": 79,
+          "VIS": 79
+        }
+      }
+    ]
+  },
+  {
+    "name": "Dragons RFC",
+    "shortName": "DRA",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Brok Harris",
+        "position": "LHP",
+        "age": 28,
+        "stats": {
+          "SCR": 80,
+          "LNO": 68,
+          "CAR": 71,
+          "TCK": 68,
+          "RUK": 70,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Elliot Dee",
+        "position": "HOO",
+        "age": 29,
+        "stats": {
+          "SCR": 80,
+          "LNO": 77,
+          "CAR": 68,
+          "TCK": 69,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Lloyd Fairbrother",
+        "position": "THP",
+        "age": 29,
+        "stats": {
+          "SCR": 80,
+          "LNO": 67,
+          "CAR": 71,
+          "TCK": 67,
+          "RUK": 70,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Matthew Screech",
+        "position": "LK1",
+        "age": 27,
+        "stats": {
+          "LNO": 79,
+          "CAR": 74,
+          "TCK": 74,
+          "RUK": 73,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Joe Davies",
+        "position": "LK2",
+        "age": 26,
+        "stats": {
+          "LNO": 77,
+          "CAR": 72,
+          "TCK": 73,
+          "RUK": 72,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Taine Basham",
+        "position": "BF",
+        "age": 24,
+        "stats": {
+          "CAR": 81,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 83,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Ollie Griffiths",
+        "position": "OF",
+        "age": 28,
+        "stats": {
+          "CAR": 79,
+          "TCK": 80,
+          "RUK": 78,
+          "FIT": 81,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Ross Moriarty",
+        "position": "N8",
+        "age": 29,
+        "stats": {
+          "CAR": 82,
+          "TCK": 79,
+          "RUK": 77,
+          "FIT": 81,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Rhodri Williams",
+        "position": "SH",
+        "age": 31,
+        "stats": {
+          "PAC": 79,
+          "HND": 80,
+          "VIS": 79,
+          "KCK": 67
+        }
+      },
+      {
+        "name": "Sam Davies",
+        "position": "FH",
+        "age": 29,
+        "stats": {
+          "KCK": 82,
+          "HND": 79,
+          "VIS": 79,
+          "PAC": 71,
+          "EVA": 71
+        }
+      },
+      {
+        "name": "Jack Dixon",
+        "position": "IC",
+        "age": 27,
+        "stats": {
+          "PAC": 78,
+          "HND": 76,
+          "VIS": 75,
+          "EVA": 76,
+          "CAR": 75,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Aneurin Owen",
+        "position": "OC",
+        "age": 26,
+        "stats": {
+          "PAC": 79,
+          "HND": 76,
+          "VIS": 75,
+          "EVA": 77,
+          "CAR": 74,
+          "TCK": 67
+        }
+      },
+      {
+        "name": "Rio Dyer",
+        "position": "WL",
+        "age": 23,
+        "stats": {
+          "PAC": 89,
+          "EVA": 86,
+          "HND": 75,
+          "CAR": 79,
+          "TCK": 63
+        }
+      },
+      {
+        "name": "Jared Rosser",
+        "position": "WR",
+        "age": 22,
+        "stats": {
+          "PAC": 86,
+          "EVA": 83,
+          "HND": 73,
+          "CAR": 76,
+          "TCK": 62
+        }
+      },
+      {
+        "name": "Jordan Williams",
+        "position": "FB",
+        "age": 25,
+        "stats": {
+          "PAC": 84,
+          "EVA": 82,
+          "KCK": 74,
+          "HND": 76,
+          "VIS": 76
+        }
+      }
+    ]
+  },
+  {
+    "name": "Sharks",
+    "shortName": "SHA",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Ox Nché",
+        "position": "LHP",
+        "age": 27,
+        "stats": {
+          "SCR": 87,
+          "LNO": 73,
+          "CAR": 79,
+          "TCK": 73,
+          "RUK": 78,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Kerron van Vuuren",
+        "position": "HOO",
+        "age": 30,
+        "stats": {
+          "SCR": 84,
+          "LNO": 80,
+          "CAR": 72,
+          "TCK": 74,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Thomas du Toit",
+        "position": "THP",
+        "age": 29,
+        "stats": {
+          "SCR": 86,
+          "LNO": 71,
+          "CAR": 76,
+          "TCK": 72,
+          "RUK": 76,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Gerbrandt Grobler",
+        "position": "LK1",
+        "age": 32,
+        "stats": {
+          "LNO": 83,
+          "CAR": 79,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Hyron Andrews",
+        "position": "LK2",
+        "age": 30,
+        "stats": {
+          "LNO": 82,
+          "CAR": 78,
+          "TCK": 78,
+          "RUK": 77,
+          "FIT": 82
+        }
+      },
+      {
+        "name": "Phepsi Buthelezi",
+        "position": "BF",
+        "age": 24,
+        "stats": {
+          "CAR": 83,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 86,
+          "PAC": 77
+        }
+      },
+      {
+        "name": "Vincent Tshituka",
+        "position": "OF",
+        "age": 24,
+        "stats": {
+          "CAR": 83,
+          "TCK": 84,
+          "RUK": 82,
+          "FIT": 85,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Evan Roos",
+        "position": "N8",
+        "age": 25,
+        "stats": {
+          "CAR": 86,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 86,
+          "PAC": 79
+        }
+      },
+      {
+        "name": "Jaden Hendrikse",
+        "position": "SH",
+        "age": 24,
+        "stats": {
+          "PAC": 84,
+          "HND": 83,
+          "VIS": 82,
+          "KCK": 70
+        }
+      },
+      {
+        "name": "Boeta Chamberlain",
+        "position": "FH",
+        "age": 24,
+        "stats": {
+          "KCK": 85,
+          "HND": 82,
+          "VIS": 82,
+          "PAC": 74,
+          "EVA": 74
+        }
+      },
+      {
+        "name": "André Esterhuizen",
+        "position": "IC",
+        "age": 31,
+        "stats": {
+          "PAC": 80,
+          "HND": 80,
+          "VIS": 78,
+          "EVA": 78,
+          "CAR": 83,
+          "TCK": 76
+        }
+      },
+      {
+        "name": "Lukhanyo Am",
+        "position": "OC",
+        "age": 30,
+        "stats": {
+          "PAC": 84,
+          "HND": 82,
+          "VIS": 81,
+          "EVA": 82,
+          "CAR": 80,
+          "TCK": 74
+        }
+      },
+      {
+        "name": "Sbu Nkosi",
+        "position": "WL",
+        "age": 28,
+        "stats": {
+          "PAC": 90,
+          "EVA": 87,
+          "HND": 76,
+          "CAR": 81,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Makazole Mapimpi",
+        "position": "WR",
+        "age": 33,
+        "stats": {
+          "PAC": 89,
+          "EVA": 85,
+          "HND": 77,
+          "CAR": 81,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Aphelele Fassi",
+        "position": "FB",
+        "age": 26,
+        "stats": {
+          "PAC": 91,
+          "EVA": 89,
+          "KCK": 78,
+          "HND": 82,
+          "VIS": 82
+        }
+      }
+    ]
+  },
+  {
+    "name": "Stormers",
+    "shortName": "STO",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Steven Kitshoff",
+        "position": "LHP",
+        "age": 31,
+        "stats": {
+          "SCR": 88,
+          "LNO": 74,
+          "CAR": 79,
+          "TCK": 74,
+          "RUK": 79,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Joseph Dweba",
+        "position": "HOO",
+        "age": 27,
+        "stats": {
+          "SCR": 84,
+          "LNO": 82,
+          "CAR": 73,
+          "TCK": 75,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Frans Malherbe",
+        "position": "THP",
+        "age": 34,
+        "stats": {
+          "SCR": 88,
+          "LNO": 72,
+          "CAR": 77,
+          "TCK": 72,
+          "RUK": 77,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Salmaan Moerat",
+        "position": "LK1",
+        "age": 25,
+        "stats": {
+          "LNO": 85,
+          "CAR": 80,
+          "TCK": 81,
+          "RUK": 80,
+          "FIT": 85
+        }
+      },
+      {
+        "name": "JD Schickerling",
+        "position": "LK2",
+        "age": 28,
+        "stats": {
+          "LNO": 83,
+          "CAR": 79,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Deon Fourie",
+        "position": "BF",
+        "age": 37,
+        "stats": {
+          "CAR": 80,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 82,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Hacjivah Dayimani",
+        "position": "OF",
+        "age": 26,
+        "stats": {
+          "CAR": 83,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 84,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Evan Roos",
+        "position": "N8",
+        "age": 25,
+        "stats": {
+          "CAR": 85,
+          "TCK": 81,
+          "RUK": 79,
+          "FIT": 85,
+          "PAC": 78
+        }
+      },
+      {
+        "name": "Herschel Jantjies",
+        "position": "SH",
+        "age": 28,
+        "stats": {
+          "PAC": 85,
+          "HND": 83,
+          "VIS": 82,
+          "KCK": 71
+        }
+      },
+      {
+        "name": "Manie Libbok",
+        "position": "FH",
+        "age": 25,
+        "stats": {
+          "KCK": 87,
+          "HND": 85,
+          "VIS": 86,
+          "PAC": 77,
+          "EVA": 79
+        }
+      },
+      {
+        "name": "Rikus Pretorius",
+        "position": "IC",
+        "age": 26,
+        "stats": {
+          "PAC": 82,
+          "HND": 80,
+          "VIS": 79,
+          "EVA": 80,
+          "CAR": 79,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Damian de Allende",
+        "position": "OC",
+        "age": 33,
+        "stats": {
+          "PAC": 81,
+          "HND": 82,
+          "VIS": 80,
+          "EVA": 79,
+          "CAR": 83,
+          "TCK": 77
+        }
+      },
+      {
+        "name": "Seabelo Senatla",
+        "position": "WL",
+        "age": 31,
+        "stats": {
+          "PAC": 92,
+          "EVA": 90,
+          "HND": 77,
+          "CAR": 80,
+          "TCK": 64
+        }
+      },
+      {
+        "name": "Leolin Zas",
+        "position": "WR",
+        "age": 25,
+        "stats": {
+          "PAC": 89,
+          "EVA": 87,
+          "HND": 76,
+          "CAR": 79,
+          "TCK": 64
+        }
+      },
+      {
+        "name": "Warrick Gelant",
+        "position": "FB",
+        "age": 30,
+        "stats": {
+          "PAC": 90,
+          "EVA": 88,
+          "KCK": 79,
+          "HND": 81,
+          "VIS": 82
+        }
+      }
+    ]
+  },
+  {
+    "name": "Lions",
+    "shortName": "LIO",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Sti Sithole",
+        "position": "LHP",
+        "age": 27,
+        "stats": {
+          "SCR": 83,
+          "LNO": 70,
+          "CAR": 74,
+          "TCK": 70,
+          "RUK": 73,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "PJ Bosman",
+        "position": "HOO",
+        "age": 27,
+        "stats": {
+          "SCR": 81,
+          "LNO": 78,
+          "CAR": 70,
+          "TCK": 71,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Carlu Sadie",
+        "position": "THP",
+        "age": 26,
+        "stats": {
+          "SCR": 82,
+          "LNO": 69,
+          "CAR": 73,
+          "TCK": 69,
+          "RUK": 72,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Ruben Schoeman",
+        "position": "LK1",
+        "age": 26,
+        "stats": {
+          "LNO": 80,
+          "CAR": 76,
+          "TCK": 76,
+          "RUK": 75,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Reinhard Nothnagel",
+        "position": "LK2",
+        "age": 28,
+        "stats": {
+          "LNO": 79,
+          "CAR": 75,
+          "TCK": 75,
+          "RUK": 74,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Ruan Venter",
+        "position": "BF",
+        "age": 25,
+        "stats": {
+          "CAR": 80,
+          "TCK": 81,
+          "RUK": 79,
+          "FIT": 82,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Francke Horn",
+        "position": "OF",
+        "age": 26,
+        "stats": {
+          "CAR": 80,
+          "TCK": 81,
+          "RUK": 79,
+          "FIT": 82,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Pieter Jansen van Vuren",
+        "position": "N8",
+        "age": 28,
+        "stats": {
+          "CAR": 81,
+          "TCK": 78,
+          "RUK": 76,
+          "FIT": 81,
+          "PAC": 74
+        }
+      },
+      {
+        "name": "Morne van den Berg",
+        "position": "SH",
+        "age": 31,
+        "stats": {
+          "PAC": 81,
+          "HND": 81,
+          "VIS": 80,
+          "KCK": 69
+        }
+      },
+      {
+        "name": "Jordan Hendrikse",
+        "position": "FH",
+        "age": 24,
+        "stats": {
+          "KCK": 83,
+          "HND": 81,
+          "VIS": 81,
+          "PAC": 73,
+          "EVA": 73
+        }
+      },
+      {
+        "name": "Wandisile Simelane",
+        "position": "IC",
+        "age": 25,
+        "stats": {
+          "PAC": 84,
+          "HND": 80,
+          "VIS": 78,
+          "EVA": 82,
+          "CAR": 79,
+          "TCK": 71
+        }
+      },
+      {
+        "name": "Manny Rass",
+        "position": "OC",
+        "age": 23,
+        "stats": {
+          "PAC": 82,
+          "HND": 78,
+          "VIS": 76,
+          "EVA": 80,
+          "CAR": 77,
+          "TCK": 69
+        }
+      },
+      {
+        "name": "Edwill van der Merwe",
+        "position": "WL",
+        "age": 26,
+        "stats": {
+          "PAC": 91,
+          "EVA": 88,
+          "HND": 75,
+          "CAR": 80,
+          "TCK": 63
+        }
+      },
+      {
+        "name": "Courtnall Skosan",
+        "position": "WR",
+        "age": 33,
+        "stats": {
+          "PAC": 87,
+          "EVA": 85,
+          "HND": 74,
+          "CAR": 77,
+          "TCK": 62
+        }
+      },
+      {
+        "name": "Quan Horn",
+        "position": "FB",
+        "age": 24,
+        "stats": {
+          "PAC": 86,
+          "EVA": 84,
+          "KCK": 76,
+          "HND": 78,
+          "VIS": 78
+        }
+      }
+    ]
+  },
+  {
+    "name": "Bulls",
+    "shortName": "BUL",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Gerhard Steenekamp",
+        "position": "LHP",
+        "age": 26,
+        "stats": {
+          "SCR": 85,
+          "LNO": 72,
+          "CAR": 77,
+          "TCK": 72,
+          "RUK": 76,
+          "FIT": 83
+        }
+      },
+      {
+        "name": "Johan Grobbelaar",
+        "position": "HOO",
+        "age": 27,
+        "stats": {
+          "SCR": 85,
+          "LNO": 83,
+          "CAR": 74,
+          "TCK": 76,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Wilco Louw",
+        "position": "THP",
+        "age": 31,
+        "stats": {
+          "SCR": 86,
+          "LNO": 71,
+          "CAR": 76,
+          "TCK": 72,
+          "RUK": 76,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Ruan Nortje",
+        "position": "LK1",
+        "age": 28,
+        "stats": {
+          "LNO": 85,
+          "CAR": 80,
+          "TCK": 80,
+          "RUK": 79,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Walt Steenkamp",
+        "position": "LK2",
+        "age": 24,
+        "stats": {
+          "LNO": 83,
+          "CAR": 79,
+          "TCK": 79,
+          "RUK": 78,
+          "FIT": 84
+        }
+      },
+      {
+        "name": "Elrigh Louw",
+        "position": "BF",
+        "age": 24,
+        "stats": {
+          "CAR": 84,
+          "TCK": 83,
+          "RUK": 81,
+          "FIT": 86,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Arno Botha",
+        "position": "OF",
+        "age": 34,
+        "stats": {
+          "CAR": 82,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 82,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Cyle Brink",
+        "position": "N8",
+        "age": 29,
+        "stats": {
+          "CAR": 84,
+          "TCK": 81,
+          "RUK": 79,
+          "FIT": 84,
+          "PAC": 76
+        }
+      },
+      {
+        "name": "Zak Burger",
+        "position": "SH",
+        "age": 24,
+        "stats": {
+          "PAC": 85,
+          "HND": 83,
+          "VIS": 82,
+          "KCK": 70
+        }
+      },
+      {
+        "name": "Johan Goosen",
+        "position": "FH",
+        "age": 34,
+        "stats": {
+          "KCK": 85,
+          "HND": 82,
+          "VIS": 83,
+          "PAC": 73,
+          "EVA": 73
+        }
+      },
+      {
+        "name": "Harold Vorster",
+        "position": "IC",
+        "age": 26,
+        "stats": {
+          "PAC": 81,
+          "HND": 79,
+          "VIS": 78,
+          "EVA": 79,
+          "CAR": 79,
+          "TCK": 72
+        }
+      },
+      {
+        "name": "Cornal Hendricks",
+        "position": "OC",
+        "age": 36,
+        "stats": {
+          "PAC": 82,
+          "HND": 79,
+          "VIS": 77,
+          "EVA": 80,
+          "CAR": 78,
+          "TCK": 70
+        }
+      },
+      {
+        "name": "Canan Moodie",
+        "position": "WL",
+        "age": 22,
+        "stats": {
+          "PAC": 90,
+          "EVA": 88,
+          "HND": 78,
+          "CAR": 81,
+          "TCK": 65
+        }
+      },
+      {
+        "name": "David Kriel",
+        "position": "WR",
+        "age": 31,
+        "stats": {
+          "PAC": 87,
+          "EVA": 84,
+          "HND": 76,
+          "CAR": 79,
+          "TCK": 66
+        }
+      },
+      {
+        "name": "Willie le Roux",
+        "position": "FB",
+        "age": 36,
+        "stats": {
+          "PAC": 86,
+          "EVA": 86,
+          "KCK": 81,
+          "HND": 82,
+          "VIS": 83
+        }
+      }
+    ]
+  },
+  {
+    "name": "Zebre Parma",
+    "shortName": "ZEB",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Andrea Lovotti",
+        "position": "LHP",
+        "age": 34,
+        "stats": {
+          "SCR": 80,
+          "LNO": 68,
+          "CAR": 71,
+          "TCK": 67,
+          "RUK": 70,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Luca Bigi",
+        "position": "HOO",
+        "age": 30,
+        "stats": {
+          "SCR": 80,
+          "LNO": 76,
+          "CAR": 68,
+          "TCK": 69,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Giosue Zilocchi",
+        "position": "THP",
+        "age": 26,
+        "stats": {
+          "SCR": 79,
+          "LNO": 66,
+          "CAR": 70,
+          "TCK": 66,
+          "RUK": 69,
+          "FIT": 78
+        }
+      },
+      {
+        "name": "Marco Fuser",
+        "position": "LK1",
+        "age": 29,
+        "stats": {
+          "LNO": 79,
+          "CAR": 74,
+          "TCK": 74,
+          "RUK": 73,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Niccolo Cannone",
+        "position": "LK2",
+        "age": 27,
+        "stats": {
+          "LNO": 79,
+          "CAR": 74,
+          "TCK": 75,
+          "RUK": 74,
+          "FIT": 80
+        }
+      },
+      {
+        "name": "Sebastian Negri",
+        "position": "BF",
+        "age": 29,
+        "stats": {
+          "CAR": 80,
+          "TCK": 80,
+          "RUK": 78,
+          "FIT": 81,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Johan Meyer",
+        "position": "OF",
+        "age": 35,
+        "stats": {
+          "CAR": 79,
+          "TCK": 79,
+          "RUK": 77,
+          "FIT": 79,
+          "PAC": 71
+        }
+      },
+      {
+        "name": "Giovanni Pettinelli",
+        "position": "N8",
+        "age": 29,
+        "stats": {
+          "CAR": 79,
+          "TCK": 76,
+          "RUK": 74,
+          "FIT": 79,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Callum Braley",
+        "position": "SH",
+        "age": 27,
+        "stats": {
+          "PAC": 79,
+          "HND": 79,
+          "VIS": 78,
+          "KCK": 66
+        }
+      },
+      {
+        "name": "Paolo Garbisi",
+        "position": "FH",
+        "age": 23,
+        "stats": {
+          "KCK": 83,
+          "HND": 80,
+          "VIS": 80,
+          "PAC": 72,
+          "EVA": 72
+        }
+      },
+      {
+        "name": "Ignacio Brex",
+        "position": "IC",
+        "age": 24,
+        "stats": {
+          "PAC": 80,
+          "HND": 77,
+          "VIS": 75,
+          "EVA": 78,
+          "CAR": 75,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Luca Morisi",
+        "position": "OC",
+        "age": 31,
+        "stats": {
+          "PAC": 79,
+          "HND": 77,
+          "VIS": 76,
+          "EVA": 77,
+          "CAR": 75,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Edoardo Padovani",
+        "position": "WL",
+        "age": 30,
+        "stats": {
+          "PAC": 85,
+          "EVA": 82,
+          "HND": 73,
+          "CAR": 75,
+          "TCK": 62
+        }
+      },
+      {
+        "name": "Giulio Bisegni",
+        "position": "WR",
+        "age": 31,
+        "stats": {
+          "PAC": 83,
+          "EVA": 80,
+          "HND": 72,
+          "CAR": 74,
+          "TCK": 61
+        }
+      },
+      {
+        "name": "Jacopo Trulla",
+        "position": "FB",
+        "age": 24,
+        "stats": {
+          "PAC": 82,
+          "EVA": 80,
+          "KCK": 76,
+          "HND": 74,
+          "VIS": 74
+        }
+      }
+    ]
+  },
+  {
+    "name": "Benetton Rugby",
+    "shortName": "BEN",
+    "leagueId": "urc",
+    "roster": [
+      {
+        "name": "Mirco Spagnolo",
+        "position": "LHP",
+        "age": 25,
+        "stats": {
+          "SCR": 81,
+          "LNO": 69,
+          "CAR": 72,
+          "TCK": 68,
+          "RUK": 71,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Hame Faiva",
+        "position": "HOO",
+        "age": 28,
+        "stats": {
+          "SCR": 81,
+          "LNO": 78,
+          "CAR": 69,
+          "TCK": 70,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Tiziano Pasquali",
+        "position": "THP",
+        "age": 30,
+        "stats": {
+          "SCR": 82,
+          "LNO": 68,
+          "CAR": 71,
+          "TCK": 67,
+          "RUK": 70,
+          "FIT": 79
+        }
+      },
+      {
+        "name": "Federico Ruzza",
+        "position": "LK1",
+        "age": 29,
+        "stats": {
+          "LNO": 81,
+          "CAR": 76,
+          "TCK": 76,
+          "RUK": 75,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Nicola Cannone",
+        "position": "LK2",
+        "age": 27,
+        "stats": {
+          "LNO": 80,
+          "CAR": 75,
+          "TCK": 76,
+          "RUK": 75,
+          "FIT": 81
+        }
+      },
+      {
+        "name": "Michele Lamaro",
+        "position": "BF",
+        "age": 26,
+        "stats": {
+          "CAR": 81,
+          "TCK": 82,
+          "RUK": 80,
+          "FIT": 83,
+          "PAC": 73
+        }
+      },
+      {
+        "name": "Manuel Zuliani",
+        "position": "OF",
+        "age": 28,
+        "stats": {
+          "CAR": 79,
+          "TCK": 80,
+          "RUK": 78,
+          "FIT": 81,
+          "PAC": 72
+        }
+      },
+      {
+        "name": "Lorenzo Cannone",
+        "position": "N8",
+        "age": 23,
+        "stats": {
+          "CAR": 82,
+          "TCK": 79,
+          "RUK": 77,
+          "FIT": 83,
+          "PAC": 75
+        }
+      },
+      {
+        "name": "Dewaldt Duvenage",
+        "position": "SH",
+        "age": 35,
+        "stats": {
+          "PAC": 78,
+          "HND": 81,
+          "VIS": 80,
+          "KCK": 69
+        }
+      },
+      {
+        "name": "Tomas Albornoz",
+        "position": "FH",
+        "age": 26,
+        "stats": {
+          "KCK": 83,
+          "HND": 80,
+          "VIS": 81,
+          "PAC": 72,
+          "EVA": 72
+        }
+      },
+      {
+        "name": "Ignacio Brex",
+        "position": "IC",
+        "age": 24,
+        "stats": {
+          "PAC": 81,
+          "HND": 78,
+          "VIS": 76,
+          "EVA": 79,
+          "CAR": 76,
+          "TCK": 69
+        }
+      },
+      {
+        "name": "Tommaso Menoncello",
+        "position": "OC",
+        "age": 22,
+        "stats": {
+          "PAC": 83,
+          "HND": 78,
+          "VIS": 76,
+          "EVA": 81,
+          "CAR": 77,
+          "TCK": 68
+        }
+      },
+      {
+        "name": "Onisi Ratave",
+        "position": "WL",
+        "age": 28,
+        "stats": {
+          "PAC": 87,
+          "EVA": 84,
+          "HND": 74,
+          "CAR": 78,
+          "TCK": 63
+        }
+      },
+      {
+        "name": "Ratuva Tavuyara",
+        "position": "WR",
+        "age": 25,
+        "stats": {
+          "PAC": 87,
+          "EVA": 84,
+          "HND": 73,
+          "CAR": 77,
+          "TCK": 62
+        }
+      },
+      {
+        "name": "Jayden Hayward",
+        "position": "FB",
+        "age": 36,
+        "stats": {
+          "PAC": 83,
+          "EVA": 82,
+          "KCK": 78,
+          "HND": 77,
+          "VIS": 77
+        }
+      }
+    ]
+  },
+  {
+    "name": "Sydney University",
+    "shortName": "SYD",
+    "leagueId": "shute_shield",
+    "baseOvr": 65,
+    "roster": []
+  },
+  {
+    "name": "Randwick",
+    "shortName": "RAN",
+    "leagueId": "shute_shield",
+    "baseOvr": 64,
+    "roster": []
+  },
+  {
+    "name": "Eastern Suburbs",
+    "shortName": "EAS",
+    "leagueId": "shute_shield",
+    "baseOvr": 63,
+    "roster": []
+  },
+  {
+    "name": "Manly",
+    "shortName": "MAN",
+    "leagueId": "shute_shield",
+    "baseOvr": 62,
+    "roster": []
+  },
+  {
+    "name": "Warringah",
+    "shortName": "WAR",
+    "leagueId": "shute_shield",
+    "baseOvr": 62,
+    "roster": []
+  },
+  {
+    "name": "Gordon",
+    "shortName": "GOR",
+    "leagueId": "shute_shield",
+    "baseOvr": 61,
+    "roster": []
+  },
+  {
+    "name": "Eastwood",
+    "shortName": "EAW",
+    "leagueId": "shute_shield",
+    "baseOvr": 61,
+    "roster": []
+  },
+  {
+    "name": "Parramatta",
+    "shortName": "PAR",
+    "leagueId": "shute_shield",
+    "baseOvr": 60,
+    "roster": []
+  },
+  {
+    "name": "Northern Suburbs",
+    "shortName": "NOR",
+    "leagueId": "shute_shield",
+    "baseOvr": 60,
+    "roster": []
+  },
+  {
+    "name": "Penrith",
+    "shortName": "PEN",
+    "leagueId": "shute_shield",
+    "baseOvr": 59,
+    "roster": []
+  },
+  {
+    "name": "Auckland",
+    "shortName": "AUC",
+    "leagueId": "npc",
+    "baseOvr": 67,
+    "roster": []
+  },
+  {
+    "name": "Canterbury",
+    "shortName": "CAN",
+    "leagueId": "npc",
+    "baseOvr": 66,
+    "roster": []
+  },
+  {
+    "name": "Waikato",
+    "shortName": "WAI",
+    "leagueId": "npc",
+    "baseOvr": 65,
+    "roster": []
+  },
+  {
+    "name": "Wellington",
+    "shortName": "WEL",
+    "leagueId": "npc",
+    "baseOvr": 64,
+    "roster": []
+  },
+  {
+    "name": "Bay of Plenty",
+    "shortName": "BOP",
+    "leagueId": "npc",
+    "baseOvr": 63,
+    "roster": []
+  },
+  {
+    "name": "Tasman",
+    "shortName": "TAS",
+    "leagueId": "npc",
+    "baseOvr": 63,
+    "roster": []
+  },
+  {
+    "name": "Otago",
+    "shortName": "OTA",
+    "leagueId": "npc",
+    "baseOvr": 62,
+    "roster": []
+  },
+  {
+    "name": "Hawke's Bay",
+    "shortName": "HKB",
+    "leagueId": "npc",
+    "baseOvr": 62,
+    "roster": []
+  },
+  {
+    "name": "Northland",
+    "shortName": "NTH",
+    "leagueId": "npc",
+    "baseOvr": 60,
+    "roster": []
+  },
+  {
+    "name": "Manawatu",
+    "shortName": "MWT",
+    "leagueId": "npc",
+    "baseOvr": 59,
+    "roster": []
+  },
+  {
+    "name": "Southland",
+    "shortName": "STH",
+    "leagueId": "npc",
+    "baseOvr": 59,
+    "roster": []
+  },
+  {
+    "name": "Taranaki",
+    "shortName": "TAR",
+    "leagueId": "npc",
+    "baseOvr": 60,
+    "roster": []
+  },
+  {
+    "name": "Coventry",
+    "shortName": "COV",
+    "leagueId": "rfu_championship",
+    "baseOvr": 66,
+    "roster": []
+  },
+  {
+    "name": "Ealing Trailfinders",
+    "shortName": "EAL",
+    "leagueId": "rfu_championship",
+    "baseOvr": 65,
+    "roster": []
+  },
+  {
+    "name": "Doncaster Knights",
+    "shortName": "DON",
+    "leagueId": "rfu_championship",
+    "baseOvr": 63,
+    "roster": []
+  },
+  {
+    "name": "Bedford Blues",
+    "shortName": "BED",
+    "leagueId": "rfu_championship",
+    "baseOvr": 63,
+    "roster": []
+  },
+  {
+    "name": "Hartpury",
+    "shortName": "HAR",
+    "leagueId": "rfu_championship",
+    "baseOvr": 62,
+    "roster": []
+  },
+  {
+    "name": "Cornish Pirates",
+    "shortName": "COR",
+    "leagueId": "rfu_championship",
+    "baseOvr": 62,
+    "roster": []
+  },
+  {
+    "name": "London Scottish",
+    "shortName": "LOS",
+    "leagueId": "rfu_championship",
+    "baseOvr": 61,
+    "roster": []
+  },
+  {
+    "name": "Ampthill",
+    "shortName": "AMP",
+    "leagueId": "rfu_championship",
+    "baseOvr": 60,
+    "roster": []
+  },
+  {
+    "name": "Nottingham",
+    "shortName": "NOT",
+    "leagueId": "rfu_championship",
+    "baseOvr": 60,
+    "roster": []
+  },
+  {
+    "name": "Richmond",
+    "shortName": "RIC",
+    "leagueId": "rfu_championship",
+    "baseOvr": 59,
+    "roster": []
+  },
+  {
+    "name": "Jersey Reds",
+    "shortName": "JER",
+    "leagueId": "rfu_championship",
+    "baseOvr": 59,
+    "roster": []
+  },
+  {
+    "name": "Chinnor",
+    "shortName": "CHI",
+    "leagueId": "rfu_championship",
+    "baseOvr": 58,
+    "roster": []
+  },
+  {
+    "name": "Grenoble",
+    "shortName": "GRE",
+    "leagueId": "pro_d2",
+    "baseOvr": 66,
+    "roster": []
+  },
+  {
+    "name": "Brive",
+    "shortName": "BRI",
+    "leagueId": "pro_d2",
+    "baseOvr": 65,
+    "roster": []
+  },
+  {
+    "name": "Biarritz",
+    "shortName": "BIA",
+    "leagueId": "pro_d2",
+    "baseOvr": 65,
+    "roster": []
+  },
+  {
+    "name": "Aurillac",
+    "shortName": "AUR",
+    "leagueId": "pro_d2",
+    "baseOvr": 63,
+    "roster": []
+  },
+  {
+    "name": "Carcassonne",
+    "shortName": "CAR",
+    "leagueId": "pro_d2",
+    "baseOvr": 62,
+    "roster": []
+  },
+  {
+    "name": "Nevers",
+    "shortName": "NEV",
+    "leagueId": "pro_d2",
+    "baseOvr": 62,
+    "roster": []
+  },
+  {
+    "name": "Rouen",
+    "shortName": "ROU",
+    "leagueId": "pro_d2",
+    "baseOvr": 61,
+    "roster": []
+  },
+  {
+    "name": "Dax",
+    "shortName": "DAX",
+    "leagueId": "pro_d2",
+    "baseOvr": 61,
+    "roster": []
+  },
+  {
+    "name": "Angoulême",
+    "shortName": "ANG",
+    "leagueId": "pro_d2",
+    "baseOvr": 60,
+    "roster": []
+  },
+  {
+    "name": "Montauban",
+    "shortName": "MON",
+    "leagueId": "pro_d2",
+    "baseOvr": 60,
+    "roster": []
+  },
+  {
+    "name": "Aix",
+    "shortName": "AIX",
+    "leagueId": "pro_d2",
+    "baseOvr": 59,
+    "roster": []
+  },
+  {
+    "name": "Narbonne",
+    "shortName": "NAR",
+    "leagueId": "pro_d2",
+    "baseOvr": 59,
+    "roster": []
+  },
+  {
+    "name": "Massy",
+    "shortName": "MAS",
+    "leagueId": "pro_d2",
+    "baseOvr": 58,
+    "roster": []
+  },
+  {
+    "name": "Valence Romans",
+    "shortName": "VAL",
+    "leagueId": "pro_d2",
+    "baseOvr": 58,
+    "roster": []
+  }
+]

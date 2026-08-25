@@ -1,0 +1,66 @@
+{
+  "seasonAwards": [
+    {
+      "id": "top_try_scorer",
+      "name": "Top Try Scorer",
+      "scope": "league",
+      "metric": "tries"
+    },
+    {
+      "id": "top_points_scorer",
+      "name": "Top Points Scorer",
+      "scope": "league",
+      "metric": "points"
+    },
+    {
+      "id": "players_player",
+      "name": "Players' Player of the Year",
+      "scope": "league",
+      "metric": "avgRating"
+    },
+    {
+      "id": "young_player",
+      "name": "Young Player of the Year",
+      "scope": "league",
+      "metric": "avgRating",
+      "maxAge": 23
+    },
+    {
+      "id": "team_of_season",
+      "name": "Team of the Season",
+      "scope": "league",
+      "metric": "positionalBest",
+      "slots": 15
+    },
+    {
+      "id": "world_player",
+      "name": "World Player of the Year",
+      "scope": "global",
+      "metric": "compositeElite"
+    },
+    {
+      "id": "try_of_season",
+      "name": "Try of the Season",
+      "scope": "league",
+      "metric": "highlightScore"
+    }
+  ],
+  "worldPlayerEligibility": {
+    "minInternationalCaps": 4,
+    "minAppearances": 12,
+    "minAvgRating": 7.4,
+    "elitePoolSize": 40,
+    "note": "Computed against a simulated elite pool so the award stays contested, not automatic."
+  },
+  "nearMiss": {
+    "topTryScorer": "Show 'finished 2 tries behind X' when the player places 2nd or 3rd."
+  },
+  "achievementGrid": {
+    "categories": [
+      "milestones",
+      "feats",
+      "journey",
+      "legend"
+    ]
+  }
+}

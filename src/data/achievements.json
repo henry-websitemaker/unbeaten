@@ -1,0 +1,158 @@
+[
+  {
+    "id": "tries_10",
+    "name": "10 Career Tries",
+    "tier": "bronze",
+    "check": "e=>e.careerTries>=10"
+  },
+  {
+    "id": "tries_50",
+    "name": "50 Career Tries",
+    "tier": "silver",
+    "check": "e=>e.careerTries>=50"
+  },
+  {
+    "id": "tries_100",
+    "name": "100 Career Tries",
+    "tier": "gold",
+    "check": "e=>e.careerTries>=100"
+  },
+  {
+    "id": "apps_50",
+    "name": "50 Career Appearances",
+    "tier": "bronze",
+    "check": "e=>e.careerCaps>=50"
+  },
+  {
+    "id": "apps_100",
+    "name": "100 Career Appearances",
+    "tier": "silver",
+    "check": "e=>e.careerCaps>=100"
+  },
+  {
+    "id": "apps_200",
+    "name": "200 Club",
+    "tier": "gold",
+    "check": "e=>e.careerCaps>=200"
+  },
+  {
+    "id": "caps_10",
+    "name": "First Test Century",
+    "tier": "bronze",
+    "check": "e=>e.internationalCaps>=10"
+  },
+  {
+    "id": "caps_50",
+    "name": "50 Test Caps",
+    "tier": "silver",
+    "check": "e=>e.internationalCaps>=50"
+  },
+  {
+    "id": "caps_100",
+    "name": "Centurion",
+    "tier": "gold",
+    "check": "e=>e.internationalCaps>=100"
+  },
+  {
+    "id": "earnings_1m",
+    "name": "£1M Earned",
+    "tier": "bronze",
+    "check": "e=>e.salaryHistory.reduce((t,n)=>t+n.salary,0)>=1e6"
+  },
+  {
+    "id": "earnings_5m",
+    "name": "£5M Earned",
+    "tier": "silver",
+    "check": "e=>e.salaryHistory.reduce((t,n)=>t+n.salary,0)>=5e6"
+  },
+  {
+    "id": "earnings_10m",
+    "name": "£10M Career Earnings",
+    "tier": "gold",
+    "check": "e=>e.salaryHistory.reduce((t,n)=>t+n.salary,0)>=1e7"
+  },
+  {
+    "id": "motm_5",
+    "name": "5 MOTMs in a Season",
+    "tier": "bronze",
+    "check": "e=>e.seasonMOTM>=5"
+  },
+  {
+    "id": "motm_10",
+    "name": "10 MOTMs in a Season",
+    "tier": "silver",
+    "check": "e=>e.seasonMOTM>=10"
+  },
+  {
+    "id": "top_scorer",
+    "name": "Top Try Scorer",
+    "tier": "silver",
+    "check": "e=>e.leagueTryScorerRank===1"
+  },
+  {
+    "id": "world_player",
+    "name": "World Player of Year",
+    "tier": "gold",
+    "check": "e=>e.awards.some(t=>t.type===\"world_player\")"
+  },
+  {
+    "id": "captain",
+    "name": "Club Captain",
+    "tier": "bronze",
+    "check": "e=>e.isCaptain"
+  },
+  {
+    "id": "journeys_3",
+    "name": "Three Clubs",
+    "tier": "bronze",
+    "check": "e=>new Set(e.history.map(t=>t.club)).size>=3"
+  },
+  {
+    "id": "journeys_5",
+    "name": "Globe Trotter",
+    "tier": "silver",
+    "check": "e=>new Set(e.history.map(t=>t.leagueId)).size>=3"
+  },
+  {
+    "id": "decade",
+    "name": "One Club Decade",
+    "tier": "gold",
+    "check": "e=>{const t={};for(const n of e.history)t[n.club]=(t[n.club]??0)+1;return Object.values(t).some(n=>n>=10)}"
+  },
+  {
+    "id": "test_debut",
+    "name": "International Debut",
+    "tier": "bronze",
+    "check": "e=>e.internationalCaps>=1"
+  },
+  {
+    "id": "wc_winner",
+    "name": "World Cup Winner",
+    "tier": "legend",
+    "check": "e=>e.trophies.some(t=>t.type===\"international\"&&t.name===\"World Cup\")"
+  },
+  {
+    "id": "trophy_1",
+    "name": "Trophy Hunter",
+    "tier": "bronze",
+    "check": "e=>e.trophies.length>=1"
+  },
+  {
+    "id": "trophy_5",
+    "name": "Serial Winner",
+    "tier": "silver",
+    "check": "e=>e.trophies.length>=5"
+  },
+  {
+    "id": "trophy_10",
+    "name": "Trophy Cabinet Full",
+    "tier": "gold",
+    "check": "e=>e.trophies.length>=10"
+  },
+  {
+    "id": "legend",
+    "name": "Living Legend",
+    "tier": "legend",
+    "check": "e=>e.careerCaps>=200&&e.trophies.length>=5&&e.internationalCaps>=50"
+  }
+]

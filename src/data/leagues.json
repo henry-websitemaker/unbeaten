@@ -1,0 +1,152 @@
+{
+  "super_rugby": {
+    "id": "super_rugby",
+    "name": "Super Rugby Pacific",
+    "tier": 1,
+    "teamCount": 11,
+    "rounds": 14,
+    "perfectTarget": 17,
+    "physicalityBias": "back",
+    "wageBudgetBase": 120000,
+    "prizePool": 2000000,
+    "finalsFormat": "finals",
+    "finalsRounds": 3,
+    "bonusPoints": {
+      "tryBonus": 4,
+      "losingBonus": 7
+    },
+    "promotionRelegation": null
+  },
+  "premiership": {
+    "id": "premiership",
+    "name": "Gallagher Premiership",
+    "tier": 1,
+    "teamCount": 10,
+    "rounds": 18,
+    "perfectTarget": 20,
+    "physicalityBias": "forward",
+    "wageBudgetBase": 150000,
+    "prizePool": 3000000,
+    "finalsFormat": "playoffs",
+    "finalsRounds": 2,
+    "bonusPoints": {
+      "tryBonus": 4,
+      "losingBonus": 7
+    },
+    "promotionRelegation": null
+  },
+  "top_14": {
+    "id": "top_14",
+    "name": "Top 14",
+    "tier": 1,
+    "teamCount": 14,
+    "rounds": 26,
+    "perfectTarget": 29,
+    "physicalityBias": "balanced",
+    "wageBudgetBase": 200000,
+    "prizePool": 5000000,
+    "finalsFormat": "finals",
+    "finalsRounds": 3,
+    "bonusPoints": {
+      "tryBonus": 4,
+      "losingBonus": 7
+    },
+    "promotionRelegation": null
+  },
+  "urc": {
+    "id": "urc",
+    "name": "United Rugby Championship",
+    "tier": 1,
+    "teamCount": 16,
+    "rounds": 18,
+    "perfectTarget": 21,
+    "physicalityBias": "balanced",
+    "wageBudgetBase": 130000,
+    "prizePool": 2500000,
+    "finalsFormat": "playoffs",
+    "finalsRounds": 3,
+    "bonusPoints": {
+      "tryBonus": 4,
+      "losingBonus": 7
+    },
+    "promotionRelegation": null
+  },
+  "shute_shield": {
+    "id": "shute_shield",
+    "name": "Shute Shield",
+    "tier": 2,
+    "teamCount": 10,
+    "rounds": 18,
+    "perfectTarget": 21,
+    "physicalityBias": "back",
+    "wageBudgetBase": 20000,
+    "prizePool": 150000,
+    "finalsFormat": "finals",
+    "finalsRounds": 3,
+    "bonusPoints": {
+      "tryBonus": 4,
+      "losingBonus": 7
+    },
+    "promotionRelegation": null
+  },
+  "npc": {
+    "id": "npc",
+    "name": "Bunnings NPC",
+    "tier": 2,
+    "teamCount": 12,
+    "rounds": 10,
+    "perfectTarget": 13,
+    "physicalityBias": "back",
+    "wageBudgetBase": 25000,
+    "prizePool": 200000,
+    "finalsFormat": "finals",
+    "finalsRounds": 3,
+    "bonusPoints": {
+      "tryBonus": 4,
+      "losingBonus": 7
+    },
+    "promotionRelegation": null
+  },
+  "rfu_championship": {
+    "id": "rfu_championship",
+    "name": "RFU Championship",
+    "tier": 2,
+    "teamCount": 12,
+    "rounds": 22,
+    "perfectTarget": 22,
+    "physicalityBias": "forward",
+    "wageBudgetBase": 30000,
+    "prizePool": 250000,
+    "finalsFormat": "none",
+    "finalsRounds": 0,
+    "bonusPoints": {
+      "tryBonus": 4,
+      "losingBonus": 7
+    },
+    "promotionRelegation": {
+      "promotesTo": "premiership",
+      "spots": 1
+    }
+  },
+  "pro_d2": {
+    "id": "pro_d2",
+    "name": "Pro D2",
+    "tier": 2,
+    "teamCount": 14,
+    "rounds": 30,
+    "perfectTarget": 33,
+    "physicalityBias": "balanced",
+    "wageBudgetBase": 28000,
+    "prizePool": 220000,
+    "finalsFormat": "finals",
+    "finalsRounds": 3,
+    "bonusPoints": {
+      "tryBonus": 4,
+      "losingBonus": 7
+    },
+    "promotionRelegation": {
+      "promotesTo": "top_14",
+      "spots": 1
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "note": "Distribution targets the Monte Carlo balance pass must hit. These are test assertions, not runtime config.",
+  "ladders": {
+    "simsPerLeague": 100,
+    "targets": {
+      "pointsSpreadCorrelatesWithStrength": "Squad strength rank and final ladder rank must correlate at r >= 0.65",
+      "pointsDifferentialRealistic": "Champion PD between +150 and +400; wooden spooner between -150 and -400",
+      "bonusPointsTrackAttack": "Try-bonus count must correlate with squad attacking stats (PAC/EVA/HND) at r >= 0.5",
+      "surpriseOverachiever": "Roughly 1 club per season finishes 4+ places above its strength rank",
+      "promotedClubsStruggle": "Promoted clubs finish bottom third in at least 60% of seasons"
+    }
+  },
+  "trophies": {
+    "simsPerCompetition": 200,
+    "targets": {
+      "favouritesWin": [0.60, 0.70],
+      "underdogTitles": [0.03, 0.07],
+      "cupsMoreUpsetProne": "Cup favourite win rate must be at least 15 percentage points below league favourite win rate",
+      "championsCupSkewsStrongLeagues": "Top 14 and URC clubs combined win at least 55% of Champions Cups"
+    }
+  },
+  "internationals": {
+    "simsPerCycle": 200,
+    "targets": {
+      "tierOneDominance": "New Zealand, South Africa, France and Ireland win 65-80% of World Cups combined",
+      "noMonopoly": "No single nation wins more than 30% of World Cups",
+      "shockRun": "A nation ranked outside the top 6 reaches a World Cup final in at least 5% of cycles"
+    }
+  }
+}
