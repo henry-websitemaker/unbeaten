@@ -11,8 +11,9 @@ export default defineConfig({
     chunkSizeWarningLimit: 350,
   },
   test: {
-    // The engine is pure — no DOM needed, so tests stay fast.
+    // The engine is pure and the screens are smoke-tested with react-dom/server, so no DOM
+    // implementation is needed and the suite stays fast.
     environment: 'node',
-    include: ['src/**/*.test.ts'],
+    include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
   },
 })
