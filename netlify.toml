@@ -1,0 +1,33 @@
+# Netlify continuous deployment.
+#
+# SPEC §7 exists because the first build of this project lived only in a Codespace and went
+# straight to Netlify from the CLI, so when the Codespace went the build went with it.
+# Deploying from the repository instead means whatever is live is always something that
+# exists in git history.
+
+[build]
+  # `npm run build` is `tsc -b && vite build`, so a type error fails the deploy rather than
+  # shipping. The test suite is deliberately *not* here: it runs 60 full 20-season careers
+  # for the progression balance pass and takes ~9 minutes, which would push every deploy
+  # towards Netlify's build timeout. Tests belong in CI, not in the publish step.
+  command = "npm run build"
+
+  # Vite's default output directory. `vite.config.ts` sets no `base`, so assets are served
+  # from the site root, which is what a Netlify site domain gives us.
+  publish = "dist"
+
+[build.environment]
+  # Vite 7 requires Node ^20.19 || >=22.12. Pinned so a change to Netlify's default build
+  # image cannot silently change the toolchain under the site. Local development runs
+  # 24.19.0; bump this to "24" if you want the two to match exactly.
+  NODE_VERSION = "22"
+
+# No SPA redirect rule on purpose. Screens are zustand state rather than routes — `App.tsx`
+# switches on `screen`, and there is no router and no deep-linkable path — so a catch-all
+# rewrite would only serve index.html for URLs that genuinely do not exist. If routing is
+# ever added, this is the rule to add:
+#
+#   [[redirects]]
+#     from = "/*"
+#     to = "/index.html"
+#     status = 200
