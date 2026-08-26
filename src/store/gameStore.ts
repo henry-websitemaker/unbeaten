@@ -34,7 +34,7 @@ import {
   type ResolvedDecision,
 } from '../engine/agency'
 import { canPurchase, purchase } from '../engine/economy'
-import { applyTraining, hasTrainedThisSeason } from '../engine/training'
+import { applyTraining, blockForStat, hasTrainedThisSeason } from '../engine/training'
 import { evaluateAchievements, newlyUnlocked } from '../engine/achievements'
 import { assessSelection } from '../engine/internationals'
 import { recentFormRating } from '../engine/seasonClose'
@@ -52,6 +52,7 @@ import { rngFor, seedFromString } from '../engine/rng'
 import type { SpinResult } from '../engine/wheel'
 import type { SeasonSummary } from '../engine/career'
 import type { GamePlanId, PlayerCareer, TransferOffer } from '../types/career'
+import type { StatKey } from '../types/core'
 
 export type Screen =
   | 'menu'
@@ -106,8 +107,8 @@ interface GameState {
   skipWheel: () => void
   finishSeason: () => void
   buyLifestyle: (itemId: string) => string | null
-  /** Take this summer's pre-season block (SPEC §2.8). One per season. */
-  chooseTraining: (blockId: string) => string | null
+  /** Work on one stat this summer (SPEC §2.8). One pick per season. */
+  chooseTraining: (stat: StatKey) => string | null
   /** Set the game plan. It sticks until changed (SPEC §3). */
   setGamePlan: (plan: GamePlanId) => void
   chooseDestination: (offer: TransferOffer) => void
@@ -388,23 +389,31 @@ export const useGame = create<GameState>((set, get) => ({
     return null
   },
 
-  chooseTraining(blockId) {
+  chooseTraining(stat) {
     const state = get()
     if (!state.run) return 'No career in progress.'
 
     const { career } = state.run
     if (hasTrainedThisSeason(career.training, career.season)) {
-      return 'You have already done your pre-season block this summer.'
+      return 'You have already picked your summer’s work.'
+    }
+    if (career.stats[stat] === undefined) {
+      return 'That is not something your position is rated on.'
     }
 
-    const result = applyTraining(career.stats, career.position, blockId)
+    const result = applyTraining(career.stats, career.position, stat)
     const next: PlayerCareer = {
       ...career,
       stats: result.stats,
       ovr: result.ovr,
       training: [
         ...career.training,
-        { season: career.season, blockId, ovrDelta: result.ovrDelta },
+        {
+          season: career.season,
+          statKey: stat,
+          blockId: blockForStat(stat).id,
+          ovrDelta: result.ovrDelta,
+        },
       ],
     }
 

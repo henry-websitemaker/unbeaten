@@ -37,8 +37,8 @@ import {
   placeCareerInWorld,
 } from './career'
 import { beginSeason, closeSeason, playRound, skipWheelSpin } from './careerRun'
-import { ARCHETYPE_LIST, TUNING, ageEffect } from './progression'
-import { TRAINING_BLOCKS, applyTraining } from './training'
+import { ARCHETYPE_LIST, HARD_CEILING, TUNING, ageEffect, growthHeadroom } from './progression'
+import { applyTraining, trainingOptions } from './training'
 import { createWorld, randomStartingClub } from './world'
 import { rngFor } from './rng'
 import { CAREER_SEASONS } from '../types/career'
@@ -408,6 +408,8 @@ describe('SPEC §2.5 — the career arc', () => {
      * counting those seasons as failures would score a correct decline as a defect.
      */
     playedSeasonDeltas: number[]
+    /** Every season's delta, unbounded — for the volatility picture. */
+    allDeltas: number[]
   }
 
   const arcs: Arc[] = []
@@ -433,6 +435,7 @@ describe('SPEC §2.5 — the career arc', () => {
         let peakAge = career.age
         let totalApps = 0
         const playedSeasonDeltas: number[] = []
+        const allDeltas: number[] = []
 
         for (let season = 1; season <= CAREER_SEASONS; season++) {
           let run = beginSeason(career, placed)
@@ -443,6 +446,7 @@ describe('SPEC §2.5 — the career arc', () => {
           const { run: closed, summary } = closeSeason(run)
 
           totalApps += summary.record.appearances
+          allDeltas.push(summary.ovrDelta)
           const stillRising = career.age <= ARCHETYPE_LIST.find((a) => a.id === archetypeId)!.growthCurve.peakAge
           if (
             season >= PROGRESSION.targets.growingSeasonFrom &&
@@ -455,21 +459,29 @@ describe('SPEC §2.5 — the career arc', () => {
           career = summary.career
           placed = closed.world
 
-          // Pre-season training (SPEC §2.8), taking the block that helps most. Optimal play
-          // is the worst case for the peak band, which is the case the targets have to hold
-          // against — a player who trains every summer must not break the arc.
+          // Pre-season training (SPEC §2.8), taking the stat that helps most. Optimal play is
+          // the worst case for the peak band, which is the case the targets have to hold
+          // against — a player who trains perfectly every summer must not break the arc.
           if (!isFinalSeason(career)) {
-            const best = TRAINING_BLOCKS.map((block) =>
-              applyTraining(career.stats, career.position, block.id),
-            ).sort((a, b) => b.ovrDelta - a.ovrDelta)[0]!
-            career = {
-              ...career,
-              stats: best.stats,
-              ovr: best.ovr,
-              training: [
-                ...career.training,
-                { season: career.season, blockId: 'best', ovrDelta: best.ovrDelta },
-              ],
+            const best = trainingOptions(career.stats, career.position).sort(
+              (a, b) => b.ovrDelta - a.ovrDelta,
+            )[0]
+            if (best) {
+              const applied = applyTraining(career.stats, career.position, best.stat)
+              career = {
+                ...career,
+                stats: applied.stats,
+                ovr: applied.ovr,
+                training: [
+                  ...career.training,
+                  {
+                    season: career.season,
+                    statKey: best.stat,
+                    blockId: best.block.id,
+                    ovrDelta: applied.ovrDelta,
+                  },
+                ],
+              }
             }
           }
 
@@ -504,7 +516,15 @@ describe('SPEC §2.5 — the career arc', () => {
           career = advanceSeason(career)
         }
 
-        arcs.push({ archetypeId, peakOvr, peakAge, endOvr: career.ovr, totalApps, playedSeasonDeltas })
+        arcs.push({
+          archetypeId,
+          peakOvr,
+          peakAge,
+          endOvr: career.ovr,
+          totalApps,
+          playedSeasonDeltas,
+          allDeltas,
+        })
       }
     }
   }, 1_800_000)
@@ -542,15 +562,39 @@ describe('SPEC §2.5 — the career arc', () => {
     const deltas = arcs.flatMap((a) => a.playedSeasonDeltas)
     expect(deltas.length).toBeGreaterThan(0)
     const growing = deltas.filter((d) => d > 0).length / deltas.length
-    expect(
-      growing,
-      `${(growing * 100).toFixed(0)}% of played seasons grew`,
-    ).toBeGreaterThanOrEqual(PROGRESSION.targets.growingSeasonShare)
+    const [min, max] = PROGRESSION.targets.growingSeasonShare as [number, number]
+    const label = `${(growing * 100).toFixed(0)}% of played seasons grew`
+    expect(growing, label).toBeGreaterThanOrEqual(min)
+    // An upper bound as well as a lower one: a career that only ever climbs has no tension.
+    expect(growing, label).toBeLessThanOrEqual(max)
   })
 
-  it('never runs a career away to the ceiling', () => {
+  it('makes a poor season cost OVR rather than merely slowing you down', () => {
+    const deltas = arcs.flatMap((a) => a.playedSeasonDeltas)
+    const declining = deltas.filter((d) => d < 0).length / deltas.length
+    expect(
+      declining,
+      `${(declining * 100).toFixed(0)}% of played seasons went backwards`,
+    ).toBeGreaterThanOrEqual(PROGRESSION.targets.decliningSeasonShare)
+  })
+
+  it('never exceeds the top of the scale', () => {
     const highest = Math.max(...arcs.map((a) => a.peakOvr))
     expect(highest).toBeLessThanOrEqual(PROGRESSION.targets.peakOvrCeiling)
+  })
+
+  it('leaves the top of the scale reachable rather than tapering it away', () => {
+    // The point of the change: growth slows as a player climbs but is never switched off.
+    // An earlier model floored the multiplier at 0.1 against a ceiling of 81, which capped
+    // every career in the mid-eighties however good it was.
+    for (const ovr of [70, 80, 90, 95, 98]) {
+      expect(growthHeadroom(ovr), `headroom at ${ovr}`).toBeGreaterThan(0)
+    }
+    // Monotonic: better players improve more slowly, always.
+    for (let ovr = 60; ovr < 98; ovr++) {
+      expect(growthHeadroom(ovr + 1)).toBeLessThan(growthHeadroom(ovr))
+    }
+    expect(growthHeadroom(HARD_CEILING)).toBe(0)
   })
 
   it('keeps the archetypes distinct — the Wonderkid peaks early, the Late Bloomer late', () => {
@@ -563,6 +607,40 @@ describe('SPEC §2.5 — the career arc', () => {
     // The collapse this suite exists to prevent showed up first as a median of zero
     // appearances across twenty seasons.
     expect(median(arcs.map((a) => a.totalApps))).toBeGreaterThan(100)
+  })
+
+  /**
+   * Not an assertion — the distribution, printed.
+   *
+   * The targets above pin the shape; this is what the shape actually looks like, and it is
+   * what gets quoted in `REPORT.md` rather than being re-derived by hand.
+   */
+  it('reports the peak, retirement and volatility distribution', () => {
+    const pct = (xs: readonly number[], p: number) => {
+      const s = [...xs].sort((a, b) => a - b)
+      return s[Math.min(s.length - 1, Math.floor(p * s.length))]!
+    }
+
+    const peaks = arcs.map((a) => a.peakOvr)
+    const ends = arcs.map((a) => a.endOvr)
+    const played = arcs.flatMap((a) => a.playedSeasonDeltas)
+    const all = arcs.flatMap((a) => a.allDeltas)
+    const share = (xs: number[], f: (d: number) => boolean) =>
+      ((xs.filter(f).length / xs.length) * 100).toFixed(0)
+
+    const lines = [
+      `careers=${arcs.length}`,
+      `peak      p10=${pct(peaks, 0.1)} med=${median(peaks)} p90=${pct(peaks, 0.9)} max=${Math.max(...peaks)}`,
+      `peak age  p10=${pct(arcs.map((a) => a.peakAge), 0.1)} med=${median(arcs.map((a) => a.peakAge))} p90=${pct(arcs.map((a) => a.peakAge), 0.9)}`,
+      `retire    p10=${pct(ends, 0.1)} med=${median(ends)} p90=${pct(ends, 0.9)} min=${Math.min(...ends)}`,
+      `prime szn up=${share(played, (d) => d > 0)}% flat=${share(played, (d) => d === 0)}% down=${share(played, (d) => d < 0)}%`,
+      `all szn   up=${share(all, (d) => d > 0)}% flat=${share(all, (d) => d === 0)}% down=${share(all, (d) => d < 0)}%`,
+      `swing     meanAbs=${(all.reduce((t, d) => t + Math.abs(d), 0) / all.length).toFixed(2)} bestGain=+${Math.max(...all)} worstDrop=${Math.min(...all)}`,
+      `apps      med=${median(arcs.map((a) => a.totalApps))}`,
+    ]
+    // eslint-disable-next-line no-console
+    console.log('\nPROGRESSION DISTRIBUTION\n  ' + lines.join('\n  '))
+    expect(arcs.length).toBeGreaterThan(0)
   })
 
   it('bounds age decay for every archetype and every age', () => {

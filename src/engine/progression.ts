@@ -71,6 +71,19 @@ export interface ProgressionTuning {
    * week, which is what the remaining `1 - floor` scales with involvement.
    */
   maturationFloor: number
+  /**
+   * How much a season's *quality* scales the maturation earned from it.
+   *
+   * Without this, maturation is a near-constant tailwind that arrives however the player
+   * played, and it swamps the performance penalty: a bad season nets out at zero rather than
+   * costing anything, and the arc becomes a line that only ever goes up or sideways. Measured
+   * at 0, only 0-5% of prime seasons went backwards.
+   *
+   * A young player having a poor year still develops — he is still eighteen — but he develops
+   * more slowly than one tearing up the league, which is both true and the thing that lets a
+   * bad season be felt.
+   */
+  maturationQuality: number
   /** Decay ceiling for an archetype with `lateMultiplier` 1. */
   baseDecayCeiling: number
   /** Absolute cap on a season's decay, whatever the archetype. */
@@ -78,36 +91,71 @@ export interface ProgressionTuning {
   /** Years past the peak at which decay reaches ~63% of its ceiling. */
   decayTau: number
   /**
-   * The rating a player approaches but does not reach, and how far out the pull starts.
+   * Where the taper is measured from, and how sharply it bites.
    *
-   * Improvement gets harder the better you already are: going from 90 to 95 is not the same
-   * task as going from 70 to 75. Without this the arc has no top end at all — a strong
-   * career kept compounding into the high nineties, past anything in the recovered data.
+   * Improvement gets harder the better you already are — going from 90 to 95 is not the same
+   * task as 70 to 75 — but it never becomes impossible. An earlier version of this tapered
+   * towards an `eliteCeiling` of 81 and floored the multiplier at 0.1, which capped every
+   * career in the low-to-mid eighties: the top of the scale was not hard to reach, it was
+   * unreachable. Growth now approaches 99 asymptotically instead, so an exceptional
+   * twenty-season career can get there and an ordinary one never will.
+   *
+   * `taperExponent` is what decides how heavy that tail is: 1 is a straight line to 99,
+   * higher values make the last stretch progressively more punishing.
    */
-  eliteCeiling: number
-  eliteHeadroom: number
+  taperBaseline: number
+  taperExponent: number
+  /**
+   * Season-to-season randomness, in OVR points.
+   *
+   * Two players with identical seasons do not develop identically, and this is what stops a
+   * career being a function of its inputs. It is also the cheapest honest way to buy
+   * two-way movement: it is symmetric, so it barely touches the median peak, but it pushes
+   * marginal seasons across the line in both directions — which is the difference between an
+   * arc that drifts upward and one where a year can genuinely go against you.
+   */
+  seasonNoise: number
+}
+
+/** The top of the stat scale. Not a tuning knob — `clampOvr` enforces it. */
+export const HARD_CEILING = 99
+
+/**
+ * How much of a gain a player at `ovr` actually keeps.
+ *
+ * Strictly positive below `HARD_CEILING`, so nothing is ever fully blocked, and it reaches
+ * zero only *at* 99 where the clamp takes over anyway.
+ */
+export function growthHeadroom(ovr: number, tuning: ProgressionTuning = TUNING): number {
+  const span = HARD_CEILING - tuning.taperBaseline
+  const remaining = (HARD_CEILING - ovr) / span
+  if (remaining <= 0) return 0
+  return Math.min(1, remaining) ** tuning.taperExponent
 }
 
 export const TUNING: ProgressionTuning = {
-  neutralRating: 5.7,
+  // Raised from 5.7. The old bar sat well below what an established player actually rates
+  // (~6.5), so nearly every season cleared it and the arc only ever went up or sideways.
+  neutralRating: 6,
   ratingToOvr: 1.7,
-  ratingPenalty: 2.4,
-  maturationScale: 2.18,
+  // Steepened from 2.4. A season below the bar has to be felt, not absorbed.
+  ratingPenalty: 6.5,
+  maturationScale: 2.4,
   archetypeInfluence: 0.15,
   maturationFloor: 0.95,
+  maturationQuality: 0.6,
   baseDecayCeiling: 0.8,
   maxDecayPerSeason: 3,
   decayTau: 4,
-  // Lowered from 89 when pre-season training was restored (SPEC §2.8).
-  //
-  // Once training pushes a player every summer as well, this — not maturation — is what
-  // decides where a career tops out: every source of gain is scaled by the headroom left to
-  // the ceiling, so growth stops where that reaches zero and decay takes over. Measured over
-  // 60 careers, the median peak lands just below it: 89 -> 86, 84 -> 83, 81 -> in band.
-  // Reducing `maturationScale` instead moved the median peak by nothing at all, which is how
-  // the governing lever was identified.
-  eliteCeiling: 81,
-  eliteHeadroom: 14,
+  taperBaseline: 55,
+  // Above 1 the taper bites hardest at the top and barely at all lower down, which is what
+  // pulls the median peak back into band without slowing the early climb that keeps players
+  // above the retirement floor. 99 stays reachable, just harder.
+  taperExponent: 1.15,
+  // Raised from 0.35. Symmetric, so it barely moves the median while pushing marginal
+  // seasons across the line both ways — measured, it took declining prime seasons from
+  // 14% to 24% and left the median peak in band.
+  seasonNoise: 1.1,
 }
 
 export interface AgeEffect {
@@ -259,21 +307,24 @@ export function applySeasonProgression(input: SeasonProgressionInput): SeasonPro
   // Maturing still depends on playing — a young player kept out of the side develops more
   // slowly — but not entirely, or being behind in the pecking order would be unrecoverable.
   const floor = tuning.maturationFloor
+  // ...and it depends on how the season went. A prospect having a poor year still grows, just
+  // not as fast, which is what stops maturation quietly cancelling out every bad season.
+  const quality = Math.max(0.15, Math.min(1.35, 1 + gap * tuning.maturationQuality))
   const maturation =
-    effect.maturation * (floor + (1 - floor) * involvement) * input.matchGrowthMultiplier
+    effect.maturation *
+    (floor + (1 - floor) * involvement) *
+    quality *
+    input.matchGrowthMultiplier
 
   const currentOvr = computeOvr(stats, position)
 
-  // Diminishing returns near the top: the closer a player is to the ceiling, the less any
-  // given season moves them. Applied to gains only — decline is not slowed by being good.
-  const headroom = Math.max(
-    0.1,
-    Math.min(1, (tuning.eliteCeiling - currentOvr) / tuning.eliteHeadroom),
-  )
+  // Diminishing returns near the top, asymptotic to 99 rather than to an artificial cap.
+  // Applied to gains only — being good does not slow your decline.
+  const headroom = growthHeadroom(currentOvr, tuning)
   const gain = (performance > 0 ? performance : 0) + maturation
   const loss = performance < 0 ? performance : 0
 
-  const noise = rng.gaussian(0, 0.35)
+  const noise = rng.gaussian(0, tuning.seasonNoise)
   const delta = clampSwing(gain * headroom + loss - effect.decay + noise)
   const targetOvr = clampOvr(currentOvr + delta)
   const appliedDelta = targetOvr - currentOvr

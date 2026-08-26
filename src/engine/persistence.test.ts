@@ -178,7 +178,7 @@ describe('SPEC §2.2 — migrating a store that contains old-format entries', ()
 
     expect(report.from).toBe(1)
     expect(report.to).toBe(SCHEMA_VERSION)
-    expect(report.steps).toEqual([1, 2, 3])
+    expect(report.steps).toEqual([1, 2, 3, 4])
 
     const ranked = rankedHallOfFame(state.hallOfFame)
     expect(ranked.map((e) => e.name)).toEqual(['Full Career Fran'])
@@ -213,7 +213,7 @@ describe('SPEC §2.2 — migrating a store that contains old-format entries', ()
       hallOfFame: [],
     })
 
-    expect(report.steps).toEqual([3])
+    expect(report.steps).toEqual([3, 4])
     for (const career of [state.playerCareer, state.slots.player]) {
       expect(career).not.toBeNull()
       expect(career!.training).toEqual([])
@@ -238,6 +238,57 @@ describe('SPEC §2.2 — migrating a store that contains old-format entries', ()
 
     expect(state.playerCareer!.gamePlan).toBe('high_risk')
     expect(state.playerCareer!.training).toHaveLength(1)
+  })
+
+  /**
+   * v5 made training a per-stat pick. Records written under v4 name a block and no stat,
+   * because there was not one to name.
+   */
+  it('leaves a block-era training record without inventing a stat for it', () => {
+    const career = {
+      seed: 3,
+      name: 'Block Era Bob',
+      gamePlan: 'balanced_flair',
+      training: [
+        { season: 1, blockId: 'gym', ovrDelta: 2 },
+        { season: 2, blockId: 'film', ovrDelta: 1 },
+      ],
+    }
+
+    const { state, report } = migrate({
+      schemaVersion: 4,
+      playerCareer: career,
+      slots: { player: career, manager: null },
+      hallOfFame: [],
+    })
+
+    expect(report.steps).toEqual([4])
+    const training = state.playerCareer!.training
+    expect(training).toHaveLength(2)
+    for (const record of training) {
+      // The career really did a block; guessing which stat it "was" would write a fact into
+      // the save that never happened.
+      expect(record.statKey).toBeUndefined()
+      expect(record.blockId.length).toBeGreaterThan(0)
+    }
+  })
+
+  it('keeps a per-stat training record exactly as written', () => {
+    const career = {
+      seed: 4,
+      name: 'Stat Era Sam',
+      gamePlan: 'balanced_flair',
+      training: [{ season: 1, statKey: 'KCK', blockId: 'film', ovrDelta: 2 }],
+    }
+
+    const { state } = migrate({
+      schemaVersion: 4,
+      playerCareer: career,
+      slots: { player: career, manager: null },
+      hallOfFame: [],
+    })
+
+    expect(state.playerCareer!.training[0]!.statKey).toBe('KCK')
   })
 
   it('survives a v3 save with no career in it at all', () => {

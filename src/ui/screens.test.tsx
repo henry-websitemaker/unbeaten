@@ -324,16 +324,20 @@ describe('end-of-season screens', () => {
     expect(html).toContain('Off-Season Retreat')
   })
 
-  it('renders the pre-season training blocks with what each works on', () => {
+  it('renders the pre-season stat picks with current values and what each is worth', () => {
     // SPEC §2.8. This assertion used to be its exact opposite — that no training step
     // existed at all — which is why the amendment is called out in the spec rather than
-    // quietly applied.
+    // quietly applied. It then asserted blocks; training is now a per-stat pick.
     const html = render(<SummerScreen />)
     expect(html).toContain('Pre-season')
-    for (const block of TRAINING_BLOCKS) {
-      expect(html).toContain(block.name)
-      expect(html).toContain(block.focus)
+
+    const career = useGame.getState().run!.career
+    for (const stat of Object.keys(career.stats)) {
+      expect(html, `no card for ${stat}`).toContain(`>${stat}<`)
     }
+    // The consequence of each pick is on the card, not left to be guessed.
+    expect(html).toMatch(/\+\d+<\/p>|±0<\/p>/)
+    expect(html).toContain('OVR')
   })
 
   it('shows the new squad role labels rather than the old ones', () => {

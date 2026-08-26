@@ -1,4 +1,4 @@
-import type { LeagueId, PositionId, StatBlock } from './core'
+import type { LeagueId, PositionId, StatBlock, StatKey } from './core'
 import type { Contract, Ledger, LifestyleState } from './economy'
 
 /** SPEC §2.1: every career is exactly 20 seasons. No variable length, anywhere. */
@@ -60,9 +60,12 @@ export interface AwardWin {
   leagueId?: LeagueId
 }
 
-/** One pre-season block, taken once per summer (SPEC §2.8). */
+/** One summer's work, taken once per season (SPEC §2.8). */
 export interface TrainingRecord {
   season: number
+  /** The stat worked on. Absent on records saved before training became per-stat. */
+  statKey?: StatKey
+  /** The flavour block that stat belongs to. */
   blockId: string
   ovrDelta: number
 }

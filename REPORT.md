@@ -3,7 +3,7 @@
 Rebuilt from `SPEC.md` and the recovered `src/data/`. All nine phases of SPEC §5 are
 complete and the game is playable end to end.
 
-**553 tests, all passing. Entry chunk 302.7 kB raw / 98.4 kB gzip.**
+**561 tests, all passing. Entry chunk 303.4 kB raw / 98.6 kB gzip.**
 
 > The entry chunk has crossed SPEC §6's 300 kB line. §6 allows "under 300KB, **or**
 > route-level lazy loading", and there are twelve lazy screen chunks, so the requirement is
@@ -45,6 +45,71 @@ data layer and spec. That is the failure this rebuild exists to prevent.
 | 11 | Awards, internationals and match agency joined to the game; nineteen screens |
 | 12 | The career arc: five progression defects fixed, tuned against Monte Carlo evidence |
 | 13 | Restored from the previous build: training, league choice, game plan, Mystery Club |
+| 14 | Progression model: per-stat training, no effective ceiling, two-way OVR |
+
+## Phase 14 — the progression model
+
+Three changes that all pull on the same tuning, so they were made and measured together.
+
+**Training is now a per-stat pick.** Summer Plans shows the player's stats and they choose one
+to improve. The four blocks survive as the flavour a stat belongs to. Each card shows **what
+that pick is worth in OVR** — key stats carry 2.5× weight, so working on one moves OVR two to
+three times as much, and the player is entitled to know that rather than guess. This is the
+**second** deliberate reversal of the same spec rule, so it is written into §2.8 rather than
+applied quietly. What survives both reversals: no currency, no accumulation, one pick a year.
+
+**The effective ceiling is gone.** Growth was scaled by `max(0.1, (81 - ovr) / 14)`, which cut
+all gains by 90% above about OVR 79.6 and tapered every career out in the low-to-mid eighties.
+The top of the scale was not hard to reach, it was unreachable. `growthHeadroom` now approaches
+**99** asymptotically — slower the better you already are, never zero. Measured, the best of 60
+careers reached **93**.
+
+**OVR moves both ways.** This took four sweeps, and the first three found the wrong lever.
+
+### What the sweeps actually showed
+
+| Attempt | Result |
+|---|---|
+| Cut `maturationScale` | Peak collapsed 82 → 70. Declining seasons stayed at 5% |
+| Add `maturationQuality` | Peak recovered, declines only reached 7% |
+| Raise `neutralRating` to 6.0–6.3 | Declines reached 19–53%, but peak fell to 65–70 and appearances halved — the phase-12 death spiral returning |
+| Raise `seasonNoise` | Declines 14% → 24% **with the median peak unchanged** |
+
+The reason declines were invisible was not that the penalty was too small. It was that
+`neutralRating` sat at 5.7 while an established player actually rates about 6.5, so nearly
+every season cleared the bar — and where a season did fall short, `maturation` arrived as a
+near-constant tailwind and cancelled it. Both had to move, and then the thing that actually
+bought two-way movement was **variance**, because it is symmetric: it pushes marginal seasons
+across the line in both directions without shifting the median.
+
+`taperExponent` did the final trim, and it is worth recording why it was the right knob: above
+1 it bites hardest at the top and barely at all lower down, so it pulls the median peak back
+into band without slowing the early climb that keeps players above the retirement floor.
+Measured 1.0 → peak 83, 1.4 → 77.5, **1.15 → 80.5**.
+
+### The distribution, over 60 careers
+
+```
+peak       p10=66  med=80.5  p90=89  max=93
+peak age   p10=26  med=29.5  p90=38
+retire     p10=57  med=75.5  p90=85  min=53
+prime szn  up=47%  flat=22%  down=31%
+all szn    up=32%  flat=23%  down=45%
+swing      meanAbs=1.40  bestGain=+5  worstDrop=-6
+apps       med=295
+```
+
+`balance.test.ts` prints this block on every run, so the numbers quoted here are the ones the
+suite measured rather than any hand-derived from them.
+
+### The one target that moved, and why it had to
+
+`retirementFloorShare` went from 0.75 to **0.60** — measured 65%. This is the direct cost of
+what was asked for. A model in which a season can genuinely go backwards will sometimes end a
+career badly: the median retirement OVR is **75.5**, comfortably clear of the floor of 65, but
+the *spread* widened and p10 sits at 57. Forcing the share back up means removing the
+volatility that the change exists to create. The two cannot both be had, and the target says so
+at its own assertion rather than being quietly restored.
 
 ## Phase 13 — systems restored from the previous build
 
@@ -370,7 +435,7 @@ noise alone does not buy a heavy tail.
 
 ## Verification
 
-- `npm test` — 553 tests across 23 files, ~7.5 minutes. The progression block runs 60 full
+- `npm test` — 561 tests across 23 files, ~7 minutes. The progression block runs 60 full
   20-season careers through the real loop, which is most of the time and the reason the
   defects it guards against were invisible to unit tests. Two ten-thousand-iteration wheel
   invariants gained explicit timeouts in phase 13: they run in ~2.5s alone but share workers

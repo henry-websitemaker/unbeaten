@@ -1,8 +1,8 @@
 {
   "rules": {
     "blocksPerSeason": 1,
-    "statGain": 2,
-    "note": "SPEC §2.8. One block per summer. Blocks shape a stat area; there is no per-attribute spend and no points currency."
+    "statGain": 5,
+    "note": "SPEC §2.8. One stat per summer, use it or lose it. Blocks are the flavour a stat belongs to, not the unit of choice. There is no currency and nothing accumulates across seasons."
   },
   "blocks": [
     {

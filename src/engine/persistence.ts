@@ -14,7 +14,7 @@ import type { PositionId } from '../types/core'
 import type { ManagerCareer } from './teamCareer'
 
 /** Bump this whenever the stored shape changes, and add a step to MIGRATIONS. */
-export const SCHEMA_VERSION = 4
+export const SCHEMA_VERSION = 5
 
 /** Falls back to the balanced plan for any career saved before game plans existed. */
 export const DEFAULT_GAME_PLAN = 'balanced_flair'
@@ -237,11 +237,47 @@ const migrateV3toV4: Migration = (state) => {
   }
 }
 
+/**
+ * Step 4 -> 5: training became a per-stat pick rather than a block (SPEC §2.8).
+ *
+ * Records written under v4 name the block that was worked on but not a stat, because there
+ * was not one to name. They are left with `statKey` absent rather than being invented — the
+ * career genuinely did a Gym Block, and guessing which of SCR/CAR/TCK it "really" was would
+ * put a fact into the save that never happened. Everything that reads a record treats the
+ * missing key as "a block, before stats were pickable".
+ */
+const migrateV4toV5: Migration = (state) => {
+  const tidy = (raw: unknown): unknown => {
+    if (!raw || typeof raw !== 'object') return raw
+    const career = raw as Record<string, unknown>
+    const training = Array.isArray(career.training) ? career.training : []
+    return {
+      ...career,
+      training: training.map((entry) => {
+        const record = entry as Record<string, unknown>
+        return typeof record.statKey === 'string'
+          ? record
+          : { season: record.season, blockId: record.blockId, ovrDelta: record.ovrDelta ?? 0 }
+      }),
+    }
+  }
+
+  const slots = (state.slots ?? {}) as Record<string, unknown>
+
+  return {
+    ...state,
+    schemaVersion: 5,
+    playerCareer: tidy(state.playerCareer),
+    slots: { ...slots, player: tidy(slots.player) },
+  }
+}
+
 /** Indexed by the version they upgrade *from*. */
 const MIGRATIONS: Record<number, Migration> = {
   1: migrateV1toV2,
   2: migrateV2toV3,
   3: migrateV3toV4,
+  4: migrateV4toV5,
 }
 
 export interface MigrationReport {

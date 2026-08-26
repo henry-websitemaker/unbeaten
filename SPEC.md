@@ -85,10 +85,11 @@ them, but no single nation exceeds 30%; a nation outside the top 6 reaches a fin
 
 ### 2.5 Progression — match performance first, plus a pre-season block
 
-> **Amended.** An earlier revision of this spec removed manual training entirely. Pre-season
-> training is restored as a deliberate reversal: one choice per summer, not a points shop.
-> The distinction that still holds is that there is **no per-attribute spending and no
-> points currency** — you pick a block of work and it shapes you, you do not buy numbers.
+> **Amended twice.** An earlier revision removed manual training entirely; it was then
+> restored as a per-summer block; it is now a **per-stat pick**. The line that survives both
+> reversals is **no currency and no accumulation** — you get one pick a year, it is
+> use-it-or-lose-it, and nothing carries over. That is what still separates this from the
+> points shop, which stays deleted.
 
 OVR moves from five sources only:
 
@@ -100,21 +101,39 @@ OVR moves from five sources only:
 
 ### 2.8 Pre-season training
 
-A single choice in Summer Plans, taken once per season, from four blocks:
+Summer Plans shows the player's current stats and they choose **exactly one to improve**,
+once per season. Each stat belongs to one of four blocks, which supply the flavour of what
+that choice represents:
 
-| Block | Shapes |
-|---|---|
-| Gym Block | Power — the contact and set-piece stats |
-| Fitness Camp | Conditioning — endurance and the ability to last a season |
-| Tactical Film | Reading the game — vision, kicking, decision-making |
-| Skills Session | Handling and evasion — ball skills |
+| Block | Stats | Represents |
+|---|---|---|
+| Gym Block | SCR, CAR, TCK | Power — contact and set piece |
+| Fitness Camp | FIT, PAC | Conditioning — lasting a season |
+| Tactical Film | LNO, VIS, KCK | Reading the game |
+| Skills Session | HND, EVA, RUK | Ball skills |
 
-Each carries flavour text and states what it works on before it is chosen. Training must not
-be able to break the progression targets in `balance-targets.json`: the peak band and the
-ceiling hold with it in, which is enforced by the Monte Carlo pass, not by eyeballing.
+The **OVR effect of each pick is shown on its card** before it is chosen, the same way a
+destination card shows its OVR consequence (§2.5). Key stats carry 2.5× weight, so working on
+one moves OVR two to three times as much; the player is entitled to know that rather than
+guess, and rounding out a weakness stays a legitimate call.
 
-There is still **no points shop, no per-attribute spend, and no development-environment
-model.** Those remain deleted (§2.7).
+Training must not be able to break the progression targets in `balance-targets.json`: the peak
+band holds with a player who trains optimally every summer, enforced by the Monte Carlo pass
+rather than by eyeballing.
+
+There is still **no points shop, no currency and no accumulation** — one pick a year, use it
+or lose it. The development-environment model remains deleted (§2.7).
+
+### 2.9 The shape of a career
+
+OVR **moves in both directions**. A poor season costs OVR rather than merely slowing growth:
+`balance-targets.json` requires a share of prime seasons to go backwards, because a line that
+only ever climbs has no tension in it.
+
+There is **no effective ceiling**. Growth slows as a player improves — going 90 to 95 is not
+the task 70 to 75 is — but it is never switched off, so **99 is reachable** by an exceptional
+twenty-season career and out of reach for an ordinary one. An earlier model tapered everyone
+out in the mid-eighties, which made the top of the scale not hard but impossible.
 
 **Club move rule, end to end:**
 
@@ -141,8 +160,10 @@ Removed from the codebase, not left dormant:
 - 10-season career paths and the Long Career toggle
 - Any permanent-loss wheel outcome
 
-Pre-season training was on this list and has been **deliberately restored** (§2.8). It is the
-one entry ever taken off it; the rest stay gone.
+Pre-season training was on this list and has been **deliberately restored** (§2.8), first as a
+block and then as a per-stat pick. It is the one entry ever taken off it; the rest stay gone.
+Note that "per-attribute spending" is banned as a *currency* — saving and spending points —
+not as the act of choosing which attribute a summer's work goes into.
 
 ---
 

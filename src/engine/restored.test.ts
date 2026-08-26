@@ -14,9 +14,10 @@ import {
   TRAINING_BLOCKS,
   TRAINING_RULES,
   applyTraining,
+  blockForStat,
   getTrainingBlock,
   hasTrainedThisSeason,
-  trainableStats,
+  trainingOptions,
 } from './training'
 import {
   DEFAULT_GAME_PLAN,
@@ -28,7 +29,7 @@ import {
 } from './gamePlan'
 import { preMatchNews, seasonVerdict } from './flavour'
 import { computeOvr } from './ovr'
-import { TUNING } from './progression'
+import { HARD_CEILING, growthHeadroom } from './progression'
 import { createWorld, randomStartingClub } from './world'
 import { createRng, rngFor } from './rng'
 import { POSITIONS, TIER_TWO_LEAGUES, LEAGUES } from '../data'
@@ -75,79 +76,117 @@ function newCareer(seed = 7, position: PositionId = 'OC', leagueId?: string) {
 // ---------------------------------------------------------------------------
 
 describe('pre-season training', () => {
-  it('offers all four blocks, and every one reaches every position', () => {
+  it('offers every stat the position has, each with a flavour block behind it', () => {
     expect(TRAINING_BLOCKS).toHaveLength(4)
     for (const position of ALL_POSITIONS) {
       const stats = statsFor(position, 65)
-      for (const block of TRAINING_BLOCKS) {
-        expect(
-          trainableStats(block, stats).length,
-          `${block.name} does nothing for ${position}`,
-        ).toBeGreaterThan(0)
+      const options = trainingOptions(stats, position)
+
+      // One card per stat the player actually has — no more, no fewer.
+      expect(options.map((o) => o.stat).sort()).toEqual((Object.keys(stats) as StatKey[]).sort())
+      for (const option of options) {
+        expect(option.current).toBe(65)
+        expect(option.block.flavour.length).toBeGreaterThan(0)
       }
     }
   })
 
-  it('only ever raises stats — a summer of work costs nothing', () => {
+  it('covers all eleven stats across the four blocks, with no stat in two', () => {
+    const seen = new Map<StatKey, string>()
+    for (const block of TRAINING_BLOCKS) {
+      for (const stat of block.stats) {
+        expect(seen.has(stat), `${stat} is in two blocks`).toBe(false)
+        seen.set(stat, block.id)
+      }
+    }
+    expect(seen.size).toBe(11)
+  })
+
+  it('raises the chosen stat and nothing else', () => {
     for (const position of ALL_POSITIONS) {
       const before = statsFor(position, 60)
-      for (const block of TRAINING_BLOCKS) {
-        const after = applyTraining(before, position, block.id).stats
-        for (const stat of Object.keys(before) as StatKey[]) {
-          expect(after[stat]!, `${position}/${block.id}/${stat}`).toBeGreaterThanOrEqual(
-            before[stat]!,
-          )
-        }
-        expect(applyTraining(before, position, block.id).ovrDelta).toBeGreaterThanOrEqual(0)
-      }
-    }
-  })
-
-  it('raises only the stats the block advertises', () => {
-    for (const block of TRAINING_BLOCKS) {
-      const before = statsFor('OC', 60)
-      const after = applyTraining(before, 'OC', block.id).stats
       for (const stat of Object.keys(before) as StatKey[]) {
-        if (block.stats.includes(stat)) continue
-        expect(after[stat], `${block.id} moved ${stat}`).toBe(before[stat])
+        const after = applyTraining(before, position, stat).stats
+        expect(after[stat]!).toBeGreaterThan(before[stat]!)
+        for (const other of Object.keys(before) as StatKey[]) {
+          if (other === stat) continue
+          expect(after[other], `${stat} moved ${other}`).toBe(before[other])
+        }
       }
     }
   })
 
-  it('is worth more when it works on the stats the shirt is judged on', () => {
-    // A fly-half is judged on KCK/VIS/HND, so Tactical Film should move his OVR more than
-    // a block that only reaches one stat he is barely rated on.
-    const stats = statsFor('FH', 65)
-    const film = applyTraining(stats, 'FH', 'film').ovrDelta
-    const gym = applyTraining(stats, 'FH', 'gym').ovrDelta
-    expect(film).toBeGreaterThan(gym)
-  })
-
-  it('tapers as a player approaches the ceiling', () => {
-    const low = applyTraining(statsFor('OC', 60), 'OC', 'gym').ovrDelta
-    const high = applyTraining(statsFor('OC', 88), 'OC', 'gym').ovrDelta
-    expect(high).toBeLessThan(low)
-  })
-
-  it('cannot push a player past the ceiling however many summers are spent', () => {
-    let stats = statsFor('OC', 70)
-    for (let season = 1; season <= 40; season++) {
-      stats = applyTraining(stats, 'OC', 'gym').stats
-      stats = applyTraining(stats, 'OC', 'film').stats
+  it('never costs anything — a summer of work only ever adds', () => {
+    for (const position of ALL_POSITIONS) {
+      const before = statsFor(position, 60)
+      for (const stat of Object.keys(before) as StatKey[]) {
+        const result = applyTraining(before, position, stat)
+        expect(result.ovrDelta).toBeGreaterThanOrEqual(0)
+        for (const other of Object.keys(before) as StatKey[]) {
+          expect(result.stats[other]!).toBeGreaterThanOrEqual(before[other]!)
+        }
+      }
     }
-    expect(computeOvr(stats, 'OC')).toBeLessThanOrEqual(TUNING.eliteCeiling + 1)
   })
 
-  it('allows exactly one block a summer', () => {
+  it('is worth more on a stat the shirt is judged on', () => {
+    // A fly-half is judged on KCK/VIS/HND at 2.5x weight, so working on one of those must
+    // move OVR more than working on something he is barely rated for.
+    const options = trainingOptions(statsFor('FH', 65), 'FH')
+    const key = options.filter((o) => o.isKeyStat)
+    const rest = options.filter((o) => !o.isKeyStat)
+    expect(key.length).toBe(3)
+    expect(Math.min(...key.map((o) => o.ovrDelta))).toBeGreaterThan(
+      Math.max(...rest.map((o) => o.ovrDelta)),
+    )
+  })
+
+  it('ignores a stat the position does not have', () => {
+    // A wing has no scrummaging; asking for it is a no-op rather than an invention.
+    const stats = statsFor('WL', 65)
+    expect(stats.SCR).toBeUndefined()
+    const result = applyTraining(stats, 'WL', 'SCR')
+    expect(result.ovrDelta).toBe(0)
+    expect(result.stats).toEqual(stats)
+  })
+
+  it('tapers as a player climbs, but never stops', () => {
+    const gainAt = (level: number) =>
+      Math.max(...trainingOptions(statsFor('OC', level), 'OC').map((o) => o.ovrDelta))
+
+    // Slower the better you are...
+    expect(gainAt(88)).toBeLessThanOrEqual(gainAt(60))
+    // ...but the underlying multiplier is never zeroed out below the top of the scale.
+    expect(growthHeadroom(95)).toBeGreaterThan(0)
+  })
+
+  it('cannot be trained past the top of the scale', () => {
+    let stats = statsFor('OC', 70)
+    for (let season = 1; season <= 60; season++) {
+      const best = trainingOptions(stats, 'OC').sort((a, b) => b.ovrDelta - a.ovrDelta)[0]!
+      stats = applyTraining(stats, 'OC', best.stat).stats
+    }
+    expect(computeOvr(stats, 'OC')).toBeLessThanOrEqual(HARD_CEILING)
+  })
+
+  it('allows exactly one pick a summer', () => {
     expect(TRAINING_RULES.blocksPerSeason).toBe(1)
     expect(hasTrainedThisSeason([], 3)).toBe(false)
     expect(hasTrainedThisSeason([{ season: 3 }], 3)).toBe(true)
-    // A block taken last summer does not use up this one.
+    // A pick taken last summer does not use up this one — nothing accumulates.
     expect(hasTrainedThisSeason([{ season: 2 }], 3)).toBe(false)
   })
 
   it('rejects an unknown block rather than silently doing nothing', () => {
     expect(() => getTrainingBlock('nope')).toThrow('Unknown training block')
+  })
+
+  it('maps every stat to exactly one flavour block', () => {
+    for (const block of TRAINING_BLOCKS) {
+      for (const stat of block.stats) {
+        expect(blockForStat(stat).id).toBe(block.id)
+      }
+    }
   })
 })
 
