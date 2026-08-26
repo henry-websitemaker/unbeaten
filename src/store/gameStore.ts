@@ -179,7 +179,7 @@ export const useGame = create<GameState>((set, get) => ({
     // A fresh world built for this career's seed.
     loadTeams().then((teamDefs) => {
       const world = createWorld(seed, teamDefs)
-      const club = randomStartingClub(world, rngFor(seed, 'start'))
+      const club = randomStartingClub(world, rngFor(seed, 'start'), options.position)
       const career = createCareer(seed, options, club)
       const placed = placeCareerInWorld(world, career)
       const rival = createRival(seed, career.position, career.ovr, club.leagueId)

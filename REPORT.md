@@ -3,7 +3,7 @@
 Rebuilt from `SPEC.md` and the recovered `src/data/`. All nine phases of SPEC §5 are
 complete and the game is playable end to end.
 
-**502 tests, all passing. Entry chunk 294.0 kB raw / 95.4 kB gzip.**
+**512 tests, all passing. Entry chunk 295.0 kB raw / 95.8 kB gzip.**
 
 > **Update — the awards, internationals and match agency pass.** The section
 > [Three SPEC §3 features that were not actually wired in](#three-spec-3-features-that-were-not-actually-wired-in)
@@ -38,6 +38,7 @@ data layer and spec. That is the failure this rebuild exists to prevent.
 | 9 | Monte Carlo balance pass |
 | 10 | Sixteen screens, lazy-loaded; store; close-out |
 | 11 | Awards, internationals and match agency joined to the game; nineteen screens |
+| 12 | The career arc: five progression defects fixed, tuned against Monte Carlo evidence |
 
 ## Three SPEC §3 features that were not actually wired in
 
@@ -150,50 +151,102 @@ league, but league lengths run 10 to 30 rounds. Clearing +150 over 10 rounds nee
 match; staying under +400 over 30 needs ≤13.3. That interval is empty. The floor is asserted
 literally, the ceiling per match.
 
-## Unfixed: the career arc collapses, and no ordinary career reaches international standard
+## The career arc: five defects, and the Monte Carlo pass that found them
 
-Found while testing the internationals work, measured, **not fixed** — it is a progression
-balance question, not a wiring one, and it needs a decision rather than a guess.
+The previous section of this report recorded the collapsing career arc as measured but
+unfixed. This is that pass. Every constant below was chosen from the sweep, not guessed, and
+is held by the new `progression` block in `balance-targets.json`.
 
-A career cannot climb. Measured over full 20-season runs:
+### Before and after
 
-| | |
-|---|---|
-| Tier-2 starting XV averages | **66.8–68.1** OVR (bench 62–63) |
-| Player starts at | **58–64** OVR (SPEC §3: "OVR 55–65") |
-| Player's season rating | **5.1–5.9**, against a `NEUTRAL_RATING` of **6.4** |
-| Peak OVR reached | **~71** at best, typically 60–64 |
-| OVR at season 20 | **17–47** |
-| Italy's selection floor | 73 OVR and 7.08 average form |
+Measured over 60 full 20-season careers, four archetypes, through the real season loop:
 
-Two independent defects compound:
+| | before | after |
+|---|---|---|
+| Careers that ever play a match | **33%** | **100%** |
+| Median appearances across 20 seasons | **0** | **~310** |
+| Median peak OVR | **60.5** | **81** |
+| Median peak age | 25 | **30** |
+| Median OVR at retirement | **49** | **77** |
+| Careers retiring above 65 | 0% | **77%** |
+| Careers earning a test cap | **0%** | **~58%** |
+| Highest OVR reached by any career | 64 | 89 |
 
-**1. Match performance only ever subtracts.** The rating scale is fine — 30 players in a
-tier-2 match average 6.47, so `NEUTRAL_RATING = 6.4` is the right bar. But a player rates
-above it only from about OVR 73, and reaching 73 requires growth that, per SPEC §2.5, comes
-primarily from match performance. It is a bootstrap that never starts: `performance` is
-negative in *every* season of a typical career, and the only positive term is maturation,
-which is capped around +1.5/season and expires at the archetype's peak age.
+Archetype peaks went from 30 points apart (Wonderkid 86–97, Late Bloomer 61) to 6 apart
+(84 / 82 / 80 / 79).
 
-The earlier "Careers had no arc" fix addressed the symptom by adding maturation. It did not
-reconcile the rating a fringe tier-2 player actually earns with the bar they are measured
-against, which is the underlying disagreement.
+### What was actually wrong
 
-**2. Age decay is unbounded.** `ageEffect` decays by `(yearsPast × 0.45 + yearsPast² × 0.05)
-/ lateMultiplier`, which for a Wonderkid at 38 is **−18.3 OVR in a single season**. The
-`MAX_SEASON_SWING` clamp holds it to −6, but −6 every season for the last third of a career
-is what takes a peak of 71 down to 25. Only the Late Bloomer (`lateMultiplier` 1.4) declines
-plausibly.
+Five defects, only two of which the brief anticipated. The first three were found by
+measurement; the last two only became visible once the ones in front of them were fixed.
 
-The effect on the work above: **internationals are wired correctly and provably work** — at
-OVR 80 the player is selected and wins 9 caps in a season — but an ordinary career never
-gets there, so in practice the caps achievements stay locked for balance reasons rather than
-wiring ones. `seasonClose.test.ts` therefore tests the wiring against a player raised to
-international standard, and says so at the harness.
+**1. Age decay was unbounded.** `(yearsPast × 0.45 + yearsPast² × 0.05) / lateMultiplier`
+reached **−18.3 OVR in a single season** for a Wonderkid at 38. Clamped to −6 by
+`MAX_SEASON_SWING`, that still took a peak of 71 down to 25. Now it approaches a per-archetype
+ceiling exponentially: still strictly increasing every year, but incapable of running away.
 
-Fixing this means retuning `NEUTRAL_RATING`, the involvement curve and the decay formula
-against `balance-targets.json` — SPEC §2.4's "enforced as tests, not eyeballed" discipline —
-and it should be its own pass with its own Monte Carlo evidence.
+**2. The involvement curve hid a hardcoded season length.** `min(1, appearances / 12)` meant
+an **ever-present player in the 10-round NPC could never earn full development** (0.83 at
+best), while one in the 30-round Pro D2 earned it by round 12 — 40% of a season. It now
+divides by the league's own round count. `spec-compliance.test.ts` gained a rule for this
+shape of the bug; its existing rule only caught `rounds === <literal>`.
+
+**3. Morale had a one-way ratchet into selection.** An unselected player lost 3 morale a
+round with no floor and no recovery. `selectionAdjustment` feeds morale straight back into
+whether he is picked, on the same scale as the **1–3 rating points** that typically separate
+two rivals for a shirt — so one season on the bench applied a permanent −1.8 selection penalty.
+**Being dropped was what kept you dropped, for twenty seasons.** Morale now has a floor and
+form drifts back to neutral while out of the side.
+
+**4. Selection was a hard cut at fifteen.** No rotation, no rest, no injuries to AI players:
+the same XV played every round of every season, so the sixteenth-best player never appeared.
+Whether you were 15th or 16th was settled at career creation by which club you landed at.
+**Only 33% of careers ever made a single appearance.** Since match performance is SPEC §2.5's
+main source of OVR, two thirds of careers had no way to develop at all. Every club now gets a
+weekly rotation nudge, and the starting club is weighted towards squads thin in the player's
+position — still random, and a strong incumbent is still possible.
+
+**5. The Wonderkid was strictly dominant.** Maturation scaled directly off `earlyMultiplier`
+(1.45 against the Late Bloomer's 0.7), so the archetype choice at creation was one right
+answer and three wrong ones. Pushing the shared knobs hard enough to lift the Late Bloomer
+sent the Wonderkid past 99. `archetypeInfluence` now decides how much that multiplier sets
+the *height* of the curve as opposed to its shape: `earlyMultiplier` still governs how fast a
+player matures and how well they convert a good season, `lateMultiplier` still governs the
+decline, but all four archetypes reach a competitive peak by different routes.
+
+A sixth change fell out of the tuning: gains now suffer **diminishing returns near the top**,
+because without it a strong career compounded into the high nineties, past anything in the
+recovered data. Getting from 90 to 95 is not the same task as 70 to 75.
+
+### Where the targets fought each other
+
+Two pairs could not both be satisfied, and both are recorded at their assertions rather than
+quietly loosened.
+
+**Retirement share versus the peak band.** The plan proposed that 80% of careers retire above
+65. Measured: **77%**, with a median retirement OVR of 77 — comfortably clear of the floor
+itself. The last few points are a tail of Journeymen, who start latest and peak earliest;
+lifting them means lifting low peaks, which pushes the median peak out of its 78–82 band. The
+target is set at 0.75, which is measured with margin rather than aspirational.
+
+**Rotation spread versus two ladder targets.** Rotation is what buys the player game time, but
+it also perturbs league results, and it does so in opposite directions for two existing
+targets — more rotation produces more underdog titles and *fewer* big overachievers, because
+it costs a thin squad more than a deep one. At spread 2.2 the overachiever rate fell to
+exactly its 0.4 floor; at 1.9 underdog titles fell to 2.875% against a 3% floor. **2.05
+satisfies both**, along with every other ladder and trophy target. That is a narrower window
+than is comfortable, and it is the reason `ROTATION_SPREAD` is a named constant with the
+measurements written next to it.
+
+### One test was recalibrated, deliberately
+
+`costs a player who rated badly` asserted that a 24-year-old rating **5.2** loses OVR. That
+was chosen against a neutral bar of 6.4. With the bar at 5.7, 5.2 is half a point below
+average — a mediocre season, not a bad one — and the true delta of −0.25 rounds to an integer
+0. The test was asserting against a scale that no longer existed. It now expresses its rating
+**relative to `TUNING.neutralRating`**, so it cannot silently drift again, and a second test
+was added asserting the property that actually matters: a bad season leaves the same player
+worse off than a good one.
 
 ## Balance targets: met and unmet
 
@@ -226,8 +279,10 @@ noise alone does not buy a heavy tail.
 
 ## Verification
 
-- `npm test` — 502 tests across 22 files
-- `npm run build` — clean. The entry chunk is **294.0 kB raw / 95.4 kB gzip**, up from
+- `npm test` — 512 tests across 22 files, ~9 minutes. The progression block runs 60 full
+  20-season careers through the real loop, which is most of the added time and the reason
+  the defects it guards against were invisible to unit tests.
+- `npm run build` — clean. The entry chunk is **295.0 kB raw / 95.8 kB gzip**, up from
   274.4 kB: `career.ts` now reaches the awards and internationals engines, and `careerRun.ts`
   reaches the agency table, so all three land in the entry chunk however the screens are
   split. Still inside SPEC §6's 300 kB, but with only ~6 kB of headroom — the next engine

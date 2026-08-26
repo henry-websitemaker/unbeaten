@@ -9,7 +9,7 @@
 
 import { LEAGUE_LIST, getLeague } from '../data'
 import { buildSquad, teamId } from './generate'
-import type { LeagueDef, LeagueId, Player, Team, TeamDef } from '../types/core'
+import type { LeagueDef, LeagueId, Player, PositionId, Team, TeamDef } from '../types/core'
 import type { Rng } from './rng'
 
 export interface World {
@@ -68,12 +68,34 @@ export function updatePlayer(world: World, player: Player): World {
  *
  * SPEC §3: a random club in a random tier-2 league. Tier 1 has to be earned, so it is not
  * in the pool at all.
+ *
+ * When the position is known the club is still random, but weighted towards squads that are
+ * thin in that shirt. Selection is not guaranteed — a strong incumbent is entirely possible
+ * — but landing behind a settled international at 18 used to end a career before it began:
+ * with no game time there is no development, and no way back up the pecking order.
  */
-export function randomStartingClub(world: World, rng: Rng): Team {
+export function randomStartingClub(world: World, rng: Rng, position?: PositionId): Team {
   const tierTwo = LEAGUE_LIST.filter((l) => l.tier === 2)
   const league = rng.pick(tierTwo)
-  return rng.pick(teamsInLeague(world, league.id))
+  const clubs = teamsInLeague(world, league.id)
+  if (!position) return rng.pick(clubs)
+
+  // Weight by how weak the best incumbent in that shirt is. A club whose first choice is 60
+  // is a far more attractive place to start than one whose first choice is 72.
+  return rng.weighted(clubs, (team) => {
+    const incumbent = team.squad
+      .filter((p) => p.position === position)
+      .reduce((best, p) => Math.max(best, p.ovr), 0)
+    return Math.max(1, INCUMBENT_WEIGHT_BASE - incumbent)
+  })
 }
+
+/**
+ * The incumbent OVR at which a club becomes an unattractive place to start.
+ *
+ * Above this it still draws the minimum weight rather than zero, so no club is impossible.
+ */
+const INCUMBENT_WEIGHT_BASE = 75
 
 /** Clubs a player could plausibly move to, for the Summer Plans destination cards. */
 export function transferCandidates(world: World, excludeClubId: string): Team[] {

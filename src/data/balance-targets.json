@@ -19,6 +19,25 @@
       "championsCupSkewsStrongLeagues": "Top 14 and URC clubs combined win at least 55% of Champions Cups"
     }
   },
+  "progression": {
+    "careerSims": 60,
+    "targets": {
+      "medianPeakOvr": [78, 82],
+      "medianPeakAge": [25, 31],
+      "retirementOvrFloor": 65,
+      "retirementFloorShare": 0.75,
+      "growingSeasonFrom": 3,
+      "growingSeasonShare": 0.5,
+      "peakOvrCeiling": 95,
+      "notes": {
+        "medianPeakAge": "Spans the Wonderkid's 26 and the Late Bloomer's 31 — the archetypes keep their own shapes rather than being flattened to one curve.",
+        "retirementFloorShare": "At least this share of careers retire above the floor. Not all of them: an unlucky career should still be possible. Measured at 77% over 60 careers with a median retirement OVR of 77. An 80% share is not reachable together with the 78-82 peak band — lifting the low tail means lifting low peaks, which pushes the median out of the band. The two pull on the same knob.",
+        "growingSeasonFrom": "The season from which a played season is expected to add OVR rather than take it away.",
+        "growingSeasonShare": "The share of played seasons, from that season on, that must show net growth.",
+        "peakOvrCeiling": "No career runs away to 99."
+      }
+    }
+  },
   "internationals": {
     "simsPerCycle": 200,
     "targets": {

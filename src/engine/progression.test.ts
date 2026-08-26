@@ -5,6 +5,7 @@ import {
   applyClubMove,
   applySeasonProgression,
   ageEffect,
+  TUNING,
   clubMoveDirection,
   distributeOvrChange,
   getArchetype,
@@ -116,6 +117,7 @@ describe('young players develop by playing, not by rating 8 out of 10', () => {
       archetype: getArchetype('wonderkid'),
       avgRating: 6.1,
       appearances: 16,
+      matchesAvailable: 18,
       matchGrowthMultiplier: 1,
       rng: createRng(77),
     })
@@ -129,6 +131,7 @@ describe('young players develop by playing, not by rating 8 out of 10', () => {
       age: 19,
       archetype: getArchetype('wonderkid'),
       avgRating: 6.2,
+      matchesAvailable: 18,
       matchGrowthMultiplier: 1,
     }
 
@@ -152,6 +155,7 @@ describe('young players develop by playing, not by rating 8 out of 10', () => {
       archetype: getArchetype('wonderkid'),
       avgRating: 6.2,
       appearances: 18,
+      matchesAvailable: 18,
       matchGrowthMultiplier: 1,
       rng: createRng(9),
     })
@@ -164,6 +168,7 @@ describe('applySeasonProgression', () => {
     position: 'FH' as const,
     matchGrowthMultiplier: 1,
     appearances: 20,
+    matchesAvailable: 20,
   }
 
   it('improves a young player who rated well', () => {
@@ -182,15 +187,43 @@ describe('applySeasonProgression', () => {
   })
 
   it('costs a player who rated badly', () => {
+    // Expressed relative to the neutral bar rather than as a bare number. It used to read
+    // 5.2, which was clearly bad against a neutral of 6.4; once the bar moved to 5.7 the
+    // same 5.2 was only half a point below average, and the test was quietly asserting
+    // against a scale that no longer existed.
     const result = applySeasonProgression({
       ...base,
       stats: statsAt('FH', 75),
       age: 24,
       archetype: getArchetype('iron_man'),
-      avgRating: 5.2,
+      avgRating: TUNING.neutralRating - 1.6,
       rng: createRng(2),
     })
     expect(result.ovrDelta).toBeLessThan(0)
+  })
+
+  it('leaves a bad season clearly worse than a good one for the same player', () => {
+    const shared = {
+      ...base,
+      stats: statsAt('FH', 75),
+      age: 24,
+      archetype: getArchetype('iron_man'),
+    }
+    let bad = 0
+    let good = 0
+    for (let seed = 0; seed < 40; seed++) {
+      bad += applySeasonProgression({
+        ...shared,
+        avgRating: TUNING.neutralRating - 1,
+        rng: createRng(seed),
+      }).ovrDelta
+      good += applySeasonProgression({
+        ...shared,
+        avgRating: TUNING.neutralRating + 1,
+        rng: createRng(seed),
+      }).ovrDelta
+    }
+    expect(good).toBeGreaterThan(bad)
   })
 
   it('declines an ageing player even on a decent season', () => {
@@ -250,6 +283,9 @@ describe('applySeasonProgression', () => {
         archetype: rng.pick(ARCHETYPE_LIST),
         avgRating: rng.float(3, 9.5),
         appearances: rng.int(0, 30),
+        // The real spread of league lengths, so the swing clamp is exercised against a
+        // short season and a long one alike.
+        matchesAvailable: rng.int(10, 30),
         matchGrowthMultiplier: 1.25,
         rng,
       })
@@ -268,6 +304,7 @@ describe('applySeasonProgression', () => {
         archetype: rng.pick(ARCHETYPE_LIST),
         avgRating: rng.float(4, 9),
         appearances: 18,
+        matchesAvailable: 18,
         matchGrowthMultiplier: 1,
         rng,
       })
@@ -290,6 +327,7 @@ describe('applySeasonProgression', () => {
         archetype,
         avgRating: 7.2,
         appearances: 20,
+        matchesAvailable: 20,
         matchGrowthMultiplier: 1,
         rng,
       })

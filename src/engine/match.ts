@@ -11,7 +11,7 @@
  */
 
 import { getLeague } from '../data'
-import { clubQuality, selectBestXV, type Selection } from './generate'
+import { clubQuality, rollRotation, selectBestXV, type Selection } from './generate'
 import { rngFor, type Rng } from './rng'
 import type { LeagueId, PositionId, StatKey, Team } from '../types/core'
 import type {
@@ -305,8 +305,14 @@ export function simulateMatch(args: SimulateMatchArgs): MatchResult {
 
   const rng = rngFor(seed, 'match', season, round, home.id, away.id)
 
-  const homeXV = selectBestXV(home, mods.unavailableHome, mods.selectionAdjustHome)
-  const awayXV = selectBestXV(away, mods.unavailableAway, mods.selectionAdjustAway)
+  // Rotation draws from its own stream, so adding it does not shift a single draw the match
+  // itself makes — the scoreline for a given XV is exactly what it was before.
+  const rotationRng = rngFor(seed, 'rotation', season, round, home.id, away.id)
+  const homeRotation = rollRotation(home, rotationRng)
+  const awayRotation = rollRotation(away, rotationRng)
+
+  const homeXV = selectBestXV(home, mods.unavailableHome, mods.selectionAdjustHome, homeRotation)
+  const awayXV = selectBestXV(away, mods.unavailableAway, mods.selectionAdjustAway, awayRotation)
 
   const homeRating = rateTeam(homeXV, leagueId, mods.statWeightOverride)
   const awayRating = rateTeam(awayXV, leagueId, mods.statWeightOverride)

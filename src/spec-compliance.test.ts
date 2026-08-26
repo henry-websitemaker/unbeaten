@@ -121,6 +121,26 @@ describe('SPEC §2.3 — league lengths are never hardcoded', () => {
     }
   })
 
+  /**
+   * The comparison rule above only catches `rounds === 18`. It missed a season length
+   * standing in as a bare divisor: `involvement = min(1, appearances / 12)` meant an
+   * ever-present player in the 10-round NPC could never earn full development, while one in
+   * the 30-round Pro D2 earned it by round 12. Same bug, different syntax.
+   */
+  it('never divides appearances by a constant instead of the season length', () => {
+    const engineFiles = scannableFiles().filter(
+      (file) => file.path.startsWith('engine') && !file.path.includes('.test.'),
+    )
+
+    for (const file of engineFiles) {
+      const offender = /appearances\s*\/\s*\d+/.exec(stripComments(file.text))
+      expect(
+        offender?.[0],
+        `${file.path} divides appearances by a literal (${offender?.[0]}) — use the league's round count`,
+      ).toBeUndefined()
+    }
+  })
+
   it('agrees that perfectTarget is rounds + finalsRounds for all 8 leagues', () => {
     for (const league of LEAGUE_LIST) {
       expect(league.perfectTarget).toBe(league.rounds + league.finalsRounds)

@@ -313,6 +313,22 @@ export interface Selection {
  * through injury, or because it is simply thin — is correctly measured as weaker. The
  * balance pass asserts this correlates with where a club finishes.
  */
+/**
+ * How far a week's rotation can move a player up or down the pecking order, in rating points.
+ *
+ * Sized against the gaps that actually separate squad rivals — typically 1 to 3 points — so
+ * a clear first choice still plays most weeks while the players just outside the XV get a
+ * real share of the season.
+ */
+export const ROTATION_SPREAD = 2.05
+
+/** This week's rotation for one squad. Deterministic for the rng it is handed. */
+export function rollRotation(team: Team, rng: Rng, spread = ROTATION_SPREAD): Map<string, number> {
+  const out = new Map<string, number>()
+  for (const player of team.squad) out.set(player.id, rng.gaussian(0, spread))
+  return out
+}
+
 export function squadStrength(team: Team, unavailable?: ReadonlySet<string>): number {
   const xv = selectBestXV(team, unavailable)
   if (xv.length === 0) return 0
@@ -339,6 +355,19 @@ export function selectBestXV(
    * way without their actual ability changing.
    */
   selectionAdjust?: ReadonlyMap<string, number>,
+  /**
+   * This week's rotation — a per-player nudge representing rest, a knock, or a coach
+   * fancying someone.
+   *
+   * Without it selection is a hard cut at fifteen: the same XV plays every round of every
+   * season, and the sixteenth-best player never appears. Measured across full careers, only
+   * 33% of players ever made a single appearance, and whether you were 15th or 16th was
+   * settled at career creation. Since match performance is the main source of OVR growth
+   * (SPEC §2.5), that left two thirds of careers with no way to develop at all.
+   *
+   * Applied to every club equally — the player is picked by the same code as everyone else.
+   */
+  rotation?: ReadonlyMap<string, number>,
 ): Selection[] {
   const available = team.squad.filter((p) => !unavailable?.has(p.id))
   const used = new Set<string>()
@@ -350,6 +379,7 @@ export function selectBestXV(
 
   for (const slot of slots) {
     let best: Selection | null = null
+    let bestScore = -Infinity
 
     for (const player of available) {
       if (used.has(player.id)) continue
@@ -363,14 +393,24 @@ export function selectBestXV(
         outOfPosition: !POSITIONS[player.position].canPlayAt.includes(slot),
       }
 
+      // Rotation decides who is *picked*, and is deliberately kept out of the rating the
+      // selection carries: `rateTeam` reads that rating, and since selection favours whoever
+      // this week's nudge flattered, folding it in would bias every team's strength upward.
+      const score = candidate.rating + (rotation?.get(player.id) ?? 0)
+
       if (best === null) {
         best = candidate
+        bestScore = score
       } else if (best.outOfPosition !== candidate.outOfPosition) {
         // Eligibility beats rating outright — a fit specialist always starts ahead of a
         // higher-rated player who cannot legally wear the shirt.
-        if (!candidate.outOfPosition) best = candidate
-      } else if (candidate.rating > best.rating) {
+        if (!candidate.outOfPosition) {
+          best = candidate
+          bestScore = score
+        }
+      } else if (score > bestScore) {
         best = candidate
+        bestScore = score
       }
     }
 

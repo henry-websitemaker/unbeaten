@@ -26,7 +26,7 @@ import {
 import { advanceEffects, applySlumpReduction, totalEffects } from './events'
 import { advanceInjury, rollMatchInjury } from './injuries'
 import { rngFor, type Rng } from './rng'
-import { currentLadder, resultsForTeam, type SeasonState } from './season'
+import { currentLadder, resultsForTeam, totalRounds, type SeasonState } from './season'
 import {
   computeInternationals,
   computeSeasonAwards,
@@ -228,6 +228,24 @@ export function isPlayerAvailable(career: PlayerCareer): boolean {
   return career.injury === null
 }
 
+/** The form and morale a player sits at when nothing is pushing them either way. */
+export const NEUTRAL_FORM = 60
+/**
+ * How far morale can fall while a player is out of the side.
+ *
+ * A floor rather than zero, because morale feeds selection: without it, being left out
+ * compounds into never being picked again.
+ */
+export const UNSELECTED_MORALE_FLOOR = 40
+/** Form recovered per round spent out of the side — the legs are fresh, at least. */
+export const UNSELECTED_FORM_RECOVERY = 2
+
+function driftToward(value: number, target: number, step: number): number {
+  if (value < target) return Math.min(target, value + step)
+  if (value > target) return Math.max(target, value - step)
+  return value
+}
+
 /**
  * How form, morale and any "Dropped" penalty nudge the player's selection chances.
  *
@@ -316,10 +334,20 @@ export function applyRound(
 
   const line = playerLine(match)
   if (!line) {
-    // Not selected. Morale drifts down; the player stays fresh.
+    // Not selected.
+    //
+    // Morale drifts down, but only to a floor, and form drifts back towards neutral. Both
+    // matter more than they look: `selectionAdjustment` feeds form and morale straight back
+    // into whether the player is picked, on the same scale as the 1-3 rating points that
+    // typically separate two rivals for a shirt.
+    //
+    // Without the floor, morale fell 3 a round with no way back, so one season on the bench
+    // applied a permanent -1.8 selection penalty and the player could never be picked again.
+    // Being dropped was what kept you dropped, for twenty seasons.
     next = {
       ...next,
-      morale: clamp(next.morale - 3, 0, 100),
+      form: driftToward(next.form, NEUTRAL_FORM, UNSELECTED_FORM_RECOVERY),
+      morale: clamp(next.morale - 3, UNSELECTED_MORALE_FLOOR, 100),
       effects: advanceEffects(next.effects),
     }
     return { career: next, match, line: null, injuryPickedUp: null }
@@ -496,6 +524,9 @@ export function endSeason(
     archetype: getArchetype(career.archetypeId),
     avgRating: appearances > 0 ? avgRating : 5.5,
     appearances,
+    // The league's own round count (SPEC §2.3), so a 10-round season and a 30-round one
+    // both mean the same thing by "played every week".
+    matchesAvailable: totalRounds(season),
     matchGrowthMultiplier: lifestyle.matchGrowthMultiplier,
     rng,
   })

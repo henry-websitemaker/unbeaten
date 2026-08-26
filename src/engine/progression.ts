@@ -21,12 +21,86 @@ export function getArchetype(id: string): Archetype {
   return found
 }
 
-/** A season rated at this level is treated as holding your ground. */
-const NEUTRAL_RATING = 6.4
-/** OVR points per rating point above or below neutral. */
-const RATING_TO_OVR = 1.7
 /** Nobody moves more than this in a single season, in either direction. */
 const MAX_SEASON_SWING = 6
+
+/**
+ * The knobs that shape a career arc.
+ *
+ * Gathered into one object rather than scattered as constants because they only make sense
+ * together — lowering the neutral bar without bounding decay, or bounding decay without
+ * fixing involvement, produces a worse curve than changing neither. Every value here was
+ * chosen from the Monte Carlo sweep recorded in `REPORT.md`, and is held in place by the
+ * `progression` targets in `balance-targets.json`.
+ */
+export interface ProgressionTuning {
+  /** A season rated at this level holds your ground. */
+  neutralRating: number
+  /** OVR gained per rating point above neutral. */
+  ratingToOvr: number
+  /**
+   * OVR lost per rating point below neutral. Deliberately steeper than the gain: it keeps a
+   * bad season punitive for a young player whose maturation is pulling the other way, and it
+   * is the brake that stops a good player climbing to 99.
+   */
+  ratingPenalty: number
+  /** Multiplies the maturation a developing player earns. */
+  maturationScale: number
+  /**
+   * How much an archetype's `earlyMultiplier` sets the *height* of its peak, as opposed to
+   * how quickly it gets there.
+   *
+   * At 1 the multiplier scales maturation directly, which is what it used to do — and it
+   * made the Wonderkid (1.45) strictly dominant: it peaked around 90 while the Late Bloomer
+   * (0.7) stalled in the low sixties, so the choice at creation was one right answer and
+   * three wrong ones. Pushing the shared knobs hard enough to lift the Late Bloomer sent the
+   * Wonderkid past 99.
+   *
+   * Low values converge the archetypes on a similar peak while leaving them genuinely
+   * different in shape: `earlyMultiplier` still sets how fast a player matures and how well
+   * they convert a good season, and `lateMultiplier` still sets how they fall away.
+   */
+  archetypeInfluence: number
+  /**
+   * The share of maturation a young player earns while *not* in the side.
+   *
+   * This is the way out of the trap. Squad players in the world are static — they never age
+   * or improve — so a rookie who starts behind one must climb past a fixed target. If growth
+   * needed game time and game time needed growth, the career could never start. A prospect
+   * kept out of the side still develops; he just develops more slowly than one playing every
+   * week, which is what the remaining `1 - floor` scales with involvement.
+   */
+  maturationFloor: number
+  /** Decay ceiling for an archetype with `lateMultiplier` 1. */
+  baseDecayCeiling: number
+  /** Absolute cap on a season's decay, whatever the archetype. */
+  maxDecayPerSeason: number
+  /** Years past the peak at which decay reaches ~63% of its ceiling. */
+  decayTau: number
+  /**
+   * The rating a player approaches but does not reach, and how far out the pull starts.
+   *
+   * Improvement gets harder the better you already are: going from 90 to 95 is not the same
+   * task as going from 70 to 75. Without this the arc has no top end at all — a strong
+   * career kept compounding into the high nineties, past anything in the recovered data.
+   */
+  eliteCeiling: number
+  eliteHeadroom: number
+}
+
+export const TUNING: ProgressionTuning = {
+  neutralRating: 5.7,
+  ratingToOvr: 1.7,
+  ratingPenalty: 2.4,
+  maturationScale: 2.18,
+  archetypeInfluence: 0.15,
+  maturationFloor: 0.95,
+  baseDecayCeiling: 0.8,
+  maxDecayPerSeason: 3,
+  decayTau: 4,
+  eliteCeiling: 89,
+  eliteHeadroom: 14,
+}
 
 export interface AgeEffect {
   /** Multiplies gains earned from match performance. */
@@ -52,13 +126,21 @@ export interface AgeEffect {
  * their thirties; a Late Bloomer (peak 31, late multiplier 1.4) grows slowly but is still
  * improving when the Wonderkid is finished.
  */
-export function ageEffect(age: number, archetype: Archetype): AgeEffect {
+export function ageEffect(
+  age: number,
+  archetype: Archetype,
+  tuning: ProgressionTuning = TUNING,
+): AgeEffect {
   const { peakAge, earlyMultiplier, lateMultiplier } = archetype.growthCurve
 
   if (age < peakAge - 1) {
     const yearsToPeak = peakAge - age
+    // How much of the archetype's multiplier reaches the height of the curve, as opposed to
+    // its shape. `growthMultiplier` below still carries the full multiplier, so a Wonderkid
+    // remains the archetype that turns a good season into OVR fastest.
+    const shape = 1 + (earlyMultiplier - 1) * tuning.archetypeInfluence
     // Tapers as the peak nears, so growth slows rather than stopping dead.
-    const maturation = earlyMultiplier * 1.6 * (yearsToPeak / (yearsToPeak + 2))
+    const maturation = shape * tuning.maturationScale * (yearsToPeak / (yearsToPeak + 2))
     return { growthMultiplier: earlyMultiplier, maturation, decay: 0, phase: 'developing' }
   }
 
@@ -66,15 +148,40 @@ export function ageEffect(age: number, archetype: Archetype): AgeEffect {
     return { growthMultiplier: 1, maturation: 0, decay: 0, phase: 'peak' }
   }
 
-  const yearsPast = age - (peakAge + 1)
-  // Decline accelerates, and a high late multiplier slows it down.
-  const decay = (yearsPast * 0.45 + yearsPast ** 2 * 0.05) / Math.max(0.4, lateMultiplier)
   return {
-    growthMultiplier: Math.max(0.15, 0.55 * lateMultiplier),
+    // Heavily damped past the peak. At 0.55 a Late Bloomer — whose gentle `lateMultiplier`
+    // also buys it the slowest decay — still converted good seasons faster than age took
+    // them away, and went on improving until 38. An archetype that peaks at 31 by
+    // description should not be at its best seven years later.
+    growthMultiplier: Math.max(0.08, 0.25 * lateMultiplier),
     maturation: 0,
-    decay,
+    decay: decayAt(age - (peakAge + 1), lateMultiplier, tuning),
     phase: 'declining',
   }
+}
+
+/**
+ * How much age takes off a player this season, `yearsPast` years beyond their peak.
+ *
+ * The old curve was quadratic and unbounded: a Wonderkid at 38 lost 18.3 OVR in one season,
+ * and even clamped to the -6 season swing that took a peak of 71 down to 25 by retirement.
+ *
+ * This one approaches a ceiling instead. It is still strictly increasing every year — a
+ * player really is declining faster at 36 than at 30 — but it can never run away, because
+ * the exponential only ever gets closer to the ceiling. A low `lateMultiplier` raises that
+ * ceiling, so a Wonderkid still falls away faster than a Late Bloomer.
+ */
+export function decayAt(
+  yearsPast: number,
+  lateMultiplier: number,
+  tuning: ProgressionTuning = TUNING,
+): number {
+  if (yearsPast <= 0) return 0
+  const ceiling = Math.min(
+    tuning.maxDecayPerSeason,
+    tuning.baseDecayCeiling / Math.max(0.4, lateMultiplier),
+  )
+  return ceiling * (1 - Math.exp(-yearsPast / tuning.decayTau))
 }
 
 export interface SeasonProgressionInput {
@@ -85,9 +192,19 @@ export interface SeasonProgressionInput {
   /** Mean match rating across the season. */
   avgRating: number
   appearances: number
+  /**
+   * Matches there were to play — the league's own round count, never a constant.
+   *
+   * Required rather than defaulted, because a default would be a hardcoded season length in
+   * all but name, which is what SPEC §2.3 bans. Involvement used to divide by a flat 12: an
+   * ever-present player in the 10-round NPC could never earn full development, while one in
+   * the 30-round Pro D2 earned it by round 12.
+   */
+  matchesAvailable: number
   /** From the lifestyle shop — Personal Trainer is 1.25. */
   matchGrowthMultiplier: number
   rng: Rng
+  tuning?: ProgressionTuning
 }
 
 export interface SeasonProgression {
@@ -111,13 +228,21 @@ export interface SeasonProgression {
  */
 export function applySeasonProgression(input: SeasonProgressionInput): SeasonProgression {
   const { stats, position, age, archetype, avgRating, appearances, rng } = input
+  const tuning = input.tuning ?? TUNING
 
-  const effect = ageEffect(age, archetype)
+  const effect = ageEffect(age, archetype, tuning)
 
-  // Involvement: a fringe player who played four times gets a fraction of the development.
-  const involvement = Math.min(1, appearances / 12)
+  // Involvement: a fringe player who played four times gets a fraction of the development,
+  // measured against the season that was actually available to him.
+  const involvement =
+    input.matchesAvailable > 0 ? Math.min(1, appearances / input.matchesAvailable) : 0
 
-  const rawPerformance = (avgRating - NEUTRAL_RATING) * RATING_TO_OVR * involvement
+  // Falling short costs more per rating point than doing well gains. That asymmetry is what
+  // keeps a bad season punitive for a young player who is maturing anyway, and what stops a
+  // good one compounding all the way to 99.
+  const gap = avgRating - tuning.neutralRating
+  const rawPerformance =
+    gap * (gap >= 0 ? tuning.ratingToOvr : tuning.ratingPenalty) * involvement
   const performance =
     rawPerformance > 0
       ? rawPerformance * effect.growthMultiplier * input.matchGrowthMultiplier
@@ -125,12 +250,23 @@ export function applySeasonProgression(input: SeasonProgressionInput): SeasonPro
 
   // Maturing still depends on playing — a young player kept out of the side develops more
   // slowly — but not entirely, or being behind in the pecking order would be unrecoverable.
-  const maturation = effect.maturation * (0.35 + 0.65 * involvement) * input.matchGrowthMultiplier
-
-  const noise = rng.gaussian(0, 0.35)
-  const delta = clampSwing(performance + maturation - effect.decay + noise)
+  const floor = tuning.maturationFloor
+  const maturation =
+    effect.maturation * (floor + (1 - floor) * involvement) * input.matchGrowthMultiplier
 
   const currentOvr = computeOvr(stats, position)
+
+  // Diminishing returns near the top: the closer a player is to the ceiling, the less any
+  // given season moves them. Applied to gains only — decline is not slowed by being good.
+  const headroom = Math.max(
+    0.1,
+    Math.min(1, (tuning.eliteCeiling - currentOvr) / tuning.eliteHeadroom),
+  )
+  const gain = (performance > 0 ? performance : 0) + maturation
+  const loss = performance < 0 ? performance : 0
+
+  const noise = rng.gaussian(0, 0.35)
+  const delta = clampSwing(gain * headroom + loss - effect.decay + noise)
   const targetOvr = clampOvr(currentOvr + delta)
   const appliedDelta = targetOvr - currentOvr
 

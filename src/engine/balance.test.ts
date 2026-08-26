@@ -27,7 +27,20 @@
 import { describe, it, expect, beforeAll } from 'vitest'
 import { buildSquad, squadStrength } from './generate'
 import { buildChampionsCupField, simulateCup, type CupEntry } from './cups'
-import { currentLadder, createSeason, simulateSeason } from './season'
+import { currentLadder, createSeason, isRegularSeasonComplete, simulateSeason } from './season'
+import {
+  acceptOffer,
+  advanceSeason,
+  createCareer,
+  generateTransferOffers,
+  isFinalSeason,
+  placeCareerInWorld,
+} from './career'
+import { beginSeason, closeSeason, playRound, skipWheelSpin } from './careerRun'
+import { ARCHETYPE_LIST, TUNING, ageEffect } from './progression'
+import { createWorld, randomStartingClub } from './world'
+import { rngFor } from './rng'
+import { CAREER_SEASONS } from '../types/career'
 import { BALANCE_TARGETS, LEAGUE_LIST, getLeague, loadTeams } from '../data'
 import type { LeagueId, Team, TeamDef } from '../types/core'
 
@@ -360,5 +373,186 @@ describe('SPEC §2.4 — trophy realism', () => {
       expect(quotaShare).toBeGreaterThanOrEqual(0.55)
       expect(strongLeagueWins / cupSeasons).toBeGreaterThan(0.2)
     })
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Career progression
+// ---------------------------------------------------------------------------
+
+/**
+ * The career arc.
+ *
+ * These run whole 20-season careers through the real loop rather than calling
+ * `applySeasonProgression` directly, because the defect they exist to prevent was invisible
+ * at the unit level: every individual piece behaved sensibly, and the career still collapsed.
+ * Slow for the same reason they are worth having.
+ */
+describe('SPEC §2.5 — the career arc', () => {
+  const PROGRESSION = BALANCE_TARGETS.progression
+  const CAREER_SIMS = PROGRESSION.careerSims
+  const POSITIONS = ['OC', 'FH', 'WL', 'N8'] as const
+
+  interface Arc {
+    archetypeId: string
+    peakOvr: number
+    peakAge: number
+    endOvr: number
+    totalApps: number
+    /**
+     * Net OVR change per season for seasons the player actually played, from the target
+     * season onward and while still at or before their peak.
+     *
+     * Bounded by the peak on purpose: a 38-year-old losing OVR is the model working, and
+     * counting those seasons as failures would score a correct decline as a defect.
+     */
+    playedSeasonDeltas: number[]
+  }
+
+  const arcs: Arc[] = []
+
+  beforeAll(() => {
+    const world = createWorld(4242, defs)
+    const archetypes = ARCHETYPE_LIST.map((a) => a.id)
+    const perArchetype = Math.ceil(CAREER_SIMS / archetypes.length)
+
+    for (const archetypeId of archetypes) {
+      for (let i = 0; i < perArchetype; i++) {
+        const seed = 9001 + i * 37 + archetypeId.length * 11
+        const position = POSITIONS[i % POSITIONS.length]!
+        const club = randomStartingClub(world, rngFor(seed, 'start'))
+        let career = createCareer(
+          seed,
+          { name: 'Arc', position, archetypeId, nationId: 'eng' },
+          club,
+        )
+        let placed = placeCareerInWorld(world, career)
+
+        let peakOvr = career.ovr
+        let peakAge = career.age
+        let totalApps = 0
+        const playedSeasonDeltas: number[] = []
+
+        for (let season = 1; season <= CAREER_SEASONS; season++) {
+          let run = beginSeason(career, placed)
+          while (!isRegularSeasonComplete(run.season)) {
+            run = playRound(run)
+            if (run.wheelPending) run = skipWheelSpin(run)
+          }
+          const { run: closed, summary } = closeSeason(run)
+
+          totalApps += summary.record.appearances
+          const stillRising = career.age <= ARCHETYPE_LIST.find((a) => a.id === archetypeId)!.growthCurve.peakAge
+          if (
+            season >= PROGRESSION.targets.growingSeasonFrom &&
+            summary.record.appearances > 0 &&
+            stillRising
+          ) {
+            playedSeasonDeltas.push(summary.ovrDelta)
+          }
+
+          career = summary.career
+          placed = closed.world
+          if (career.ovr > peakOvr) {
+            peakOvr = career.ovr
+            peakAge = career.age
+          }
+          if (isFinalSeason(career)) break
+
+          // Ambition, then game time — the way a player would: step up a tier as soon as you
+          // would start there, otherwise take the best role on offer. Chasing minutes alone
+          // leaves a strong player in tier 2 for twenty seasons.
+          const roleRank: Record<string, number> = { star: 3, starter: 2, squad: 1, fringe: 0 }
+          const offers = generateTransferOffers(
+            career,
+            placed,
+            rngFor(career.seed, 'offers', season),
+          )
+          const stepUp = offers
+            .filter((o) => o.direction === 'up' && (roleRank[o.squadRole] ?? 0) >= 2)
+            .sort((a, b) => (roleRank[b.squadRole] ?? 0) - (roleRank[a.squadRole] ?? 0))[0]
+          const best =
+            stepUp ??
+            [...offers].sort(
+              (a, b) =>
+                (roleRank[b.squadRole] ?? 0) - (roleRank[a.squadRole] ?? 0) || b.salary - a.salary,
+            )[0]
+          if (best) {
+            career = acceptOffer(career, best, rngFor(career.seed, 'move', season)).career
+            placed = placeCareerInWorld(placed, career)
+          }
+          career = advanceSeason(career)
+        }
+
+        arcs.push({ archetypeId, peakOvr, peakAge, endOvr: career.ovr, totalApps, playedSeasonDeltas })
+      }
+    }
+  }, 1_800_000)
+
+  function median(xs: readonly number[]): number {
+    const s = [...xs].sort((a, b) => a - b)
+    const mid = Math.floor(s.length / 2)
+    return s.length % 2 ? s[mid]! : (s[mid - 1]! + s[mid]!) / 2
+  }
+
+  it('peaks a typical career in the target band', () => {
+    const [min, max] = PROGRESSION.targets.medianPeakOvr as [number, number]
+    const peak = median(arcs.map((a) => a.peakOvr))
+    expect(peak, `median peak OVR ${peak.toFixed(1)}`).toBeGreaterThanOrEqual(min)
+    expect(peak, `median peak OVR ${peak.toFixed(1)}`).toBeLessThanOrEqual(max)
+  })
+
+  it('peaks at a plausible age', () => {
+    const [min, max] = PROGRESSION.targets.medianPeakAge as [number, number]
+    const age = median(arcs.map((a) => a.peakAge))
+    expect(age).toBeGreaterThanOrEqual(min)
+    expect(age).toBeLessThanOrEqual(max)
+  })
+
+  it('leaves most players still worth a place at retirement', () => {
+    const floor = PROGRESSION.targets.retirementOvrFloor
+    const share = arcs.filter((a) => a.endOvr > floor).length / arcs.length
+    expect(
+      share,
+      `${(share * 100).toFixed(0)}% retired above ${floor}`,
+    ).toBeGreaterThanOrEqual(PROGRESSION.targets.retirementFloorShare)
+  })
+
+  it('grows a player who played, through the years they should be improving', () => {
+    const deltas = arcs.flatMap((a) => a.playedSeasonDeltas)
+    expect(deltas.length).toBeGreaterThan(0)
+    const growing = deltas.filter((d) => d > 0).length / deltas.length
+    expect(
+      growing,
+      `${(growing * 100).toFixed(0)}% of played seasons grew`,
+    ).toBeGreaterThanOrEqual(PROGRESSION.targets.growingSeasonShare)
+  })
+
+  it('never runs a career away to the ceiling', () => {
+    const highest = Math.max(...arcs.map((a) => a.peakOvr))
+    expect(highest).toBeLessThanOrEqual(PROGRESSION.targets.peakOvrCeiling)
+  })
+
+  it('keeps the archetypes distinct — the Wonderkid peaks early, the Late Bloomer late', () => {
+    const peakAgeFor = (id: string) =>
+      median(arcs.filter((a) => a.archetypeId === id).map((a) => a.peakAge))
+    expect(peakAgeFor('wonderkid')).toBeLessThan(peakAgeFor('late_bloomer'))
+  })
+
+  it('gives a career a real amount of rugby', () => {
+    // The collapse this suite exists to prevent showed up first as a median of zero
+    // appearances across twenty seasons.
+    expect(median(arcs.map((a) => a.totalApps))).toBeGreaterThan(100)
+  })
+
+  it('bounds age decay for every archetype and every age', () => {
+    for (const archetype of ARCHETYPE_LIST) {
+      for (let age = archetype.startAge; age <= archetype.startAge + CAREER_SEASONS; age++) {
+        expect(
+          ageEffect(age, archetype).decay,
+          `${archetype.id} at ${age}`,
+        ).toBeLessThanOrEqual(TUNING.maxDecayPerSeason)
+      }
+    }
   })
 })
