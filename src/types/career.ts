@@ -60,6 +60,22 @@ export interface AwardWin {
   leagueId?: LeagueId
 }
 
+/** One pre-season block, taken once per summer (SPEC §2.8). */
+export interface TrainingRecord {
+  season: number
+  blockId: string
+  ovrDelta: number
+}
+
+/** The plan the side takes into a match (SPEC §3). Sticky between matches. */
+export type GamePlanId =
+  | 'forward_power'
+  | 'backline_finesse'
+  | 'balanced_flair'
+  | 'tactical_depth'
+  | 'high_risk'
+  | 'adapt'
+
 /** Temporary state that expires — form slumps, morale knocks, suspensions. */
 export interface TemporaryEffect {
   id: string
@@ -111,6 +127,10 @@ export interface PlayerCareer {
   trophies: Trophy[]
   awards: AwardWin[]
   achievements: string[]
+  /** Pre-season blocks taken, newest last (SPEC §2.8). */
+  training: TrainingRecord[]
+  /** Carries over from the last match until the player changes it (SPEC §3). */
+  gamePlan: GamePlanId
 
   careerCaps: number
   careerTries: number
@@ -140,6 +160,15 @@ export interface TransferOffer {
   direction: ClubMoveDirection
   /** The OVR consequence, shown on the card up front. */
   ovrChangeRange: [number, number]
+  /**
+   * A Mystery Club: the destination is hidden until the season starts (SPEC §3).
+   *
+   * The club, salary, contract length and squad role are all real and decided now — only the
+   * name and league are withheld. The OVR consequence is still shown, because SPEC §2.5
+   * requires it on every destination card: you know what the move does to you, you just do
+   * not know where you are going.
+   */
+  mystery: boolean
 }
 
 export type SquadRole = 'star' | 'starter' | 'squad' | 'fringe'

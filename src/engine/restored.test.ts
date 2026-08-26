@@ -1,0 +1,399 @@
+/**
+ * The systems restored from the previous build: pre-season training, the game plan, the
+ * league choice, Mystery Club, pre-match news and the season verdict.
+ */
+
+import { describe, it, expect, beforeAll } from 'vitest'
+import {
+  MYSTERY_CLUB_SALARY_PREMIUM,
+  createCareer,
+  generateTransferOffers,
+  placeCareerInWorld,
+} from './career'
+import {
+  TRAINING_BLOCKS,
+  TRAINING_RULES,
+  applyTraining,
+  getTrainingBlock,
+  hasTrainedThisSeason,
+  trainableStats,
+} from './training'
+import {
+  DEFAULT_GAME_PLAN,
+  GAME_PLANS,
+  forwardBias,
+  gamePlanModifiers,
+  getGamePlan,
+  resolveAdaptive,
+} from './gamePlan'
+import { preMatchNews, seasonVerdict } from './flavour'
+import { computeOvr } from './ovr'
+import { TUNING } from './progression'
+import { createWorld, randomStartingClub } from './world'
+import { createRng, rngFor } from './rng'
+import { POSITIONS, TIER_TWO_LEAGUES, LEAGUES } from '../data'
+import type { PositionId, StatBlock, StatKey, TeamDef } from '../types/core'
+import type { SeasonRecord } from '../types/career'
+import type { World } from './world'
+
+let defs: readonly TeamDef[]
+let world: World
+
+beforeAll(async () => {
+  const { loadTeams } = await import('../data')
+  defs = await loadTeams()
+  world = createWorld(1234, defs)
+}, 60_000)
+
+const ALL_POSITIONS = Object.keys(POSITIONS) as PositionId[]
+
+function statsFor(position: PositionId, level: number): StatBlock {
+  const block: StatBlock = {}
+  for (const stat of Object.keys(POSITIONS[position].statRanges) as StatKey[]) {
+    block[stat] = level
+  }
+  return block
+}
+
+function newCareer(seed = 7, position: PositionId = 'OC', leagueId?: string) {
+  const club = randomStartingClub(
+    world,
+    rngFor(seed, 'start'),
+    position,
+    leagueId as never,
+  )
+  const career = createCareer(
+    seed,
+    { name: 'Test', position, archetypeId: 'wonderkid', nationId: 'eng' },
+    club,
+  )
+  return { career, world: placeCareerInWorld(world, career), club }
+}
+
+// ---------------------------------------------------------------------------
+// Pre-season training (SPEC §2.8)
+// ---------------------------------------------------------------------------
+
+describe('pre-season training', () => {
+  it('offers all four blocks, and every one reaches every position', () => {
+    expect(TRAINING_BLOCKS).toHaveLength(4)
+    for (const position of ALL_POSITIONS) {
+      const stats = statsFor(position, 65)
+      for (const block of TRAINING_BLOCKS) {
+        expect(
+          trainableStats(block, stats).length,
+          `${block.name} does nothing for ${position}`,
+        ).toBeGreaterThan(0)
+      }
+    }
+  })
+
+  it('only ever raises stats — a summer of work costs nothing', () => {
+    for (const position of ALL_POSITIONS) {
+      const before = statsFor(position, 60)
+      for (const block of TRAINING_BLOCKS) {
+        const after = applyTraining(before, position, block.id).stats
+        for (const stat of Object.keys(before) as StatKey[]) {
+          expect(after[stat]!, `${position}/${block.id}/${stat}`).toBeGreaterThanOrEqual(
+            before[stat]!,
+          )
+        }
+        expect(applyTraining(before, position, block.id).ovrDelta).toBeGreaterThanOrEqual(0)
+      }
+    }
+  })
+
+  it('raises only the stats the block advertises', () => {
+    for (const block of TRAINING_BLOCKS) {
+      const before = statsFor('OC', 60)
+      const after = applyTraining(before, 'OC', block.id).stats
+      for (const stat of Object.keys(before) as StatKey[]) {
+        if (block.stats.includes(stat)) continue
+        expect(after[stat], `${block.id} moved ${stat}`).toBe(before[stat])
+      }
+    }
+  })
+
+  it('is worth more when it works on the stats the shirt is judged on', () => {
+    // A fly-half is judged on KCK/VIS/HND, so Tactical Film should move his OVR more than
+    // a block that only reaches one stat he is barely rated on.
+    const stats = statsFor('FH', 65)
+    const film = applyTraining(stats, 'FH', 'film').ovrDelta
+    const gym = applyTraining(stats, 'FH', 'gym').ovrDelta
+    expect(film).toBeGreaterThan(gym)
+  })
+
+  it('tapers as a player approaches the ceiling', () => {
+    const low = applyTraining(statsFor('OC', 60), 'OC', 'gym').ovrDelta
+    const high = applyTraining(statsFor('OC', 88), 'OC', 'gym').ovrDelta
+    expect(high).toBeLessThan(low)
+  })
+
+  it('cannot push a player past the ceiling however many summers are spent', () => {
+    let stats = statsFor('OC', 70)
+    for (let season = 1; season <= 40; season++) {
+      stats = applyTraining(stats, 'OC', 'gym').stats
+      stats = applyTraining(stats, 'OC', 'film').stats
+    }
+    expect(computeOvr(stats, 'OC')).toBeLessThanOrEqual(TUNING.eliteCeiling + 1)
+  })
+
+  it('allows exactly one block a summer', () => {
+    expect(TRAINING_RULES.blocksPerSeason).toBe(1)
+    expect(hasTrainedThisSeason([], 3)).toBe(false)
+    expect(hasTrainedThisSeason([{ season: 3 }], 3)).toBe(true)
+    // A block taken last summer does not use up this one.
+    expect(hasTrainedThisSeason([{ season: 2 }], 3)).toBe(false)
+  })
+
+  it('rejects an unknown block rather than silently doing nothing', () => {
+    expect(() => getTrainingBlock('nope')).toThrow('Unknown training block')
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Game plan (SPEC §3)
+// ---------------------------------------------------------------------------
+
+describe('the game plan', () => {
+  it('offers the six the spec names', () => {
+    expect(GAME_PLANS.map((p) => p.id).sort()).toEqual([
+      'adapt',
+      'backline_finesse',
+      'balanced_flair',
+      'forward_power',
+      'high_risk',
+      'tactical_depth',
+    ])
+  })
+
+  it('starts a career on a real plan, so a match is never played without one', () => {
+    const { career } = newCareer()
+    expect(career.gamePlan).toBe(DEFAULT_GAME_PLAN)
+    expect(() => getGamePlan(career.gamePlan)).not.toThrow()
+  })
+
+  it('leans the match on the stats the plan is about', () => {
+    const forward = getGamePlan('forward_power')
+    expect(forward.weights.SCR!).toBeGreaterThan(1)
+    expect(forward.weights.PAC!).toBeLessThan(1)
+
+    const backs = getGamePlan('backline_finesse')
+    expect(backs.weights.PAC!).toBeGreaterThan(1)
+    expect(backs.weights.SCR!).toBeLessThan(1)
+  })
+
+  it('makes high risk more volatile than tactical depth', () => {
+    expect(getGamePlan('high_risk').variance).toBeGreaterThan(
+      getGamePlan('tactical_depth').variance,
+    )
+  })
+
+  it('counters the opponent rather than mirroring them', () => {
+    // A pack-heavy side is answered by taking the game away from the forwards.
+    expect(resolveAdaptive(1.5)).toBe('backline_finesse')
+    expect(resolveAdaptive(-1.5)).toBe('tactical_depth')
+    expect(resolveAdaptive(0)).toBe('balanced_flair')
+  })
+
+  it('reads a forward-leaning squad as forward-leaning', () => {
+    const pack = [{ stats: { SCR: 85, LNO: 85, CAR: 85, RUK: 85, PAC: 50, EVA: 50, HND: 50, VIS: 50 } }]
+    const backs = [{ stats: { SCR: 50, LNO: 50, CAR: 50, RUK: 50, PAC: 85, EVA: 85, HND: 85, VIS: 85 } }]
+    expect(forwardBias(pack)).toBeGreaterThan(0)
+    expect(forwardBias(backs)).toBeLessThan(0)
+  })
+
+  it('puts its strength swing on the right side of the match', () => {
+    const home = gamePlanModifiers('forward_power', true, createRng(1))
+    expect(home.homeStrengthDelta).toBeDefined()
+    expect(home.awayStrengthDelta).toBeUndefined()
+
+    const away = gamePlanModifiers('forward_power', false, createRng(1))
+    expect(away.awayStrengthDelta).toBeDefined()
+    expect(away.homeStrengthDelta).toBeUndefined()
+  })
+
+  it('is deterministic for a seed', () => {
+    expect(gamePlanModifiers('high_risk', true, createRng(9), 0.2)).toEqual(
+      gamePlanModifiers('high_risk', true, createRng(9), 0.2),
+    )
+  })
+})
+
+// ---------------------------------------------------------------------------
+// League choice (SPEC §3)
+// ---------------------------------------------------------------------------
+
+describe('choosing your league', () => {
+  it('starts you in the league you picked', () => {
+    for (const league of TIER_TWO_LEAGUES) {
+      for (let seed = 0; seed < 8; seed++) {
+        const club = randomStartingClub(world, rngFor(seed, 'start'), 'OC', league.id)
+        expect(club.leagueId).toBe(league.id)
+      }
+    }
+  })
+
+  it('never starts a career in a tier-one league, asked for or not', () => {
+    for (let seed = 0; seed < 40; seed++) {
+      const random = randomStartingClub(world, rngFor(seed, 'start'), 'OC')
+      expect(LEAGUES[random.leagueId].tier).toBe(2)
+
+      // Asking for the Premiership is ignored rather than honoured.
+      const asked = randomStartingClub(world, rngFor(seed, 'start'), 'OC', 'premiership')
+      expect(LEAGUES[asked.leagueId].tier).toBe(2)
+    }
+  })
+
+  it('still picks the club at random within the league', () => {
+    const clubs = new Set<string>()
+    for (let seed = 0; seed < 40; seed++) {
+      clubs.add(randomStartingClub(world, rngFor(seed, 'start'), 'OC', 'npc').id)
+    }
+    expect(clubs.size).toBeGreaterThan(1)
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Mystery Club (SPEC §3)
+// ---------------------------------------------------------------------------
+
+describe('the Mystery Club', () => {
+  it('turns up sometimes, and never on the stay-put offer', () => {
+    const { career, world: placed } = newCareer()
+    let seen = 0
+    for (let seed = 0; seed < 60; seed++) {
+      const offers = generateTransferOffers(career, placed, createRng(seed))
+      if (offers.some((o) => o.mystery)) seen++
+      // The first offer is always "stay where you are", which cannot be a mystery.
+      expect(offers[0]!.mystery).toBe(false)
+      // Never more than one per window.
+      expect(offers.filter((o) => o.mystery).length).toBeLessThanOrEqual(1)
+    }
+    expect(seen).toBeGreaterThan(0)
+    expect(seen).toBeLessThan(60)
+  })
+
+  it('still shows the OVR consequence, which SPEC §2.5 requires of every card', () => {
+    const { career, world: placed } = newCareer()
+    for (let seed = 0; seed < 60; seed++) {
+      for (const offer of generateTransferOffers(career, placed, createRng(seed))) {
+        if (!offer.mystery) continue
+        const [min, max] = offer.ovrChangeRange
+        if (offer.direction === 'up') expect([min, max]).toEqual([1, 3])
+        else if (offer.direction === 'down') expect([min, max]).toEqual([-3, -1])
+        else expect([min, max]).toEqual([0, 0])
+      }
+    }
+  })
+
+  it('is a real club underneath, and pays for the secrecy', () => {
+    const { career, world: placed } = newCareer()
+    for (let seed = 0; seed < 60; seed++) {
+      const offers = generateTransferOffers(career, placed, createRng(seed))
+      const mystery = offers.find((o) => o.mystery)
+      if (!mystery) continue
+
+      // Everything about it is decided now — only the name is withheld from the player.
+      expect(placed.teams.some((t) => t.id === mystery.clubId)).toBe(true)
+      expect(mystery.clubName.length).toBeGreaterThan(0)
+      expect(mystery.years).toBeGreaterThan(0)
+      expect(MYSTERY_CLUB_SALARY_PREMIUM).toBeGreaterThan(1)
+    }
+  })
+})
+
+// ---------------------------------------------------------------------------
+// Flavour
+// ---------------------------------------------------------------------------
+
+describe('pre-match news', () => {
+  it('always produces a line, for any state', () => {
+    const { career } = newCareer()
+    for (let seed = 0; seed < 50; seed++) {
+      const line = preMatchNews(
+        {
+          career,
+          opponentName: 'Nowhere RFC',
+          isHome: seed % 2 === 0,
+          round: (seed % 18) + 1,
+          totalRounds: 18,
+        },
+        createRng(seed),
+      )
+      expect(line.length).toBeGreaterThan(0)
+    }
+  })
+
+  it('leads on the derby when there is one', () => {
+    const { career } = newCareer()
+    const lines = new Set<string>()
+    for (let seed = 0; seed < 40; seed++) {
+      lines.add(
+        preMatchNews(
+          {
+            career,
+            opponentName: 'Rivals',
+            isHome: true,
+            round: 5,
+            totalRounds: 18,
+            derbyName: 'The Big One',
+          },
+          createRng(seed),
+        ),
+      )
+    }
+    expect([...lines].some((l) => l.includes('The Big One'))).toBe(true)
+  })
+})
+
+describe('the season verdict', () => {
+  const base: SeasonRecord = {
+    season: 5,
+    clubId: 'c',
+    clubName: 'Club',
+    leagueId: 'npc',
+    appearances: 16,
+    tries: 5,
+    points: 25,
+    avgRating: 6.5,
+    motm: 1,
+    ladderPosition: 4,
+    championship: false,
+    salary: 100,
+    ovrStart: 70,
+    ovrEnd: 72,
+    internationalCaps: 0,
+    injuries: 0,
+  }
+
+  it('calls a dominant season World Class', () => {
+    expect(seasonVerdict({ ...base, avgRating: 7.8, appearances: 17 }, 18).verdict).toBe(
+      'World Class',
+    )
+  })
+
+  it('calls a good season Solid and an ordinary one Steady', () => {
+    expect(seasonVerdict({ ...base, avgRating: 7.0 }, 18).verdict).toBe('Solid')
+    expect(seasonVerdict({ ...base, avgRating: 6.2 }, 18).verdict).toBe('Steady Performer')
+  })
+
+  it('calls a season barely played a Quiet Season, however well it was rated', () => {
+    expect(seasonVerdict({ ...base, avgRating: 9, appearances: 2 }, 18).verdict).toBe(
+      'Quiet Season',
+    )
+    expect(seasonVerdict({ ...base, avgRating: 0, appearances: 0 }, 18).verdict).toBe(
+      'Quiet Season',
+    )
+  })
+
+  it('always says something, and never contradicts the numbers', () => {
+    for (const rating of [0, 4, 5.5, 6.4, 7.1, 8.5]) {
+      for (const apps of [0, 3, 9, 18]) {
+        const result = seasonVerdict({ ...base, avgRating: rating, appearances: apps }, 18)
+        expect(result.line.length).toBeGreaterThan(0)
+        if (apps > 0) expect(result.line).toContain(String(apps))
+      }
+    }
+  })
+})

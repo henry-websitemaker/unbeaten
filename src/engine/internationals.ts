@@ -17,6 +17,14 @@ export interface Nation {
   id: string
   name: string
   hemisphere: 'north' | 'south'
+  /**
+   * Which annual championship a nation belongs to.
+   *
+   * Regions rather than hemispheres because the two disagree: Georgia, Romania and Spain are
+   * all northern, and picking the Six Nations field by hemisphere would quietly enrol them
+   * in it. A nation plays in exactly one regional championship.
+   */
+  region: string
   strength: number
   feederLeagues: LeagueId[]
 }
@@ -25,6 +33,8 @@ export interface Competition {
   id: string
   name: string
   hemisphere: 'north' | 'south' | 'both'
+  /** Set on the regional championships. Absent on the Autumn tests and the World Cup. */
+  region?: string
   frequency: string
   matches: number
   prestige: number
@@ -51,6 +61,22 @@ export const SELECTION_RULES = DATA.selection
 
 export const WORLD_CUP = COMPETITIONS.find((c) => c.id === 'world_cup')!
 export const WORLD_CUP_SEASONS: readonly number[] = WORLD_CUP.worldCupSeasons ?? []
+
+/** How many nations reach a World Cup. The bracket seeds 1-4 into the quarters. */
+export const WORLD_CUP_FIELD_SIZE = 12
+
+/**
+ * The nations that actually contest a World Cup: the strongest twelve.
+ *
+ * The regional championships brought in ten more nations, every one of them weaker than the
+ * twelve already here, so this field is unchanged by their arrival — which is what keeps the
+ * SPEC §2.4 World Cup targets measuring the same tournament they were tuned against. If a
+ * future nation is strong enough to displace one of the twelve, it qualifies on merit and
+ * those targets should be re-measured rather than the field pinned.
+ */
+export const WORLD_CUP_FIELD: readonly Nation[] = [...DATA.nations]
+  .sort((a, b) => b.strength - a.strength)
+  .slice(0, WORLD_CUP_FIELD_SIZE)
 
 export function getNation(id: string): Nation {
   const nation = NATIONS.find((n) => n.id === id)
@@ -145,12 +171,24 @@ export function assessSelection(input: SelectionInput): SelectionVerdict {
   }
 }
 
+/** Does a nation contest this competition at all? */
+export function isInField(nation: Nation, competition: Competition): boolean {
+  if (competition.id === 'world_cup') {
+    return WORLD_CUP_FIELD.some((n) => n.id === nation.id)
+  }
+  // A regional championship is decided by region, never by hemisphere.
+  if (competition.region) return competition.region === nation.region
+  if (competition.hemisphere === 'both') return true
+  return competition.hemisphere === nation.hemisphere
+}
+
 /** The competitions a nation plays in a given season. */
 export function competitionsForSeason(nation: Nation, season: number): Competition[] {
   return COMPETITIONS.filter((competition) => {
-    if (competition.id === 'world_cup') return isWorldCupSeason(season)
-    if (competition.hemisphere === 'both') return true
-    return competition.hemisphere === nation.hemisphere
+    if (competition.id === 'world_cup') {
+      return isWorldCupSeason(season) && isInField(nation, competition)
+    }
+    return isInField(nation, competition)
   })
 }
 
@@ -197,7 +235,10 @@ export interface TournamentResult {
  * Form is rolled per nation per tournament, so the same seeding does not produce the same
  * winner every cycle — which is what keeps a shock run possible.
  */
-export function simulateWorldCup(rng: Rng, nations: readonly Nation[] = NATIONS): TournamentResult {
+export function simulateWorldCup(
+  rng: Rng,
+  nations: readonly Nation[] = WORLD_CUP_FIELD,
+): TournamentResult {
   // Tournament form: a nation can arrive in poor shape or peaking.
   const withForm = nations.map((nation) => ({
     nation,
@@ -278,9 +319,7 @@ export function simulateAnnualCompetition(
   competition: Competition,
   nations: readonly Nation[],
 ): { winnerId: string } {
-  const contenders = nations.filter(
-    (n) => competition.hemisphere === 'both' || n.hemisphere === competition.hemisphere,
-  )
+  const contenders = nations.filter((n) => isInField(n, competition))
   if (contenders.length === 0) return { winnerId: nations[0]?.id ?? '' }
 
   // Strength plus a season's form decides it.

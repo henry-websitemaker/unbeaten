@@ -38,6 +38,7 @@ import {
 } from './career'
 import { beginSeason, closeSeason, playRound, skipWheelSpin } from './careerRun'
 import { ARCHETYPE_LIST, TUNING, ageEffect } from './progression'
+import { TRAINING_BLOCKS, applyTraining } from './training'
 import { createWorld, randomStartingClub } from './world'
 import { rngFor } from './rng'
 import { CAREER_SEASONS } from '../types/career'
@@ -453,6 +454,25 @@ describe('SPEC §2.5 — the career arc', () => {
 
           career = summary.career
           placed = closed.world
+
+          // Pre-season training (SPEC §2.8), taking the block that helps most. Optimal play
+          // is the worst case for the peak band, which is the case the targets have to hold
+          // against — a player who trains every summer must not break the arc.
+          if (!isFinalSeason(career)) {
+            const best = TRAINING_BLOCKS.map((block) =>
+              applyTraining(career.stats, career.position, block.id),
+            ).sort((a, b) => b.ovrDelta - a.ovrDelta)[0]!
+            career = {
+              ...career,
+              stats: best.stats,
+              ovr: best.ovr,
+              training: [
+                ...career.training,
+                { season: career.season, blockId: 'best', ovrDelta: best.ovrDelta },
+              ],
+            }
+          }
+
           if (career.ovr > peakOvr) {
             peakOvr = career.ovr
             peakAge = career.age

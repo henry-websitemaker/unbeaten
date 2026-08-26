@@ -52,6 +52,9 @@ import {
 import { isRegularSeasonComplete } from '../engine/season'
 import { decisionsForRound } from '../engine/careerRun'
 import { MAX_DECISIONS_PER_MATCH } from '../engine/agency'
+import { getGamePlan } from '../engine/gamePlan'
+import { TRAINING_BLOCKS } from '../engine/training'
+import { LEAGUES, TIER_TWO_LEAGUES } from '../data'
 
 function render(element: ReactElement): string {
   return renderToStaticMarkup(element)
@@ -90,6 +93,15 @@ describe('screens that need no career', () => {
 
   it('renders player creation', () => {
     expect(render(<CreateScreen />)).toContain('Forge your player')
+  })
+
+  it('offers only the four tier-two leagues at creation', () => {
+    // SPEC §3: tier one has to be earned. Offering it would produce a career with no game
+    // time at all, which is the failure the phase-12 pass existed to remove.
+    for (const league of TIER_TWO_LEAGUES) {
+      expect(LEAGUES[league.id].tier).toBe(2)
+    }
+    expect(TIER_TWO_LEAGUES).toHaveLength(4)
   })
 
   it('renders the Hall of Fame', () => {
@@ -187,6 +199,38 @@ describe('match agency (SPEC §3)', () => {
     }
   })
 
+  it('shows the sticky game plan and a pre-match news line', () => {
+    useGame.setState({ pendingDecisions: [], resolvedDecisions: [] })
+    const html = render(<MatchScreen />)
+
+    // The plan the career is currently on, collapsed to one line with a way to change it.
+    const current = getGamePlan(useGame.getState().run!.career.gamePlan)
+    expect(html).toContain('Game plan')
+    expect(html).toContain(current.name)
+    expect(html).toContain('Change')
+  })
+
+  it('keeps the game plan across matches until it is changed', () => {
+    useGame.getState().setGamePlan('high_risk')
+    expect(useGame.getState().run!.career.gamePlan).toBe('high_risk')
+
+    // Playing a round must not reset it.
+    useGame.getState().nextRound()
+    expect(useGame.getState().run!.career.gamePlan).toBe('high_risk')
+
+    useGame.getState().setGamePlan('tactical_depth')
+    expect(useGame.getState().run!.career.gamePlan).toBe('tactical_depth')
+  })
+
+  it('stops at match day even when there are no calls to make', () => {
+    // SPEC §3 puts the game plan before *each* match, so the screen cannot be skipped on the
+    // rounds that happen to roll no decisions.
+    const run = useGame.getState().run!
+    if (isRegularSeasonComplete(run.season)) return
+    useGame.getState().openMatch()
+    expect(useGame.getState().screen).toBe('match')
+  })
+
   it('renders the outcome once a call has been taken', () => {
     const run = useGame.getState().run!
     const offered = decisionsForRound(run)
@@ -246,6 +290,11 @@ describe('end-of-season screens', () => {
     expect(html).toContain('From age')
   })
 
+  it('opens the season review with a verdict banner', () => {
+    const html = render(<SeasonReviewScreen />)
+    expect(html).toMatch(/World Class|Solid|Steady Performer|Quiet Season/)
+  })
+
   it('renders the awards and international blocks in the season review', () => {
     const html = render(<SeasonReviewScreen />)
     expect(html).toContain('Awards')
@@ -268,13 +317,31 @@ describe('end-of-season screens', () => {
     expect(html).toContain('Test silverware')
   })
 
-  it('renders Summer Plans with the lifestyle shop and no training step', () => {
+  it('renders Summer Plans with the lifestyle shop', () => {
     const html = render(<SummerScreen />)
     expect(html).toContain('Lifestyle')
     expect(html).toContain('Personal Trainer')
     expect(html).toContain('Off-Season Retreat')
-    // SPEC §2.7: there is no training step to render.
-    expect(html).not.toContain('Training')
+  })
+
+  it('renders the pre-season training blocks with what each works on', () => {
+    // SPEC §2.8. This assertion used to be its exact opposite — that no training step
+    // existed at all — which is why the amendment is called out in the spec rather than
+    // quietly applied.
+    const html = render(<SummerScreen />)
+    expect(html).toContain('Pre-season')
+    for (const block of TRAINING_BLOCKS) {
+      expect(html).toContain(block.name)
+      expect(html).toContain(block.focus)
+    }
+  })
+
+  it('shows the new squad role labels rather than the old ones', () => {
+    const html = render(<SummerScreen />)
+    expect(html).toMatch(/First Team|Impact Sub|Bench Cover/)
+    for (const old of ['Star man', 'First choice', 'Squad player']) {
+      expect(html).not.toContain(old)
+    }
   })
 
   it('shows the OVR consequence on destination cards before the choice', () => {

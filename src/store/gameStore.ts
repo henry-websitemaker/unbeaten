@@ -34,6 +34,7 @@ import {
   type ResolvedDecision,
 } from '../engine/agency'
 import { canPurchase, purchase } from '../engine/economy'
+import { applyTraining, hasTrainedThisSeason } from '../engine/training'
 import { evaluateAchievements, newlyUnlocked } from '../engine/achievements'
 import { assessSelection } from '../engine/internationals'
 import { recentFormRating } from '../engine/seasonClose'
@@ -50,7 +51,7 @@ import {
 import { rngFor, seedFromString } from '../engine/rng'
 import type { SpinResult } from '../engine/wheel'
 import type { SeasonSummary } from '../engine/career'
-import type { PlayerCareer, TransferOffer } from '../types/career'
+import type { GamePlanId, PlayerCareer, TransferOffer } from '../types/career'
 
 export type Screen =
   | 'menu'
@@ -105,6 +106,10 @@ interface GameState {
   skipWheel: () => void
   finishSeason: () => void
   buyLifestyle: (itemId: string) => string | null
+  /** Take this summer's pre-season block (SPEC §2.8). One per season. */
+  chooseTraining: (blockId: string) => string | null
+  /** Set the game plan. It sticks until changed (SPEC §3). */
+  setGamePlan: (plan: GamePlanId) => void
   chooseDestination: (offer: TransferOffer) => void
   beginNextSeason: () => void
   abandonCareer: () => void
@@ -179,7 +184,12 @@ export const useGame = create<GameState>((set, get) => ({
     // A fresh world built for this career's seed.
     loadTeams().then((teamDefs) => {
       const world = createWorld(seed, teamDefs)
-      const club = randomStartingClub(world, rngFor(seed, 'start'), options.position)
+      const club = randomStartingClub(
+        world,
+        rngFor(seed, 'start'),
+        options.position,
+        options.leagueId,
+      )
       const career = createCareer(seed, options, club)
       const placed = placeCareerInWorld(world, career)
       const rival = createRival(seed, career.position, career.ovr, club.leagueId)
@@ -210,12 +220,15 @@ export const useGame = create<GameState>((set, get) => ({
     const { run } = get()
     if (!run || isRegularSeasonComplete(run.season)) return
 
-    const offered = decisionsForRound(run)
-    if (offered.length === 0) {
-      get().nextRound()
-      return
-    }
-    set({ pendingDecisions: offered, resolvedDecisions: [], screen: 'match' })
+    // Always stop at match day, even when there are no calls to make: SPEC §3 puts the game
+    // plan before *each* match, and routing straight past it on the ~35% of rounds that roll
+    // no decisions would make the plan settable only sometimes. With a sticky plan and no
+    // decisions the screen is one tap — the news, the plan you are already on, and play.
+    set({
+      pendingDecisions: decisionsForRound(run),
+      resolvedDecisions: [],
+      screen: 'match',
+    })
   },
 
   /**
@@ -373,6 +386,54 @@ export const useGame = create<GameState>((set, get) => ({
 
     set({ run: { ...state.run, career: next }, save })
     return null
+  },
+
+  chooseTraining(blockId) {
+    const state = get()
+    if (!state.run) return 'No career in progress.'
+
+    const { career } = state.run
+    if (hasTrainedThisSeason(career.training, career.season)) {
+      return 'You have already done your pre-season block this summer.'
+    }
+
+    const result = applyTraining(career.stats, career.position, blockId)
+    const next: PlayerCareer = {
+      ...career,
+      stats: result.stats,
+      ovr: result.ovr,
+      training: [
+        ...career.training,
+        { season: career.season, blockId, ovrDelta: result.ovrDelta },
+      ],
+    }
+
+    const save: SaveState = {
+      ...state.save,
+      playerCareer: next,
+      slots: { ...state.save.slots, player: next },
+    }
+    persist(save)
+
+    set({ run: { ...state.run, career: next }, save })
+    return null
+  },
+
+  setGamePlan(plan) {
+    const state = get()
+    if (!state.run) return
+    const career: PlayerCareer = { ...state.run.career, gamePlan: plan }
+
+    // Persisted immediately: the plan is sticky, so it has to survive a reload the same way
+    // the rest of the career does.
+    const save: SaveState = {
+      ...state.save,
+      playerCareer: career,
+      slots: { ...state.save.slots, player: career },
+    }
+    persist(save)
+
+    set({ run: { ...state.run, career }, save })
   },
 
   chooseDestination(offer) {

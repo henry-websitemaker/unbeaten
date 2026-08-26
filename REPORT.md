@@ -3,7 +3,12 @@
 Rebuilt from `SPEC.md` and the recovered `src/data/`. All nine phases of SPEC §5 are
 complete and the game is playable end to end.
 
-**512 tests, all passing. Entry chunk 295.0 kB raw / 95.8 kB gzip.**
+**553 tests, all passing. Entry chunk 302.7 kB raw / 98.4 kB gzip.**
+
+> The entry chunk has crossed SPEC §6's 300 kB line. §6 allows "under 300KB, **or**
+> route-level lazy loading", and there are twelve lazy screen chunks, so the requirement is
+> met by its second clause — but the first is now breached and should not be left unsaid.
+> See [Bundle](#bundle-the-300-kb-line) below.
 
 > **Update — the awards, internationals and match agency pass.** The section
 > [Three SPEC §3 features that were not actually wired in](#three-spec-3-features-that-were-not-actually-wired-in)
@@ -39,6 +44,92 @@ data layer and spec. That is the failure this rebuild exists to prevent.
 | 10 | Sixteen screens, lazy-loaded; store; close-out |
 | 11 | Awards, internationals and match agency joined to the game; nineteen screens |
 | 12 | The career arc: five progression defects fixed, tuned against Monte Carlo evidence |
+| 13 | Restored from the previous build: training, league choice, game plan, Mystery Club |
+
+## Phase 13 — systems restored from the previous build
+
+Eight items brought back or added, one of which reverses the spec rather than implementing it.
+
+**Pre-season training (SPEC §2.8) reverses SPEC §2.5 and §2.7.** Those sections deleted manual
+training outright — "delete the code; don't hide it" — and `spec-compliance.test.ts` had an
+active guard failing on the word *training* anywhere in an implementation file. Both are
+amended, and the amendment is written into the spec rather than applied quietly. What the
+reversal did **not** restore is the thing the ban was really protecting against: there is
+still no points currency and no per-attribute spend, so the compliance guard was widened to
+cover `spendPoints`, `attributePoints`, `buyStat` and friends rather than simply dropped, and
+a new test pins `blocksPerSeason` at 1 — the number that separates a block of work from a shop.
+
+Four blocks (Gym Block, Fitness Camp, Tactical Film, Skills Session), each naming the stats it
+works on before it is chosen. Blocks are built so **every one reaches every position**: backs
+carry no SCR/LNO/CAR/RUK/FIT and front-rowers no HND/EVA, so a block that only named one group
+would be a dead option for half the squad. Training only ever raises stats — it deliberately
+avoids `distributeOvrChange`, whose alignment pass can shave a point off a stat even as OVR
+rises, for the same reason the wheel's positives use `raiseOvrOnly`.
+
+**Training moved the balance targets, and the fix was not where I expected.** Adding a fifth
+OVR source pushed the median career peak from 81 to **86**, out of the 78-82 band. Reducing
+`maturationScale` — the obvious lever, and the one phase 12 had tuned — moved the median peak
+by **exactly nothing**. Once training pushes a player every summer, the arc is governed by
+`eliteCeiling`, because every gain is scaled by the headroom left to it: growth stops where
+that reaches zero. Measured, 89 → 86, 84 → 83, 81 → in band. That is the kind of thing only a
+Monte Carlo pass tells you, and it is why the constants are chosen this way rather than argued
+about.
+
+**Choose your league** offers the four tier-2 leagues with what each is like to play in.
+Tier 1 is deliberately not offerable and `randomStartingClub` ignores a request for it: a
+55-65 rookie in a squad whose XV averages 81 would never be selected, which is precisely the
+zero-appearance career phase 12 existed to remove. The club within the league is still random,
+still weighted towards squads thin in the player's position.
+
+**Game plan**, six of them, sticky across matches. It re-weights which stats the match leans
+on through the `statWeightOverride` hook the weather already used — so a plan is only as good
+as the players asked to run it, and the engine works that out rather than being told. Where a
+plan and an event's weights collide the **event wins**: the weather is not negotiable. "Adapt
+to opponent" counters rather than mirrors, reading the opposition XV's forward bias. Match day
+now always stops on the match screen, including the ~35% of rounds that roll no agency
+decisions — otherwise the plan would be settable only sometimes.
+
+**Mystery Club** hides the destination but not its consequence. SPEC §2.5 requires the OVR
+effect on every destination card, so the card shows what the move does to you and withholds
+only where it takes you. The club, salary, contract length and squad role are all real and
+decided at the point of offer; it pays an 18% premium for the secrecy.
+
+**Squad role** now reads First Team / Impact Sub / Bench Cover — three labels over four
+internal roles, because `star` and `starter` both mean you are in the side and the difference
+is already visible in the salary, the coach's expectation and the armband.
+
+**Internationals gained four regional championships and ten nations**, and this needed a
+structural change rather than four data rows. Competitions were selected by *hemisphere*, and
+Georgia, Romania and Spain are all northern — adding them would have quietly enrolled them in
+the **Six Nations**. Nations now carry a `region`, and three of the four requested
+competitions had **no eligible nations at all** in the recovered 12: Americas had only
+Argentina, Asia and Rugby Europe had none. Every new nation is weaker than the existing twelve
+and the World Cup field is pinned to the strongest twelve, so it is the same tournament the
+§2.4 targets were measured against — asserted, not assumed.
+
+**Pre-match news and the season verdict** are both derived from state that already exists
+rather than rolled independently, so the game never announces a derby that is not happening or
+calls a two-appearance season World Class.
+
+Hall of Fame was asked about and needed no work: it exists, is routed, and is reachable from
+both the main menu and the career-end screen.
+
+### Bundle: the 300 kB line
+
+The entry chunk went 295.0 → **302.7 kB raw** (98.4 kB gzip) and is now over SPEC §6's stated
+300 kB. It is still compliant via §6's "or route-level lazy loading" — twelve screen chunks
+plus the 90 kB `teams.json` all load on demand — but the headroom that phase 11 flagged as
+nearly gone has now been spent.
+
+The growth is engine tables that the *season loop* reaches, so screen-level splitting cannot
+move them: `gamePlan.ts` and `agency.ts` are pulled in by `careerRun.ts`, `training.ts` by the
+store, and `internationals.json` grew from 12 nations to 22. `flavour.ts` is the one new module
+that stays out, because only lazy screens import it.
+
+Getting back under would mean lazy-loading engine data the way `teams.json` already is —
+`internationals.json` behind the season close, the situation and plan tables behind match day.
+That is a real change to the season loop's call signatures and wants its own pass rather than
+being bolted onto this one. Flagging rather than doing it.
 
 ## Three SPEC §3 features that were not actually wired in
 
@@ -279,9 +370,12 @@ noise alone does not buy a heavy tail.
 
 ## Verification
 
-- `npm test` — 512 tests across 22 files, ~9 minutes. The progression block runs 60 full
-  20-season careers through the real loop, which is most of the added time and the reason
-  the defects it guards against were invisible to unit tests.
+- `npm test` — 553 tests across 23 files, ~7.5 minutes. The progression block runs 60 full
+  20-season careers through the real loop, which is most of the time and the reason the
+  defects it guards against were invisible to unit tests. Two ten-thousand-iteration wheel
+  invariants gained explicit timeouts in phase 13: they run in ~2.5s alone but share workers
+  with a 23-file suite, and the 5s default was being squeezed. The sample size is the point
+  of those tests, so the budget moved rather than the sample.
 - `npm run build` — clean. The entry chunk is **295.0 kB raw / 95.8 kB gzip**, up from
   274.4 kB: `career.ts` now reaches the awards and internationals engines, and `careerRun.ts`
   reaches the agency table, so all three land in the entry chunk however the screens are

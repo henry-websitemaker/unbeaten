@@ -272,7 +272,9 @@ describe('the mid-season wheel', () => {
       expect(after.career.contract.salary).toBeGreaterThanOrEqual(before.contract.salary)
       expect(after.career.traits.length).toBeGreaterThanOrEqual(before.traits.length)
     }
-  })
+    // Forty careers played up to the midpoint before a single spin is taken. ~2.5s alone,
+    // but it shares workers with the rest of the suite, so it gets an explicit budget.
+  }, 60_000)
 })
 
 describe('runToSeasonEnd generator — no UI freeze', () => {

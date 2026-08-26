@@ -7,6 +7,7 @@ import {
   Empty,
   OvrDelta,
   Screen,
+  SQUAD_ROLE_LABEL,
   ScrollX,
   SectionTitle,
   Stat,
@@ -14,21 +15,15 @@ import {
 } from './components'
 import { useGame } from '../store/gameStore'
 import { formatMoney, grossEarnings } from '../engine/economy'
-import { currentLadder, isPerfectSeason, perfectSeasonTarget } from '../engine/season'
+import { currentLadder, isPerfectSeason, perfectSeasonTarget, totalRounds } from '../engine/season'
+import { seasonVerdict } from '../engine/flavour'
 import { ACHIEVEMENT_DEFS } from '../engine/achievements'
 import { rivalVerdict } from '../engine/rival'
 import { hallOfFameView } from '../engine/persistence'
 import { getNation } from '../engine/internationals'
 import { buildSeasonPreview } from '../engine/career'
 import { getLeague, POSITIONS } from '../data'
-import { CAREER_SEASONS } from '../types/career'
-
-const ROLE_LABEL: Record<string, string> = {
-  star: 'Star man',
-  starter: 'First choice',
-  squad: 'Squad player',
-  fringe: 'Fringe',
-}
+import { CAREER_SEASONS, type SeasonRecord } from '../types/career'
 
 export function PreviewScreen() {
   const run = useGame((s) => s.run)
@@ -58,7 +53,7 @@ export function PreviewScreen() {
         <Stat label="Standard" value={`${preview.leagueDifficulty} (tier ${preview.tier})`} />
         <Stat label="Salary" value={`${formatMoney(preview.salary)}/yr`} />
         <Stat label="Contract" value={`${preview.contractYearsRemaining} yr remaining`} />
-        <Stat label="Squad role" value={ROLE_LABEL[preview.squadRole] ?? preview.squadRole} />
+        <Stat label="Squad role" value={SQUAD_ROLE_LABEL[preview.squadRole]} />
         <Stat label="Coach expects" value={preview.coachExpectation} />
         <Stat label="Your OVR" value={preview.ovr} />
         <Stat label="Form" value={preview.form} />
@@ -102,6 +97,8 @@ export function SeasonReviewScreen() {
         </Button>
       }
     >
+      <VerdictBanner record={record} totalRounds={totalRounds(run.season)} />
+
       {perfect && (
         <div className="mb-4 rounded-2xl border border-gold/40 bg-gold/10 p-4 text-center">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold">Unbeaten</p>
@@ -266,6 +263,33 @@ export function SeasonReviewScreen() {
         <Stat label="Career total" value={formatMoney(grossEarnings(run.career.ledger))} />
       </Card>
     </Screen>
+  )
+}
+
+/** SPEC §3: the review opens by telling you what kind of season that was. */
+function VerdictBanner({
+  record,
+  totalRounds,
+}: {
+  record: SeasonRecord
+  totalRounds: number
+}) {
+  const { verdict, line } = seasonVerdict(record, totalRounds)
+
+  const tone =
+    verdict === 'World Class'
+      ? 'border-gold/40 bg-gold/10 text-gold'
+      : verdict === 'Solid'
+        ? 'border-turf-600/50 bg-turf-500/10 text-turf-400'
+        : verdict === 'Steady Performer'
+          ? 'border-pitch-600 bg-pitch-900 text-white'
+          : 'border-pitch-700 bg-pitch-900/60 text-pitch-400'
+
+  return (
+    <div className={`mb-4 rounded-2xl border p-5 text-center ${tone}`}>
+      <p className="text-2xl font-black tracking-tight">{verdict}</p>
+      <p className="mt-1.5 text-sm text-pitch-400">{line}</p>
+    </div>
   )
 }
 

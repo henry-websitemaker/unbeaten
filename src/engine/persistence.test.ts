@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll } from 'vitest'
 import {
+  DEFAULT_GAME_PLAN,
   SCHEMA_VERSION,
   buildHallOfFameEntry,
   careerScore,
@@ -73,6 +74,8 @@ function career(seasons: number, retired: boolean): PlayerCareer {
     isCaptain: false,
     injury: null,
     effects: [],
+    training: [],
+    gamePlan: 'balanced_flair',
     history: Array.from({ length: seasons }, (_, i) => ({
       season: i + 1,
       clubId: 'c',
@@ -175,7 +178,7 @@ describe('SPEC §2.2 — migrating a store that contains old-format entries', ()
 
     expect(report.from).toBe(1)
     expect(report.to).toBe(SCHEMA_VERSION)
-    expect(report.steps).toEqual([1, 2])
+    expect(report.steps).toEqual([1, 2, 3])
 
     const ranked = rankedHallOfFame(state.hallOfFame)
     expect(ranked.map((e) => e.name)).toEqual(['Full Career Fran'])
@@ -187,6 +190,60 @@ describe('SPEC §2.2 — migrating a store that contains old-format entries', ()
   it('reports how many entries were demoted', () => {
     // All three were effectively ranked before; only one survives.
     expect(migrate(legacyStore).report.demoted).toBe(2)
+  })
+
+  /**
+   * SPEC §2.8 restored pre-season training and §3 made the game plan sticky, so v4 adds two
+   * fields a career saved before them does not have. Left undefined, the Summer screen would
+   * throw reading the training log and every match would be played with no plan.
+   */
+  it('gives a career saved before training and game plans both of them', () => {
+    const v3Career = {
+      seed: 1,
+      name: 'Mid Career Mo',
+      position: 'OC',
+      season: 7,
+      // No `training`, no `gamePlan` — this save predates both.
+    }
+
+    const { state, report } = migrate({
+      schemaVersion: 3,
+      playerCareer: v3Career,
+      slots: { player: v3Career, manager: null },
+      hallOfFame: [],
+    })
+
+    expect(report.steps).toEqual([3])
+    for (const career of [state.playerCareer, state.slots.player]) {
+      expect(career).not.toBeNull()
+      expect(career!.training).toEqual([])
+      expect(career!.gamePlan).toBe(DEFAULT_GAME_PLAN)
+    }
+  })
+
+  it('does not overwrite training or a game plan that is already there', () => {
+    const career = {
+      seed: 2,
+      name: 'Already Migrated',
+      training: [{ season: 3, blockId: 'gym', ovrDelta: 1 }],
+      gamePlan: 'high_risk',
+    }
+
+    const { state } = migrate({
+      schemaVersion: 3,
+      playerCareer: career,
+      slots: { player: career, manager: null },
+      hallOfFame: [],
+    })
+
+    expect(state.playerCareer!.gamePlan).toBe('high_risk')
+    expect(state.playerCareer!.training).toHaveLength(1)
+  })
+
+  it('survives a v3 save with no career in it at all', () => {
+    const { state } = migrate({ schemaVersion: 3, playerCareer: null, hallOfFame: [] })
+    expect(state.playerCareer).toBeNull()
+    expect(state.schemaVersion).toBe(SCHEMA_VERSION)
   })
 
   it('explains why each demoted entry is unranked', () => {

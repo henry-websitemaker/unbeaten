@@ -124,7 +124,10 @@ describe('SPEC §3 — nothing permanent is ever lost', () => {
       if (before.isCaptain) expect(after.isCaptain).toBe(true)
       expect(outcome.id.length).toBeGreaterThan(0)
     }
-  })
+    // Ten thousand spins takes ~2.5s alone, which fits the 5s default until the suite is
+    // busy enough to squeeze the worker. An explicit budget rather than a smaller sample:
+    // the sample size is the point of the test.
+  }, 60_000)
 
   it('marks every negative outcome as non-permanent in the data', () => {
     for (const outcome of WHEEL_OUTCOMES) {

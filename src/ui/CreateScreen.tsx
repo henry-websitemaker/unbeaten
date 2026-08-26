@@ -12,15 +12,35 @@ import { buildOriginDraft, type OriginCard } from '../engine/career'
 import { ARCHETYPE_LIST } from '../engine/progression'
 import { positionsInGroup } from '../engine/ovr'
 import { NATIONS } from '../engine/internationals'
-import { POSITIONS, loadTeams } from '../data'
+import { POSITIONS, TIER_TWO_LEAGUES, loadTeams } from '../data'
+import { formatMoney } from '../engine/economy'
 import { createRng, seedFromString } from '../engine/rng'
-import type { PositionGroup, PositionId, RosterEntry, StatKey } from '../types/core'
+import type { LeagueId, PositionGroup, PositionId, RosterEntry, StatKey } from '../types/core'
 
 const GROUPS: { id: PositionGroup; name: string; blurb: string }[] = [
   { id: 'FWD', name: 'Forward', blurb: 'Set piece, collisions, the hard yards.' },
   { id: 'HLF', name: 'Half back', blurb: 'The game runs through you.' },
   { id: 'BCK', name: 'Back', blurb: 'Space, pace and finishing.' },
 ]
+
+/** What each second-tier league is actually like to play in (SPEC §3). */
+const LEAGUE_BLURB: Record<string, string> = {
+  npc: 'Short, ferocious and played at pace. Ten rounds means every week is a trial — there is nowhere to hide and no time to find form.',
+  shute_shield: 'Sydney club rugby. Expansive, unstructured and watched by more selectors than the crowd suggests. Good place to be noticed.',
+  rfu_championship:
+    'England\'s second tier. Long, physical, forward-dominated and unforgiving in February. Survive it and nothing surprises you.',
+  pro_d2:
+    'Thirty rounds of French rugby. The longest season in the game, brutal away from home, and the promotion race runs to the final weekend.',
+}
+
+function LeagueFact({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-lg bg-pitch-800/60 px-2 py-1.5">
+      <p className="text-[10px] uppercase tracking-wider text-pitch-500">{label}</p>
+      <p className="nums truncate text-xs font-semibold text-white">{value}</p>
+    </div>
+  )
+}
 
 export default function CreateScreen() {
   const go = useGame((s) => s.go)
@@ -33,6 +53,7 @@ export default function CreateScreen() {
   const [locked, setLocked] = useState<Partial<Record<StatKey, number>>>({})
   const [draftIndex, setDraftIndex] = useState(0)
   const [nationId, setNationId] = useState('eng')
+  const [leagueId, setLeagueId] = useState<LeagueId | null>(null)
   const [pool, setPool] = useState<RosterEntry[]>([])
 
   useEffect(() => {
@@ -50,7 +71,7 @@ export default function CreateScreen() {
   }
 
   return (
-    <Screen title="Forge your player" subtitle={`Step ${step + 1} of 5`} onBack={back}>
+    <Screen title="Forge your player" subtitle={`Step ${step + 1} of 6`} onBack={back}>
       {step === 0 && (
         <>
           <SectionTitle>What are you called?</SectionTitle>
@@ -180,6 +201,52 @@ export default function CreateScreen() {
 
       {step === 4 && position && (
         <>
+          <SectionTitle>Choose your league</SectionTitle>
+          <p className="mb-3 text-sm text-pitch-500">
+            Where you start decides the budget behind you, the way the game is played, and how
+            hard it is to break into a side. The club within it is still the luck of the draw.
+          </p>
+          <p className="mb-3 rounded-xl border border-pitch-800 bg-pitch-900/60 px-3 py-2 text-xs text-pitch-500">
+            These are the second tier. The elite leagues are not on this list — at your level
+            you would never be picked, and a season in the stand is not a season. Earn it.
+          </p>
+
+          <div className="flex flex-col gap-3">
+            {TIER_TWO_LEAGUES.map((league) => (
+              <Card
+                key={league.id}
+                selected={leagueId === league.id}
+                onClick={() => setLeagueId(league.id)}
+              >
+                <div className="flex items-baseline justify-between gap-3">
+                  <p className="font-bold text-white">{league.name}</p>
+                  <p className="nums shrink-0 text-xs text-turf-400">
+                    {league.rounds} rounds
+                  </p>
+                </div>
+                <p className="mt-1 text-sm text-pitch-500">{LEAGUE_BLURB[league.id]}</p>
+                <div className="mt-2 grid grid-cols-3 gap-2">
+                  <LeagueFact label="Budget" value={formatMoney(league.wageBudgetBase)} />
+                  <LeagueFact label="Clubs" value={String(league.teamCount)} />
+                  <LeagueFact
+                    label="Finals"
+                    value={league.finalsFormat === 'none' ? 'None' : 'Yes'}
+                  />
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          <div className="mt-8">
+            <Button full disabled={!leagueId} onClick={() => setStep(5)}>
+              Continue
+            </Button>
+          </div>
+        </>
+      )}
+
+      {step === 5 && position && (
+        <>
           <SectionTitle>Choose your path</SectionTitle>
           <div className="flex flex-col gap-3">
             {ARCHETYPE_LIST.map((archetype) => (
@@ -191,6 +258,7 @@ export default function CreateScreen() {
                     position,
                     archetypeId: archetype.id,
                     nationId,
+                    leagueId: leagueId ?? undefined,
                     lockedStats: locked,
                   })
                 }

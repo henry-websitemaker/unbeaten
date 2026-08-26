@@ -14,7 +14,8 @@
       "hemisphere": "north",
       "frequency": "annual",
       "matches": 5,
-      "prestige": 7
+      "prestige": 7,
+      "region": "six_nations"
     },
     {
       "id": "rugby_championship",
@@ -22,7 +23,8 @@
       "hemisphere": "south",
       "frequency": "annual",
       "matches": 6,
-      "prestige": 7
+      "prestige": 7,
+      "region": "rugby_championship"
     },
     {
       "id": "autumn_tests",
@@ -31,6 +33,42 @@
       "frequency": "annual",
       "matches": 4,
       "prestige": 5
+    },
+    {
+      "id": "pacific_nations",
+      "name": "Pacific Nations Cup",
+      "region": "pacific",
+      "hemisphere": "south",
+      "frequency": "annual",
+      "matches": 3,
+      "prestige": 4
+    },
+    {
+      "id": "americas_championship",
+      "name": "Americas Rugby Championship",
+      "region": "americas",
+      "hemisphere": "both",
+      "frequency": "annual",
+      "matches": 3,
+      "prestige": 3
+    },
+    {
+      "id": "asia_championship",
+      "name": "Asia Rugby Championship",
+      "region": "asia",
+      "hemisphere": "north",
+      "frequency": "annual",
+      "matches": 3,
+      "prestige": 3
+    },
+    {
+      "id": "rugby_europe",
+      "name": "Rugby Europe Championship",
+      "region": "europe",
+      "hemisphere": "north",
+      "frequency": "annual",
+      "matches": 4,
+      "prestige": 4
     },
     {
       "id": "world_cup",
@@ -58,7 +96,8 @@
       "feederLeagues": [
         "super_rugby",
         "npc"
-      ]
+      ],
+      "region": "rugby_championship"
     },
     {
       "id": "rsa",
@@ -69,7 +108,8 @@
         "urc",
         "top_14",
         "premiership"
-      ]
+      ],
+      "region": "rugby_championship"
     },
     {
       "id": "irl",
@@ -78,7 +118,8 @@
       "strength": 93,
       "feederLeagues": [
         "urc"
-      ]
+      ],
+      "region": "six_nations"
     },
     {
       "id": "fra",
@@ -88,7 +129,8 @@
       "feederLeagues": [
         "top_14",
         "pro_d2"
-      ]
+      ],
+      "region": "six_nations"
     },
     {
       "id": "eng",
@@ -98,7 +140,8 @@
       "feederLeagues": [
         "premiership",
         "rfu_championship"
-      ]
+      ],
+      "region": "six_nations"
     },
     {
       "id": "aus",
@@ -108,7 +151,8 @@
       "feederLeagues": [
         "super_rugby",
         "shute_shield"
-      ]
+      ],
+      "region": "rugby_championship"
     },
     {
       "id": "sco",
@@ -118,7 +162,8 @@
       "feederLeagues": [
         "urc",
         "premiership"
-      ]
+      ],
+      "region": "six_nations"
     },
     {
       "id": "arg",
@@ -129,7 +174,8 @@
         "top_14",
         "premiership",
         "urc"
-      ]
+      ],
+      "region": "rugby_championship"
     },
     {
       "id": "wal",
@@ -138,7 +184,8 @@
       "strength": 80,
       "feederLeagues": [
         "urc"
-      ]
+      ],
+      "region": "six_nations"
     },
     {
       "id": "ita",
@@ -148,7 +195,8 @@
       "feederLeagues": [
         "urc",
         "top_14"
-      ]
+      ],
+      "region": "six_nations"
     },
     {
       "id": "fij",
@@ -158,7 +206,8 @@
       "feederLeagues": [
         "super_rugby",
         "top_14"
-      ]
+      ],
+      "region": "pacific"
     },
     {
       "id": "sam",
@@ -168,6 +217,115 @@
       "feederLeagues": [
         "super_rugby",
         "premiership"
+      ],
+      "region": "pacific"
+    },
+    {
+      "id": "jpn",
+      "name": "Japan",
+      "hemisphere": "north",
+      "strength": 70,
+      "region": "asia",
+      "feederLeagues": [
+        "super_rugby",
+        "top_14"
+      ]
+    },
+    {
+      "id": "geo",
+      "name": "Georgia",
+      "hemisphere": "north",
+      "strength": 68,
+      "region": "europe",
+      "feederLeagues": [
+        "top_14",
+        "premiership"
+      ]
+    },
+    {
+      "id": "ton",
+      "name": "Tonga",
+      "hemisphere": "south",
+      "strength": 67,
+      "region": "pacific",
+      "feederLeagues": [
+        "super_rugby",
+        "premiership"
+      ]
+    },
+    {
+      "id": "usa",
+      "name": "USA",
+      "hemisphere": "north",
+      "strength": 63,
+      "region": "americas",
+      "feederLeagues": [
+        "premiership",
+        "super_rugby"
+      ]
+    },
+    {
+      "id": "uru",
+      "name": "Uruguay",
+      "hemisphere": "south",
+      "strength": 62,
+      "region": "americas",
+      "feederLeagues": [
+        "top_14",
+        "super_rugby"
+      ]
+    },
+    {
+      "id": "rou",
+      "name": "Romania",
+      "hemisphere": "north",
+      "strength": 60,
+      "region": "europe",
+      "feederLeagues": [
+        "top_14",
+        "pro_d2"
+      ]
+    },
+    {
+      "id": "can",
+      "name": "Canada",
+      "hemisphere": "north",
+      "strength": 59,
+      "region": "americas",
+      "feederLeagues": [
+        "premiership",
+        "super_rugby"
+      ]
+    },
+    {
+      "id": "esp",
+      "name": "Spain",
+      "hemisphere": "north",
+      "strength": 58,
+      "region": "europe",
+      "feederLeagues": [
+        "top_14",
+        "pro_d2"
+      ]
+    },
+    {
+      "id": "kor",
+      "name": "Korea",
+      "hemisphere": "north",
+      "strength": 52,
+      "region": "asia",
+      "feederLeagues": [
+        "super_rugby"
+      ]
+    },
+    {
+      "id": "hkg",
+      "name": "Hong Kong",
+      "hemisphere": "north",
+      "strength": 50,
+      "region": "asia",
+      "feederLeagues": [
+        "super_rugby"
       ]
     }
   ],

@@ -74,9 +74,16 @@ export function updatePlayer(world: World, player: Player): World {
  * — but landing behind a settled international at 18 used to end a career before it began:
  * with no game time there is no development, and no way back up the pecking order.
  */
-export function randomStartingClub(world: World, rng: Rng, position?: PositionId): Team {
+export function randomStartingClub(
+  world: World,
+  rng: Rng,
+  position?: PositionId,
+  /** Chosen at creation (SPEC §3). Ignored if it is not a tier-2 league. */
+  leagueId?: LeagueId,
+): Team {
   const tierTwo = LEAGUE_LIST.filter((l) => l.tier === 2)
-  const league = rng.pick(tierTwo)
+  const chosen = leagueId ? tierTwo.find((l) => l.id === leagueId) : undefined
+  const league = chosen ?? rng.pick(tierTwo)
   const clubs = teamsInLeague(world, league.id)
   if (!position) return rng.pick(clubs)
 

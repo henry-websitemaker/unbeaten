@@ -23,6 +23,7 @@ import {
   clubMoveDirection,
   getArchetype,
 } from './progression'
+import { DEFAULT_GAME_PLAN } from './gamePlan'
 import { advanceEffects, applySlumpReduction, totalEffects } from './events'
 import { advanceInjury, rollMatchInjury } from './injuries'
 import { rngFor, type Rng } from './rng'
@@ -99,6 +100,13 @@ export interface CreateCareerOptions {
   position: PositionId
   archetypeId: string
   nationId: string
+  /**
+   * The tier-2 league to start in (SPEC §3). The club within it is still random.
+   *
+   * Tier 1 is not offerable: a 55-65 rookie in a squad whose XV averages 81 would never be
+   * selected, and a career with no game time is a career with no development.
+   */
+  leagueId?: LeagueId
   /** Stats locked during the origin draft. */
   lockedStats?: Partial<Record<StatKey, number>>
 }
@@ -187,6 +195,8 @@ export function createCareer(
     trophies: [],
     awards: [],
     achievements: [],
+    training: [],
+    gamePlan: DEFAULT_GAME_PLAN,
 
     careerCaps: 0,
     careerTries: 0,
@@ -663,12 +673,19 @@ export function generateTransferOffers(
     pool.splice(pool.indexOf(pick), 1)
   }
 
-  const offers = chosen.map(({ club, league }) => {
+  // SPEC §3: one destination may arrive unnamed. The club behind it is a real club chosen
+  // the same way as any other — nothing is decided later, it is simply not shown yet.
+  const mysteryIndex = chosen.length > 1 && rng.bool(MYSTERY_CLUB_CHANCE) ? rng.int(0, chosen.length - 1) : -1
+
+  const offers = chosen.map(({ club, league }, index) => {
     const role = squadRoleFor(career, club)
     const direction = clubMoveDirection(currentTier, league.tier)
+    const mystery = index === mysteryIndex
     const salary = Math.round(
       expectedSalary(league.id, career.ovr, ROLE_SALARY_FACTOR[role]) *
-        lifestyle.futureSalaryMultiplier,
+        lifestyle.futureSalaryMultiplier *
+        // An unnamed club has to pay for the privilege of not being named.
+        (mystery ? MYSTERY_CLUB_SALARY_PREMIUM : 1),
     )
 
     return {
@@ -682,6 +699,7 @@ export function generateTransferOffers(
       squadRole: role,
       direction,
       ovrChangeRange: ovrRangeFor(direction),
+      mystery,
     } satisfies TransferOffer
   })
 
@@ -702,8 +720,14 @@ function stayOffer(career: PlayerCareer, world: World): TransferOffer {
     squadRole: club ? squadRoleFor(career, club) : 'squad',
     direction: 'stay',
     ovrChangeRange: [0, 0],
+    mystery: false,
   }
 }
+
+/** How often a transfer window throws up an unnamed destination. */
+export const MYSTERY_CLUB_CHANCE = 0.35
+/** What it pays over a named club of the same standing. */
+export const MYSTERY_CLUB_SALARY_PREMIUM = 1.18
 
 function ovrRangeFor(direction: TransferOffer['direction']): [number, number] {
   if (direction === 'up') return [1, 3]

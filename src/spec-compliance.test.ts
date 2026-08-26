@@ -60,9 +60,15 @@ function implementationFiles(): { path: string; text: string }[] {
 }
 
 describe('SPEC §2.7 — superseded systems must not exist', () => {
+  // Pre-season training was on this list and has been deliberately restored (SPEC §2.8), so
+  // the ban on the word `training` is gone. What the reversal did *not* restore is the thing
+  // the ban was really protecting against — buying numbers — so those patterns are kept and
+  // widened. A block of work is not a points shop.
   const banned: { label: string; pattern: RegExp }[] = [
-    { label: 'manual training / Summer Plans attribute step', pattern: /\btraining\b|\btrainPlayer\b|\bTrainingScreen\b/i },
-    { label: 'points shop', pattern: /points?[-_ ]?shop|spendPoints|skillPoints/i },
+    {
+      label: 'points shop / per-attribute spending',
+      pattern: /points?[-_ ]?shop|spendPoints|skillPoints|attributePoints|buyStat|upgradeStat/i,
+    },
     { label: 'development environment model', pattern: /development[-_ ]?environment|devEnvironment/i },
     { label: '10-season career path', pattern: /10[-_ ]?season|tenSeason/i },
     { label: 'Long Career toggle', pattern: /long[-_ ]?career/i },
@@ -76,6 +82,14 @@ describe('SPEC §2.7 — superseded systems must not exist', () => {
       expect(offenders, `${label} reappeared in: ${offenders.join(', ')}`).toEqual([])
     })
   }
+
+  it('keeps pre-season training to one block a summer, not a currency', async () => {
+    // SPEC §2.8: the restored system is one choice per season. The line between it and the
+    // points shop that stayed deleted is exactly this number.
+    const { TRAINING } = await import('./data')
+    const rules = (TRAINING as { rules: { blocksPerSeason: number } }).rules
+    expect(rules.blocksPerSeason).toBe(1)
+  })
 
   it('has no permanent-loss wheel outcome in the data', async () => {
     const { WHEEL } = await import('./data')

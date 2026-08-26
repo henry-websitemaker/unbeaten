@@ -33,6 +33,7 @@ import {
   type ResolvedDecision,
 } from './agency'
 import { assertReconciled } from './economy'
+import { forwardBias, gamePlanModifiers } from './gamePlan'
 import { resolveEvent, rollEvent, type EventOutcome } from './events'
 import { rngFor } from './rng'
 import {
@@ -164,14 +165,38 @@ export function playRound(run: CareerRun, decisions: readonly ResolvedDecision[]
     const club = playerClubModifiers(career, isHome)
     const agency = agencyModifiers(decisions, PLAYER_ID, isHome)
 
-    // Both can carry a rating bonus for the player; they add rather than overwrite.
+    // The game plan, read against whoever is on the other side of it (SPEC §3).
+    const opponent = season.teams.find(
+      (t) => t.id === (isHome ? fixture.awayId : fixture.homeId),
+    )
+    const plan = gamePlanModifiers(
+      career.gamePlan,
+      isHome,
+      rngFor(career.seed, 'game-plan', career.season, round),
+      opponent ? forwardBias(opponent.squad) : 0,
+    )
+
+    // Both the club modifiers and agency can carry a rating bonus for the player; they add
+    // rather than overwrite. Strength deltas from the plan and from agency likewise sum.
     const ratingBonus = new Map<string, number>(club.ratingBonus ?? [])
     for (const [id, bonus] of agency.ratingBonus ?? []) {
       ratingBonus.set(id, (ratingBonus.get(id) ?? 0) + bonus)
     }
 
-    const merged: MatchModifiers = { ...base, ...club, ...agency }
+    const merged: MatchModifiers = { ...base, ...club, ...agency, ...plan }
     if (ratingBonus.size > 0) merged.ratingBonus = ratingBonus
+
+    const homeDelta = (agency.homeStrengthDelta ?? 0) + (plan.homeStrengthDelta ?? 0)
+    const awayDelta = (agency.awayStrengthDelta ?? 0) + (plan.awayStrengthDelta ?? 0)
+    if (homeDelta !== 0) merged.homeStrengthDelta = homeDelta
+    if (awayDelta !== 0) merged.awayStrengthDelta = awayDelta
+
+    // A game plan re-weights the stats the match leans on. An event like Washout Conditions
+    // does too, and the weather is not negotiable — so the event's weights win where they
+    // overlap, and the plan fills in the rest.
+    if (plan.statWeightOverride || base.statWeightOverride) {
+      merged.statWeightOverride = { ...plan.statWeightOverride, ...base.statWeightOverride }
+    }
     return merged
   }
 

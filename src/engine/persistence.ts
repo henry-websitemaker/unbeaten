@@ -14,7 +14,10 @@ import type { PositionId } from '../types/core'
 import type { ManagerCareer } from './teamCareer'
 
 /** Bump this whenever the stored shape changes, and add a step to MIGRATIONS. */
-export const SCHEMA_VERSION = 3
+export const SCHEMA_VERSION = 4
+
+/** Falls back to the balanced plan for any career saved before game plans existed. */
+export const DEFAULT_GAME_PLAN = 'balanced_flair'
 
 export const STORAGE_KEY = 'unbeaten:save:v1'
 
@@ -205,10 +208,40 @@ const migrateV2toV3: Migration = (state) => {
   }
 }
 
+/**
+ * Step 3 -> 4: SPEC §2.8 restored pre-season training, and §3 made the game plan sticky.
+ *
+ * A career saved before either existed has no `training` log and no `gamePlan`. Both are
+ * filled in rather than left undefined: the Summer screen reads the log to decide whether
+ * this summer's block is still available, and an undefined game plan would silently mean
+ * "no plan" on every match of a resumed career.
+ */
+const migrateV3toV4: Migration = (state) => {
+  const withDefaults = (raw: unknown): unknown => {
+    if (!raw || typeof raw !== 'object') return raw
+    const career = raw as Record<string, unknown>
+    return {
+      ...career,
+      training: Array.isArray(career.training) ? career.training : [],
+      gamePlan: typeof career.gamePlan === 'string' ? career.gamePlan : DEFAULT_GAME_PLAN,
+    }
+  }
+
+  const slots = (state.slots ?? {}) as Record<string, unknown>
+
+  return {
+    ...state,
+    schemaVersion: 4,
+    playerCareer: withDefaults(state.playerCareer),
+    slots: { ...slots, player: withDefaults(slots.player) },
+  }
+}
+
 /** Indexed by the version they upgrade *from*. */
 const MIGRATIONS: Record<number, Migration> = {
   1: migrateV1toV2,
   2: migrateV2toV3,
+  3: migrateV3toV4,
 }
 
 export interface MigrationReport {

@@ -8,23 +8,18 @@
  */
 
 import { useState } from 'react'
-import { Button, Card, Screen, SectionTitle, Stat } from './components'
+import { Button, Card, SQUAD_ROLE_LABEL, Screen, SectionTitle, Stat } from './components'
 import { useGame } from '../store/gameStore'
 import { LIFESTYLE_ITEMS, balance, formatMoney, owns } from '../engine/economy'
+import { TRAINING_BLOCKS, trainableStats } from '../engine/training'
 import { getLeague } from '../data'
 import type { TransferOffer } from '../types/career'
-
-const ROLE_LABEL: Record<string, string> = {
-  star: 'Star man',
-  starter: 'First choice',
-  squad: 'Squad player',
-  fringe: 'Fringe',
-}
 
 export default function SummerScreen() {
   const run = useGame((s) => s.run)
   const offers = useGame((s) => s.offers)
   const buyLifestyle = useGame((s) => s.buyLifestyle)
+  const chooseTraining = useGame((s) => s.chooseTraining)
   const chooseDestination = useGame((s) => s.chooseDestination)
   const beginNextSeason = useGame((s) => s.beginNextSeason)
 
@@ -34,6 +29,7 @@ export default function SummerScreen() {
   if (!run) return null
   const { career } = run
   const available = balance(career.ledger)
+  const trained = career.training.find((t) => t.season === career.season)
 
   const pick = (offer: TransferOffer) => {
     chooseDestination(offer)
@@ -50,6 +46,61 @@ export default function SummerScreen() {
         </Button>
       }
     >
+      <SectionTitle>Pre-season</SectionTitle>
+      <p className="mb-3 text-sm text-pitch-500">
+        One block of work before the season starts. Pick what you want to be better at — you
+        only get one.
+      </p>
+
+      <div className="flex flex-col gap-2">
+        {TRAINING_BLOCKS.map((block) => {
+          const stats = trainableStats(block, career.stats)
+          const isChosen = trained?.blockId === block.id
+          const done = trained !== undefined
+
+          return (
+            <button
+              key={block.id}
+              disabled={done}
+              onClick={() => setError(chooseTraining(block.id))}
+              className={`rounded-2xl border p-4 text-left transition ${
+                isChosen
+                  ? 'border-turf-500 bg-turf-500/10'
+                  : done
+                    ? 'border-pitch-800 bg-pitch-900/40 opacity-50'
+                    : 'border-pitch-700 bg-pitch-900 hover:border-turf-600'
+              }`}
+            >
+              <div className="flex items-baseline justify-between gap-3">
+                <p className="font-semibold text-white">{block.name}</p>
+                <p className="shrink-0 text-[10px] font-bold uppercase tracking-wider text-turf-400">
+                  {block.focus}
+                </p>
+              </div>
+              <p className="mt-1 text-xs text-pitch-500">{block.description}</p>
+              <p className="mt-2 text-[11px] italic text-pitch-600">{block.flavour}</p>
+
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {stats.map((stat) => (
+                  <span
+                    key={stat}
+                    className="rounded bg-pitch-800 px-1.5 py-0.5 text-[10px] font-semibold text-pitch-400"
+                  >
+                    {stat}
+                  </span>
+                ))}
+              </div>
+
+              {isChosen && (
+                <p className="nums mt-2 text-[11px] font-semibold uppercase tracking-wide text-turf-400">
+                  Done — {trained.ovrDelta > 0 ? `+${trained.ovrDelta} OVR` : 'no OVR change'}
+                </p>
+              )}
+            </button>
+          )
+        })}
+      </div>
+
       {offers.length > 0 && (
         <>
           <SectionTitle>Where next?</SectionTitle>
@@ -70,10 +121,21 @@ export default function SummerScreen() {
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="truncate font-bold text-white">{offer.clubName}</p>
-                      <p className="truncate text-xs text-pitch-500">
-                        {league.name} · Tier {offer.tier}
-                      </p>
+                      {offer.mystery ? (
+                        <>
+                          <p className="truncate font-bold text-gold">Mystery Club</p>
+                          <p className="truncate text-xs text-pitch-500">
+                            Revealed when the season starts
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="truncate font-bold text-white">{offer.clubName}</p>
+                          <p className="truncate text-xs text-pitch-500">
+                            {league.name} · Tier {offer.tier}
+                          </p>
+                        </>
+                      )}
                     </div>
                     <div className="shrink-0 text-right">
                       <p className="text-[10px] uppercase tracking-wider text-pitch-500">OVR</p>
@@ -98,8 +160,17 @@ export default function SummerScreen() {
                   <div className="mt-3 grid grid-cols-3 gap-2 text-xs">
                     <Detail label="Salary" value={formatMoney(offer.salary)} />
                     <Detail label="Length" value={`${offer.years} yr`} />
-                    <Detail label="Role" value={ROLE_LABEL[offer.squadRole] ?? offer.squadRole} />
+                    <Detail label="Role" value={SQUAD_ROLE_LABEL[offer.squadRole]} />
                   </div>
+
+                  {offer.mystery && (
+                    // SPEC §2.5 still requires the OVR consequence up front, so the move's
+                    // effect is on the card above — only the destination is withheld.
+                    <p className="mt-2 text-xs text-gold/80">
+                      They will not say who. You know what the move does to you, not where it
+                      takes you — and they are paying for the secrecy.
+                    </p>
+                  )}
 
                   {offer.direction === 'stay' && (
                     <p className="mt-2 text-xs text-pitch-600">Stay where you are.</p>

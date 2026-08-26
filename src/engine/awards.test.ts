@@ -287,6 +287,8 @@ function career(overrides: Partial<PlayerCareer> = {}): PlayerCareer {
     trophies: [],
     awards: [],
     achievements: [],
+    training: [],
+    gamePlan: 'balanced_flair',
     careerCaps: 0,
     careerTries: 0,
     careerPoints: 0,

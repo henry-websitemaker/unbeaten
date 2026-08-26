@@ -9,37 +9,80 @@
  * decided so far, which may be nothing at all.
  */
 
+import { useState } from 'react'
 import { Button, Card, Screen, SectionTitle } from './components'
 import { useGame } from '../store/gameStore'
+import { GAME_PLANS, getGamePlan } from '../engine/gamePlan'
+import { preMatchNews } from '../engine/flavour'
+import { findDerby } from '../engine/derbies'
+import { totalRounds } from '../engine/season'
+import { rngFor } from '../engine/rng'
 import type { OfferedDecision, ResolvedDecision } from '../engine/agency'
+import type { GamePlanId } from '../types/career'
 
 export default function MatchScreen() {
   const run = useGame((s) => s.run)
   const pending = useGame((s) => s.pendingDecisions)
   const resolved = useGame((s) => s.resolvedDecisions)
   const decide = useGame((s) => s.decide)
+  const setGamePlan = useGame((s) => s.setGamePlan)
   const playMatch = useGame((s) => s.nextRound)
 
   if (!run) return null
 
-  const round = run.season.roundsPlayed + 1
+  const { career, season } = run
+  const round = season.roundsPlayed + 1
   const outstanding = pending.filter(
     (d) => !resolved.some((r) => r.situationId === d.situationId),
   )
   const allDecided = outstanding.length === 0
 
+  const fixture = season.fixtures.find(
+    (f) =>
+      f.round === round &&
+      (f.homeId === career.contract.clubId || f.awayId === career.contract.clubId),
+  )
+  const isHome = fixture?.homeId === career.contract.clubId
+  const opponentId = fixture ? (isHome ? fixture.awayId : fixture.homeId) : null
+  const opponent = season.teams.find((t) => t.id === opponentId)
+
+  const news = opponent
+    ? preMatchNews(
+        {
+          career,
+          opponentName: opponent.name,
+          isHome,
+          round,
+          totalRounds: totalRounds(season),
+          derbyName: findDerby(
+            season.teams.find((t) => t.id === career.contract.clubId)?.name ?? '',
+            opponent.name,
+          )?.name,
+        },
+        rngFor(career.seed, 'news', career.season, round),
+      )
+    : null
+
   return (
     <Screen
       title={`Round ${round}`}
-      subtitle={allDecided ? 'Over to the referee' : 'A call to make'}
+      subtitle={opponent ? `${isHome ? 'v' : 'away to'} ${opponent.name}` : 'Match day'}
       footer={
         <Button full onClick={playMatch}>
           {allDecided ? 'Play the match' : 'Get on with it'}
         </Button>
       }
     >
+      {news && (
+        <p className="mb-4 rounded-2xl border border-pitch-800 bg-pitch-900/60 p-4 text-sm italic text-pitch-400">
+          {news}
+        </p>
+      )}
+
+      <GamePlanPicker current={career.gamePlan} onPick={setGamePlan} />
+
       {!allDecided && (
-        <p className="mb-4 text-sm text-pitch-500">
+        <p className="mb-4 mt-6 text-sm text-pitch-500">
           Your call. The percentages are what your attributes give you — take the safe option
           or back yourself, and either way nothing you have earned is at stake.
         </p>
@@ -66,6 +109,68 @@ export default function MatchScreen() {
         </p>
       )}
     </Screen>
+  )
+}
+
+/**
+ * The game plan (SPEC §3).
+ *
+ * Sticky: whatever was chosen last time is already selected, so a season is not thirty
+ * identical decisions. Changing it is one tap, and the current plan is always visible so a
+ * player who leaves it alone still knows what they are playing.
+ */
+function GamePlanPicker({
+  current,
+  onPick,
+}: {
+  current: GamePlanId
+  onPick: (plan: GamePlanId) => void
+}) {
+  const [open, setOpen] = useState(false)
+  const plan = getGamePlan(current)
+
+  if (!open) {
+    return (
+      <div className="flex items-center justify-between gap-3 rounded-2xl border border-turf-600/40 bg-turf-500/5 px-4 py-3">
+        <div className="min-w-0">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-pitch-500">
+            Game plan
+          </p>
+          <p className="truncate text-sm font-semibold text-turf-400">{plan.name}</p>
+        </div>
+        <button
+          onClick={() => setOpen(true)}
+          className="shrink-0 rounded-lg bg-pitch-800 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-pitch-700"
+        >
+          Change
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <SectionTitle>Game plan</SectionTitle>
+      <p className="mb-3 text-sm text-pitch-500">
+        This sticks until you change it. A plan is only as good as the players asked to run
+        it — pick the one your side is built for.
+      </p>
+      <div className="flex flex-col gap-2">
+        {GAME_PLANS.map((option) => (
+          <Card
+            key={option.id}
+            selected={option.id === current}
+            onClick={() => {
+              onPick(option.id)
+              setOpen(false)
+            }}
+          >
+            <p className="font-semibold text-white">{option.name}</p>
+            <p className="mt-0.5 text-xs text-pitch-500">{option.description}</p>
+          </Card>
+        ))}
+      </div>
+    </div>
   )
 }
 

@@ -98,7 +98,15 @@ export const TUNING: ProgressionTuning = {
   baseDecayCeiling: 0.8,
   maxDecayPerSeason: 3,
   decayTau: 4,
-  eliteCeiling: 89,
+  // Lowered from 89 when pre-season training was restored (SPEC §2.8).
+  //
+  // Once training pushes a player every summer as well, this — not maturation — is what
+  // decides where a career tops out: every source of gain is scaled by the headroom left to
+  // the ceiling, so growth stops where that reaches zero and decay takes over. Measured over
+  // 60 careers, the median peak lands just below it: 89 -> 86, 84 -> 83, 81 -> in band.
+  // Reducing `maturationScale` instead moved the median peak by nothing at all, which is how
+  // the governing lever was identified.
+  eliteCeiling: 81,
   eliteHeadroom: 14,
 }
 

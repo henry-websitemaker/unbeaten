@@ -1,0 +1,41 @@
+{
+  "rules": {
+    "blocksPerSeason": 1,
+    "statGain": 2,
+    "note": "SPEC §2.8. One block per summer. Blocks shape a stat area; there is no per-attribute spend and no points currency."
+  },
+  "blocks": [
+    {
+      "id": "gym",
+      "name": "Gym Block",
+      "focus": "Power",
+      "stats": ["SCR", "CAR", "TCK"],
+      "description": "Eight weeks under the bar with the strength and conditioning staff. You come back thicker through the chest and harder to move at the collision.",
+      "flavour": "Nobody enjoys it. Everybody notices it in September."
+    },
+    {
+      "id": "fitness",
+      "name": "Fitness Camp",
+      "focus": "Conditioning",
+      "stats": ["FIT", "PAC"],
+      "description": "Altitude, hill runs and a heart-rate monitor that never lies. The last twenty minutes of a match stop being someone else's problem.",
+      "flavour": "You will hate every morning of it and thank yourself in round eighteen."
+    },
+    {
+      "id": "film",
+      "name": "Tactical Film",
+      "focus": "Reading the game",
+      "stats": ["LNO", "VIS", "KCK"],
+      "description": "Whole days in the analysis room with the coaches, picking apart set piece, exit plays and where the space actually is.",
+      "flavour": "The game slows down for players who have already seen it."
+    },
+    {
+      "id": "skills",
+      "name": "Skills Session",
+      "focus": "Ball skills",
+      "stats": ["HND", "EVA", "RUK"],
+      "description": "Handling drills until the ball stops being a decision, footwork grids, and technique over the ball at the breakdown.",
+      "flavour": "Small margins, repeated ten thousand times."
+    }
+  ]
+}

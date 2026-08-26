@@ -30,7 +30,7 @@ phase is done. No new dependencies without asking.
 | `events.json` | 10 between-round events |
 | `derbies.json` | 26 real rivalries with intensity ratings |
 | `awards.json` | 7 season awards, World Player floors, achievement grid categories |
-| `internationals.json` | 12 nations, 4 competitions, World Cup seasons, selection thresholds |
+| `internationals.json` | 22 nations in 6 regions, 8 competitions, World Cup seasons, selection thresholds |
 | `balance-targets.json` | Monte Carlo distribution assertions |
 
 Text names only — no logos, badges, kits or competition branding.
@@ -83,17 +83,38 @@ least 15 points less often than league favourites; Top 14 and URC clubs take 55%
 **Internationals**: New Zealand, South Africa, France and Ireland win 65–80% of World Cups between
 them, but no single nation exceeds 30%; a nation outside the top 6 reaches a final in 5%+ of cycles.
 
-### 2.5 Progression — match performance only
+### 2.5 Progression — match performance first, plus a pre-season block
 
-**Manual training is removed entirely.** No Summer Plans attribute step, no +3 training choice, no
-points shop, no training UI anywhere. Delete the code; don't hide it.
+> **Amended.** An earlier revision of this spec removed manual training entirely. Pre-season
+> training is restored as a deliberate reversal: one choice per summer, not a points shop.
+> The distinction that still holds is that there is **no per-attribute spending and no
+> points currency** — you pick a block of work and it shapes you, you do not buy numbers.
 
-OVR moves from four sources only:
+OVR moves from five sources only:
 
-1. Match performance
+1. Match performance — still the dominant one
 2. Club moves
 3. Wheel outcomes
 4. Age curves per archetype and position
+5. **Pre-season training** — exactly one block per summer (§2.8)
+
+### 2.8 Pre-season training
+
+A single choice in Summer Plans, taken once per season, from four blocks:
+
+| Block | Shapes |
+|---|---|
+| Gym Block | Power — the contact and set-piece stats |
+| Fitness Camp | Conditioning — endurance and the ability to last a season |
+| Tactical Film | Reading the game — vision, kicking, decision-making |
+| Skills Session | Handling and evasion — ball skills |
+
+Each carries flavour text and states what it works on before it is chosen. Training must not
+be able to break the progression targets in `balance-targets.json`: the peak band and the
+ceiling hold with it in, which is enforced by the Monte Carlo pass, not by eyeballing.
+
+There is still **no points shop, no per-attribute spend, and no development-environment
+model.** Those remain deleted (§2.7).
 
 **Club move rule, end to end:**
 
@@ -115,10 +136,13 @@ weight** in the engine. Both values sit in `positions.json`.
 
 Removed from the codebase, not left dormant:
 
-- Manual training / Summer Plans attribute step
+- Points shop and any per-attribute spending
 - Development-environment model
 - 10-season career paths and the Long Career toggle
 - Any permanent-loss wheel outcome
+
+Pre-season training was on this list and has been **deliberately restored** (§2.8). It is the
+one entry ever taken off it; the rest stay gone.
 
 ---
 
@@ -133,8 +157,11 @@ Separate save slots per career mode.
 Position archetype card (FWD / HLF / BCK), then a starting archetype from `archetypes.json` —
 Wonderkid, Late Bloomer, Iron Man or Journeyman.
 
-**Random low-tier start.** The wheel lands you at a random club in a random tier-2 league. OVR 55–65,
-rookie minimum, selection not guaranteed. Tier-1 leagues must be earned.
+**Choose your league.** Pick one of the four tier-2 leagues at creation, with copy explaining
+what each sets: budget, style of play and difficulty. The club within it is still random, and
+still weighted towards squads thin in your position so a career can actually start. OVR 55–65,
+rookie minimum, selection not guaranteed. **Tier-1 leagues are not selectable and must be
+earned** — starting in one at 55–65 means never being picked at all.
 
 **Season preview.** Club, league, salary, contract years remaining, squad role, coach expectation,
 league difficulty, current OVR and form.
@@ -153,8 +180,20 @@ morale). A test must spin every outcome and assert nothing permanent is ever los
 
 **Between-round events.** ~1 in 4 rounds, from `events.json`.
 
-**Summer Plans.** Destination choice with the OVR consequence shown up front, plus the **Lifestyle
-shop** (§4). No training step.
+**Summer Plans.** Destination choice with the OVR consequence shown up front, the **pre-season
+training block** (§2.8), and the **Lifestyle shop** (§4). One destination among them may be a
+**Mystery Club** — the club is hidden until the season starts, and the card says so.
+
+**Squad role** reads as First Team, Impact Sub or Bench Cover.
+
+**Match agency and the game plan.** Before each match, a game plan — Forward power, Back-line
+finesse, Balanced flair, Tactical depth, High risk high reward, or Adapt to opponent. It is
+**sticky**: it carries over from the last match until changed, so a season is not thirty
+identical choices. Alongside it, at most two skippable, stat-driven decisions (§3). Pre-match
+news lines carry the flavour.
+
+**Season verdict.** The review opens with one of World Class, Solid, Steady Performer or
+Quiet Season.
 
 **Internationals.** Form-based selection with the threshold scaling by nation strength. Annual
 tournament banner. World Cups in seasons 4, 8, 12, 16 and 20. Caps and international trophies tracked
@@ -223,7 +262,8 @@ One-time items grey out once owned and show a badge on My Player.
 ## 6. Quality close-out
 
 - Full suite green
-- Dead code deleted: training system, development-environment model, 10-season paths
+- Dead code deleted: points shop and per-attribute spending, development-environment model,
+  10-season paths. **Not** the training system — that is restored by §2.8
 - Bundle under 300KB, or route-level lazy loading
 - *Sim to season end* must not freeze the UI — chunk it or move it off the main thread
 - 380px mobile audit on every screen

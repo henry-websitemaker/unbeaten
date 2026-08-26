@@ -3,10 +3,13 @@ import {
   COMPETITIONS,
   NATIONS,
   SELECTION_RULES,
+  WORLD_CUP_FIELD,
+  WORLD_CUP_FIELD_SIZE,
   WORLD_CUP_SEASONS,
   assessSelection,
   competitionsForSeason,
   getNation,
+  isInField,
   isWorldCupSeason,
   nationsByStrength,
   nationsForLeague,
@@ -20,9 +23,57 @@ import { BALANCE_TARGETS } from '../data'
 import { CAREER_SEASONS } from '../types/career'
 
 describe('data', () => {
-  it('has twelve nations and four competitions', () => {
-    expect(NATIONS).toHaveLength(12)
-    expect(COMPETITIONS).toHaveLength(4)
+  it('has twenty-two nations and eight competitions', () => {
+    expect(NATIONS).toHaveLength(22)
+    expect(COMPETITIONS).toHaveLength(8)
+  })
+
+  it('keeps the World Cup a twelve-nation tournament', () => {
+    // The regional championships brought in ten more nations, all weaker than the twelve
+    // already there. The World Cup field is the strongest twelve, so it is unchanged — which
+    // is what keeps the SPEC §2.4 targets measuring the tournament they were tuned against.
+    expect(WORLD_CUP_FIELD).toHaveLength(WORLD_CUP_FIELD_SIZE)
+    expect(WORLD_CUP_FIELD.map((n) => n.id).sort()).toEqual(
+      ['arg', 'aus', 'eng', 'fij', 'fra', 'irl', 'ita', 'nzl', 'rsa', 'sam', 'sco', 'wal'],
+    )
+    const weakestInField = Math.min(...WORLD_CUP_FIELD.map((n) => n.strength))
+    for (const nation of NATIONS) {
+      if (WORLD_CUP_FIELD.some((f) => f.id === nation.id)) continue
+      expect(nation.strength, `${nation.name} is outside the field`).toBeLessThan(weakestInField)
+    }
+  })
+
+  it('gives every nation exactly one regional championship, with a real field', () => {
+    const regional = COMPETITIONS.filter((c) => c.region)
+    expect(regional.map((c) => c.id).sort()).toEqual([
+      'americas_championship',
+      'asia_championship',
+      'pacific_nations',
+      'rugby_championship',
+      'rugby_europe',
+      'six_nations',
+    ])
+
+    for (const competition of regional) {
+      const field = NATIONS.filter((n) => isInField(n, competition))
+      expect(field.length, `${competition.name} has no field`).toBeGreaterThanOrEqual(3)
+    }
+
+    for (const nation of NATIONS) {
+      const mine = regional.filter((c) => isInField(nation, c))
+      expect(mine.map((c) => c.id), `${nation.name}`).toHaveLength(1)
+    }
+  })
+
+  it('does not let a northern tier-two nation slip into the Six Nations', () => {
+    // Regions exist because hemispheres do not agree with them: Georgia, Romania and Spain
+    // are all northern, and a hemisphere filter would have enrolled them here.
+    const sixNations = COMPETITIONS.find((c) => c.id === 'six_nations')!
+    const field = NATIONS.filter((n) => isInField(n, sixNations)).map((n) => n.id)
+    expect(field.sort()).toEqual(['eng', 'fra', 'irl', 'ita', 'sco', 'wal'])
+    for (const id of ['geo', 'rou', 'esp']) {
+      expect(field).not.toContain(id)
+    }
   })
 
   it('puts World Cups in seasons 4, 8, 12, 16 and 20', () => {

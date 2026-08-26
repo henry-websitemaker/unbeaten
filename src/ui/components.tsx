@@ -6,6 +6,22 @@
  */
 
 import type { ReactNode } from 'react'
+import type { SquadRole } from '../types/career'
+
+/**
+ * How a squad role reads to the player (SPEC §3).
+ *
+ * Three labels over four internal roles: `star` and `starter` both mean you are in the side,
+ * and the difference between them is already visible everywhere else — in the salary, the
+ * coach's expectation and whether you wear the armband. Splitting them here would be a
+ * distinction without a difference on a card that has to be read at a glance.
+ */
+export const SQUAD_ROLE_LABEL: Record<SquadRole, string> = {
+  star: 'First Team',
+  starter: 'First Team',
+  squad: 'Impact Sub',
+  fringe: 'Bench Cover',
+}
 
 export function Screen({
   title,
