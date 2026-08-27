@@ -161,11 +161,38 @@ export function trainingOptions(
   }))
 }
 
-/** Has the player already taken their block this summer? */
+/**
+ * How many unused picks are banked, at most.
+ *
+ * Carrying over means a summer you skipped is not simply lost — but a bank with no ceiling
+ * would let a career hoard a decade of picks and dump them in one window, which is the
+ * stockpiling SPEC §2.7 keeps deleted under a different name.
+ */
+export const MAX_BANKED_PICKS = 3
+
+/**
+ * Picks the player can spend right now.
+ *
+ * One is earned per season. Skipping a summer keeps it rather than losing it, up to the cap.
+ *
+ * A banked pick is worth what a summer is worth *when it is spent*, not when it was earned —
+ * see `trainingGainForSeason`. That is deliberate: it means carrying over protects you from
+ * losing a pick without turning the curve into something to game, because hoarding early
+ * high-value picks to spend late would otherwise be strictly better than using them.
+ */
+export function picksAvailable(
+  training: readonly { season: number }[],
+  season: number,
+): number {
+  const earned = Math.max(0, season) * TRAINING_RULES.blocksPerSeason
+  const spent = training.length
+  return Math.max(0, Math.min(MAX_BANKED_PICKS, earned - spent))
+}
+
+/** Has the player run out of picks for now? */
 export function hasTrainedThisSeason(
   training: readonly { season: number }[],
   season: number,
 ): boolean {
-  const taken = training.filter((t) => t.season === season).length
-  return taken >= TRAINING_RULES.blocksPerSeason
+  return picksAvailable(training, season) === 0
 }

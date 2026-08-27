@@ -91,6 +91,62 @@ Only two items carry `matchGrowthMultiplier`, capped together at 1.31, with a te
 it — the Monte Carlo harness does not buy lifestyle items, so a stack of growth boosts would
 have pushed real careers past a band the suite still reported as healthy.
 
+### Training picks carry over
+
+A fourth amendment to the same spec rule, and the reasoning is worth recording because the
+obvious implementation would have been wrong.
+
+Unused picks now bank instead of being lost, **capped at three**. The cap is not arbitrary: an
+uncapped bank is a stockpile, which is the points shop SPEC §2.7 keeps deleted wearing a
+different name.
+
+The subtler decision is what a banked pick is *worth*. Giving it the value of the season it was
+**earned** would make hoarding strictly better than using — bank four +5 picks from the early
+seasons, spend them at 30 for +20 in one window, and the declining curve becomes something to
+farm rather than live with. A banked pick is therefore worth what a summer is worth **when it
+is spent**. Carrying over protects you from losing a pick; it does not turn the curve into an
+exploit.
+
+That also means the Monte Carlo is untouched by this change — the harness spends its pick every
+season, so it never banks one.
+
+### The harness-versus-game investigation
+
+A playtest reported barely any appearances while the Monte Carlo reported a median of 312 over
+twenty seasons. The suspicion was that the harness and the real game diverge — a different
+transfer policy, a bypassed `closeSeason`, or selection reading different state.
+
+**They do not diverge.** Driving the real store the way a player does — `startCareer`,
+`openMatch`/`nextRound`, `finishSeason`, `chooseTraining`, `chooseDestination`,
+`beginNextSeason` — over nine careers per policy:
+
+| Policy | Median apps | Min | Max | Median end OVR |
+|---|---|---|---|---|
+| Ambitious (step up when you'd start) | **323** | 25 | 405 | 71 |
+| Best role offered | **170** | 43 | 373 | 57 |
+| Never move | **304** | 80 | 537 | 77 |
+
+The live path's 323 matches the harness's 312. There is no bug in the seam.
+
+**What the median was hiding is the spread.** Appearances range from 25 to 405 for the same
+policy — a career either establishes itself or never does, and the median describes neither.
+A playtester landing in the bottom of that range sees a career with almost no rugby in it and
+has no way to know it was luck rather than the game being broken.
+
+Two things follow, neither of them fixed here:
+
+- **The balance targets assert on medians and percentile floors, which cannot see a bimodal
+  outcome.** `apps med=312` passed while a quarter of careers were barely playing. A spread or
+  floor assertion on appearances would have caught it.
+- **The naive transfer choice is the bad one.** "Take the best squad role offered" halves the
+  median against "step up only when you would start" — 170 against 323. The Summer screen puts
+  squad role on every card, which nudges toward the worse policy.
+
+An earlier four-career sample suggested transfer policy was the whole story and that never
+moving was strictly dominant. Nine careers per policy does not support that: ambitious edges
+staying put. Four samples against a distribution this wide was not enough to conclude anything,
+and the first reading was wrong.
+
 ### The training curve
 
 The figure is now one definite number per season rather than a flat 5, and it lives in
@@ -116,16 +172,33 @@ prime szn  up=51%  flat=21%  down=28%
 apps       med=312.5
 ```
 
-### The cost, stated plainly
+### The cost, and the split that answers it
 
-**The suite went from ~7 minutes to ~14.** Simulating seven extra leagues and nine cups at every
-season close roughly tripled the per-career cost of the Monte Carlo, and that is with
-`careerSims` already cut from 60 to 24. Fewer samples also means noisier medians, so a single
-failing run is worth re-running before it is treated as a regression.
+Simulating seven extra leagues and nine cups at every season close roughly tripled the
+per-career cost, and took the suite from ~7 minutes to ~14 — with `careerSims` already cut from
+60 to 24.
 
-That is the price of the world ranking and the cups having a real world behind them. If it
-proves too slow to live with, the lever is `careerSims` in `balance-targets.json` — not the
-world simulation, which is what the feature is.
+That is now split by speed rather than paid on every edit:
+
+| Command | Runs | Time |
+|---|---|---|
+| `npm test` | 563 tests, everything fast | **~20s** |
+| `npm run test:balance` | 26 tests in four `*.slow.test.ts` files | ~13 min |
+| `npm run test:all` | both | ~14 min |
+
+The split is by file suffix — `vite.config.ts` excludes `*.slow.test.ts` and
+`vitest.slow.config.ts` runs only them. Three tests accounted for 72 of the original 59 seconds
+of wall time, all of them whole-career runs; those moved, along with the Monte Carlo pass and
+the seed-searching trophy tests.
+
+Run `test:balance` when progression, balance or the world simulation changes. Everything else
+is covered in twenty seconds.
+
+One trap worth recording: the slow config was first written as
+`mergeConfig(base, { include: [...] })`, and `mergeConfig` **concatenates** arrays — so the base
+config's `exclude: ['src/**/*.slow.test.ts']` survived the merge and `test:balance` silently ran
+the fast suite instead. It is standalone now. `vitest list` is the cheap way to check a config
+selects what it claims.
 
 **The entry chunk is 310.3 kB**, up from 302.7. Still compliant via SPEC §6's route-level lazy
 loading clause, and still over the 300 kB line it also names. `worldSeason.ts`, `ranking.ts` and

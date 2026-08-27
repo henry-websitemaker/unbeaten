@@ -167,56 +167,9 @@ describe('cups', () => {
   }, 120_000)
 })
 
-/**
- * SPEC §3's trophy cabinet takes league titles, cups and international silverware. The league
- * title has always worked; the two cups did not exist in a career until now.
- */
-describe('all three trophies reach the cabinet', () => {
-  it('records a league title and a domestic cup won in a tier-two career', () => {
-    const kinds = new Set<string>()
-    for (let seed = 0; seed < 40 && kinds.size < 2; seed++) {
-      const { summary } = playSeason(2000 + seed)
-      for (const trophy of summary.career.trophies) {
-        if (trophy.type === 'league') kinds.add('league')
-        else if (trophy.type === 'cup') kinds.add('domestic')
-      }
-    }
-    expect([...kinds].sort()).toEqual(['domestic', 'league'])
-  }, 600_000)
-
-  it('records a Champions Cup, which only a tier-one club can win', () => {
-    // A tier-two career cannot win this however many seeds are tried — the competition is
-    // drawn from the tier-one leagues. That is the design, not a gap, so the test puts the
-    // player where the trophy is actually available.
-    let won: { name: string; type: string } | null = null
-
-    for (let seed = 0; seed < 30 && !won; seed++) {
-      const { summary } = playSeasonAt(4000 + seed, 'premiership')
-      won =
-        summary.career.trophies.find((t) => t.name === championsCupName()) ?? null
-    }
-
-    expect(won, 'no Champions Cup won in 30 tier-one seasons').not.toBeNull()
-    expect(won!.type).toBe('cup')
-  }, 900_000)
-
-  it('counts cup ties as appearances and pays win bonuses for them', () => {
-    for (let seed = 0; seed < 25; seed++) {
-      const { summary, run } = playSeason(3000 + seed)
-      const clubId = run.career.contract.clubId
-      const ties = [...summary.world.domesticCups, summary.world.championsCup]
-        .flatMap((cup) => cup.matches)
-        .filter((m) => m.home.teamId === clubId || m.away.teamId === clubId)
-        .filter((m) => m.players.some((p) => p.playerId === PLAYER_ID))
-
-      if (ties.length === 0) continue
-      // Cup appearances are in the career total alongside league ones.
-      expect(summary.career.careerCaps).toBeGreaterThanOrEqual(ties.length)
-      return
-    }
-    throw new Error('no career played a cup tie in 25 seeds')
-  }, 600_000)
-})
+// The three tests that prove trophies reach the cabinet search dozens of seeds for a career
+// that actually wins one, which costs about eighty seconds. They live in
+// `worldSeason.slow.test.ts` so `npm test` stays quick.
 
 describe('world ranking', () => {
   it('ranks against every player in the world, not just the league', () => {

@@ -23,6 +23,7 @@ import {
   totalSpent,
 } from '../engine/economy'
 import {
+  picksAvailable,
   trainingGainForSeason,
   trainingOptions,
   type TrainingOption,
@@ -50,7 +51,9 @@ export default function SummerScreen() {
   const available = balance(career.ledger)
   const earned = grossEarnings(career.ledger)
   const spent = totalSpent(career.ledger)
-  const trained = career.training.find((t) => t.season === career.season)
+  // Picks carry over, so there can be more than one to spend and more than one already spent.
+  const spentThisSummer = career.training.filter((t) => t.season === career.season)
+  const picks = picksAvailable(career.training, career.season)
 
   // This season's figure — one definite number, from the curve in `training.json`.
   const gain = trainingGainForSeason(career.season)
@@ -142,19 +145,32 @@ export default function SummerScreen() {
         <span className="font-semibold text-white">
           +{gain} to one attribute before next season.
         </span>{' '}
-        One pick, and it does not carry over.
+        {picks > 1 ? (
+          <>
+            You have <span className="font-semibold text-turf-400">{picks} picks</span> saved
+            up — a summer you skip keeps its pick rather than losing it.
+          </>
+        ) : picks === 1 ? (
+          'Skip it and the pick carries over to next summer.'
+        ) : (
+          'No picks left. You earn another next summer.'
+        )}
       </p>
 
       <TrainingGrid
         options={options}
-        trainedStat={trained?.statKey}
-        done={trained !== undefined}
+        pickedThisSummer={spentThisSummer
+          .map((t) => t.statKey)
+          .filter((s): s is StatKey => s !== undefined)}
+        done={picks === 0}
         onPick={(stat) => setError(chooseTraining(stat))}
       />
 
-      {trained && (
+      {spentThisSummer.length > 0 && (
         <p className="mt-2 text-xs text-pitch-600">
-          {trained.statKey ?? 'That'} is done for this summer. The next pick comes next year.
+          Worked on{' '}
+          {spentThisSummer.map((t) => t.statKey ?? 'a block').join(', ')} this summer.
+          {picks > 0 && ` ${picks} pick${picks === 1 ? '' : 's'} still to spend.`}
         </p>
       )}
 
@@ -297,19 +313,20 @@ export function OfferCard({
 /** All eleven stats at a glance, in shirt order, with what each pick is worth. */
 export function TrainingGrid({
   options,
-  trainedStat,
+  pickedThisSummer = [],
   done,
   onPick,
 }: {
   options: TrainingOption[]
-  trainedStat?: StatKey
+  /** Stats already worked on this summer — there can be more than one, since picks bank. */
+  pickedThisSummer?: StatKey[]
   done: boolean
   onPick: (stat: StatKey) => void
 }) {
   return (
     <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
       {options.map((option) => {
-        const isChosen = trainedStat === option.stat
+        const isChosen = pickedThisSummer.includes(option.stat)
         return (
           <button
             key={option.stat}

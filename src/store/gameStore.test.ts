@@ -293,37 +293,8 @@ describe('summer plans', () => {
   })
 })
 
-describe('retirement', () => {
-  it('retires after season 20 and records a ranked Hall of Fame entry', async () => {
-    await start('Marathon Man')
-
-    for (let season = 1; season <= CAREER_SEASONS; season++) {
-      const game = useGame.getState()
-      for (let i = 0; i < 60; i++) {
-        const run = useGame.getState().run!
-        if (isRegularSeasonComplete(run.season)) break
-        if (run.wheelPending) game.skipWheel()
-        else game.nextRound()
-      }
-      useGame.getState().finishSeason()
-      useGame.getState().beginNextSeason()
-    }
-
-    const state = useGame.getState()
-    expect(state.run!.career.retired).toBe(true)
-    expect(state.run!.career.history).toHaveLength(CAREER_SEASONS)
-    expect(state.screen).toBe('career-end')
-
-    const entry = state.save.hallOfFame.find((e) => e.name === 'Marathon Man')
-    expect(entry).toBeDefined()
-    expect(entry!.ranked).toBe(true)
-    expect(entry!.seasonsPlayed).toBe(CAREER_SEASONS)
-
-    // A retired career must not be resumed on the next boot.
-    await useGame.getState().init()
-    expect(useGame.getState().run).toBeNull()
-  }, 180_000)
-})
+// The twenty-season retirement run lives in `gameStore.slow.test.ts` — it closes twenty
+// seasons, each simulating the whole world, so it belongs with `npm run test:balance`.
 
 describe('abandoning', () => {
   it('clears the career and returns to the menu', async () => {

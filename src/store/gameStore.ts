@@ -34,7 +34,7 @@ import {
   type ResolvedDecision,
 } from '../engine/agency'
 import { canPurchase, purchase } from '../engine/economy'
-import { applyTraining, blockForStat, hasTrainedThisSeason } from '../engine/training'
+import { applyTraining, blockForStat, picksAvailable } from '../engine/training'
 import { evaluateAchievements, newlyUnlocked } from '../engine/achievements'
 import { assessSelection } from '../engine/internationals'
 import { recentFormRating } from '../engine/seasonClose'
@@ -394,8 +394,8 @@ export const useGame = create<GameState>((set, get) => ({
     if (!state.run) return 'No career in progress.'
 
     const { career } = state.run
-    if (hasTrainedThisSeason(career.training, career.season)) {
-      return 'You have already picked your summer’s work.'
+    if (picksAvailable(career.training, career.season) === 0) {
+      return 'No pre-season picks left. You earn another next summer.'
     }
     if (career.stats[stat] === undefined) {
       return 'That is not something your position is rated on.'

@@ -11,12 +11,14 @@ import {
   placeCareerInWorld,
 } from './career'
 import {
+  MAX_BANKED_PICKS,
   TRAINING_BLOCKS,
   TRAINING_RULES,
   applyTraining,
   blockForStat,
   getTrainingBlock,
   hasTrainedThisSeason,
+  picksAvailable,
   trainingGainForSeason,
   trainingOptions,
 } from './training'
@@ -211,12 +213,63 @@ describe('pre-season training', () => {
     expect(total).toBe(64)
   })
 
-  it('allows exactly one pick a summer', () => {
+  it('earns exactly one pick a summer', () => {
     expect(TRAINING_RULES.blocksPerSeason).toBe(1)
-    expect(hasTrainedThisSeason([], 3)).toBe(false)
-    expect(hasTrainedThisSeason([{ season: 3 }], 3)).toBe(true)
-    // A pick taken last summer does not use up this one — nothing accumulates.
-    expect(hasTrainedThisSeason([{ season: 2 }], 3)).toBe(false)
+    // Season 1, nothing spent: one pick.
+    expect(picksAvailable([], 1)).toBe(1)
+    // Spent it: none left until next summer.
+    expect(picksAvailable([{ season: 1 }], 1)).toBe(0)
+    expect(hasTrainedThisSeason([{ season: 1 }], 1)).toBe(true)
+  })
+
+  /**
+   * Carrying over: a summer you skip keeps its pick instead of losing it.
+   *
+   * This reverses SPEC §2.8's original "use it or lose it", so it is written into the spec
+   * rather than applied quietly — but the cap is what keeps it from becoming the stockpile
+   * §2.7 still bans under the name of a points shop.
+   */
+  it('carries an unused pick over to the next summer', () => {
+    // Skipped season 1 entirely; by season 2 there are two to spend.
+    expect(picksAvailable([], 2)).toBe(2)
+    // Spent one of them: one left.
+    expect(picksAvailable([{ season: 2 }], 2)).toBe(1)
+    // Spent both: none.
+    expect(picksAvailable([{ season: 2 }, { season: 2 }], 2)).toBe(0)
+  })
+
+  it('lets several banked picks be spent in the same summer', () => {
+    const stats = statsFor('OC', 60)
+    const before = computeOvr(stats, 'OC')
+
+    // Two picks banked by season 2, spent on two different stats.
+    let after = applyTraining(stats, 'OC', 'PAC', 2).stats
+    after = applyTraining(after, 'OC', 'TCK', 2).stats
+
+    expect(computeOvr(after, 'OC')).toBeGreaterThan(before)
+    expect(after.PAC!).toBeGreaterThan(stats.PAC!)
+    expect(after.TCK!).toBeGreaterThan(stats.TCK!)
+  })
+
+  it('caps the bank so a career cannot hoard a decade of picks', () => {
+    // Twenty seasons, nothing ever spent — still only the cap is available.
+    expect(picksAvailable([], 20)).toBe(MAX_BANKED_PICKS)
+    expect(MAX_BANKED_PICKS).toBeLessThan(CAREER_SEASONS)
+  })
+
+  it('never offers a pick before the career has started', () => {
+    expect(picksAvailable([], 0)).toBe(0)
+    // And spending more than was earned cannot go negative.
+    expect(picksAvailable([{ season: 1 }, { season: 1 }, { season: 1 }], 1)).toBe(0)
+  })
+
+  it('values a banked pick at what a summer is worth when it is spent', () => {
+    // A pick earned in season 1 and spent in season 18 is worth season 18's figure, not
+    // season 1's — otherwise hoarding early picks would beat using them.
+    const stats = statsFor('OC', 60)
+    const early = applyTraining(stats, 'OC', 'PAC', 1).stats.PAC!
+    const late = applyTraining(stats, 'OC', 'PAC', 18).stats.PAC!
+    expect(late).toBeLessThan(early)
   })
 
   it('rejects an unknown block rather than silently doing nothing', () => {

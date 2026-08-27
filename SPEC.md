@@ -87,11 +87,11 @@ them, but no single nation exceeds 30%; a nation outside the top 6 reaches a fin
 
 ### 2.5 Progression — match performance first, plus a pre-season block
 
-> **Amended twice.** An earlier revision removed manual training entirely; it was then
-> restored as a per-summer block; it is now a **per-stat pick**. The line that survives both
-> reversals is **no currency and no accumulation** — you get one pick a year, it is
-> use-it-or-lose-it, and nothing carries over. That is what still separates this from the
-> points shop, which stays deleted.
+> **Amended three times.** An earlier revision removed manual training entirely; it was then
+> restored as a per-summer block; then made a **per-stat pick**; and unused picks now **carry
+> over** rather than being lost. What still separates this from the points shop that stays
+> deleted is that there is **no currency and no conversion** — a pick buys one attribute step
+> and nothing else, it cannot be traded, spent on anything else, or accumulated without limit.
 
 OVR moves from five sources only:
 
@@ -135,8 +135,17 @@ Training must not be able to break the progression targets in `balance-targets.j
 band holds with a player who trains optimally every summer, enforced by the Monte Carlo pass
 rather than by eyeballing.
 
-There is still **no points shop, no currency and no accumulation** — one pick a year, use it
-or lose it. The development-environment model remains deleted (§2.7).
+**Picks carry over.** One is earned each summer, and a summer you skip keeps its pick instead
+of losing it, **up to three banked**. Several can then be spent in the same window. The cap is
+what stops a career hoarding a decade of picks and dumping them at once.
+
+A banked pick is worth what a summer is worth **when it is spent**, not when it was earned. So
+carrying over protects you from losing a pick, but hoarding early high-value picks to spend
+late is never better than using them — the curve cannot be gamed.
+
+There is still **no points shop and no currency**: a pick buys one attribute step and nothing
+else, cannot be traded or converted, and cannot accumulate without limit. The
+development-environment model remains deleted (§2.7).
 
 ### 2.9 The shape of a career
 
