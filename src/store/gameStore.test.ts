@@ -86,9 +86,19 @@ describe('starting a career', () => {
     expect(club.squad.some((p) => p.id === 'player')).toBe(true)
   })
 
-  it('pays the first season wages up front', async () => {
+  it('has banked nothing before a round has been played', async () => {
+    // Wages accrue by the round now; they used to be credited as an annual lump the moment
+    // the season began, which meant a career had money before it had played any rugby.
     const run = await start()
-    expect(grossEarnings(run.career.ledger)).toBe(run.career.contract.salary)
+    expect(grossEarnings(run.career.ledger)).toBe(0)
+  })
+
+  it('banks a week of wages for each round played', async () => {
+    const run = await start()
+    const weekly = run.career.contract.salary
+
+    useGame.getState().nextRound()
+    expect(grossEarnings(useGame.getState().run!.career.ledger)).toBeGreaterThanOrEqual(weekly)
   })
 
   it('starts in a tier-2 league — tier 1 has to be earned', async () => {

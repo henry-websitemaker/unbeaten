@@ -17,6 +17,7 @@ import awardsJson from './awards.json'
 import achievementsJson from './achievements.json'
 import internationalsJson from './internationals.json'
 import trainingJson from './training.json'
+import cupsJson from './cups.json'
 import balanceJson from './balance-targets.json'
 
 import {
@@ -87,6 +88,7 @@ export const AWARDS = awardsJson
 export const ACHIEVEMENTS = achievementsJson
 export const INTERNATIONALS = internationalsJson
 export const TRAINING = trainingJson
+export const CUPS = cupsJson
 export const BALANCE_TARGETS = balanceJson
 
 // ---------------------------------------------------------------------------

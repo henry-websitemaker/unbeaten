@@ -3,7 +3,7 @@
 Rebuilt from `SPEC.md` and the recovered `src/data/`. All nine phases of SPEC §5 are
 complete and the game is playable end to end.
 
-**561 tests, all passing. Entry chunk 303.4 kB raw / 98.6 kB gzip.**
+**584 tests, all passing. Entry chunk 310.3 kB raw / 100.9 kB gzip. Suite runtime ~14 min.**
 
 > The entry chunk has crossed SPEC §6's 300 kB line. §6 allows "under 300KB, **or**
 > route-level lazy loading", and there are twelve lazy screen chunks, so the requirement is
@@ -46,6 +46,90 @@ data layer and spec. That is the failure this rebuild exists to prevent.
 | 12 | The career arc: five progression defects fixed, tuned against Monte Carlo evidence |
 | 13 | Restored from the previous build: training, league choice, game plan, Mystery Club |
 | 14 | Progression model: per-stat training, no effective ceiling, two-way OVR |
+| 15 | Playtest pass: weekly wages, the whole world, cups, ranking, and four screens |
+
+## Phase 15 — playtest pass
+
+Eight items. Three turned out to be defects rather than polish, and one more surfaced while
+researching them.
+
+### The defects
+
+**Wages were never accrued.** `creditSeasonSalary` credited the *entire annual salary as a lump
+at season start*, before a ball was kicked — so a career that ended in round three had banked
+the full year, and earnings had no relationship to how much rugby was played. Contracts are now
+**weekly** and credited every round, selected or not, because that is what a contract is. The
+identity `wages == weekly × rounds played` is asserted at every point in a season, not just at
+the end. A longer league season is now worth more at the same weekly rate, which is why Pro D2's
+30 rounds pay three times the NPC's 10.
+
+**The Champions Cup was never played in a career.** `cups.ts` was written in phase 2 and
+imported by nothing but a balance test — the third dead engine this project has found. It is
+now drawn from the tier-1 leagues by league finish.
+
+**There was no domestic cup at all** — no data, no fixtures, nothing. Each league now has one,
+defined in a new `cups.json`.
+
+**Only the player's league was ever simulated**, so "rank against every player in the game
+world" had no world to rank against. Every league now plays each season.
+
+### What the measurements changed
+
+The lifestyle prices were **derived from the measured earnings curve**, not guessed. Median
+career earnings, over 12 careers:
+
+| After season | 1 | 3 | 5 | 8 | 10 | 15 | 20 |
+|---|---|---|---|---|---|---|---|
+| Banked | £12k | £62k | £127k | £336k | £797k | £4.5M | £11.5M |
+
+The old shop's cheapest item was £250k, which is unaffordable until about season seven and
+trivial after twelve. It now runs **£15k to £6M** across ten items, so there is something to buy
+in season two and something to save most of a career for. The three earnings achievements
+(£1M/£5M/£10M) land at roughly seasons 10, 16 and 20 on that curve and **needed no retune**.
+
+Only two items carry `matchGrowthMultiplier`, capped together at 1.31, with a test to enforce
+it — the Monte Carlo harness does not buy lifestyle items, so a stack of growth boosts would
+have pushed real careers past a band the suite still reported as healthy.
+
+### The training curve
+
+The figure is now one definite number per season rather than a flat 5, and it lives in
+`training.json`:
+
+| Seasons | 1–4 | 5–9 | 10–14 | 15–17 | 18–20 |
+|---|---|---|---|---|---|
+| Gain | +5 | +4 | +3 | +2 | +1 |
+
+64 raw stat points across a career against the old flat 95 — a reduction as well as a
+reshaping, and the header now reads the actual figure for the season you are in.
+
+### The arc after all of it
+
+Cup ties count as appearances, so careers play more rugby: median appearances went 295 → 312.
+Every progression target still holds.
+
+```
+peak       p10=65  med=82    p90=88  max=93
+peak age   p10=24  med=30.5  p90=36
+retire     p10=55  med=71.5  p90=81  min=48
+prime szn  up=51%  flat=21%  down=28%
+apps       med=312.5
+```
+
+### The cost, stated plainly
+
+**The suite went from ~7 minutes to ~14.** Simulating seven extra leagues and nine cups at every
+season close roughly tripled the per-career cost of the Monte Carlo, and that is with
+`careerSims` already cut from 60 to 24. Fewer samples also means noisier medians, so a single
+failing run is worth re-running before it is treated as a regression.
+
+That is the price of the world ranking and the cups having a real world behind them. If it
+proves too slow to live with, the lever is `careerSims` in `balance-targets.json` — not the
+world simulation, which is what the feature is.
+
+**The entry chunk is 310.3 kB**, up from 302.7. Still compliant via SPEC §6's route-level lazy
+loading clause, and still over the 300 kB line it also names. `worldSeason.ts`, `ranking.ts` and
+`cupData.ts` are all reached by the season loop, so screen splitting cannot move them.
 
 ## Phase 14 — the progression model
 

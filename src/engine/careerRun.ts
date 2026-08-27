@@ -17,7 +17,7 @@ import {
   attachEffects,
   clubResult,
   creditMatchEarnings,
-  creditSeasonSalary,
+  creditRoundWages,
   endSeason,
   isPlayerAvailable,
   playerClubModifiers,
@@ -34,6 +34,8 @@ import {
 } from './agency'
 import { assertReconciled } from './economy'
 import { forwardBias, gamePlanModifiers } from './gamePlan'
+import { simulateWorldSeason, type WorldSeason } from './worldSeason'
+import { worldRanking, type WorldRanking } from './ranking'
 import { resolveEvent, rollEvent, type EventOutcome } from './events'
 import { rngFor } from './rng'
 import {
@@ -73,16 +75,20 @@ export interface RoundLogEntry {
   decisions: ResolvedDecision[]
 }
 
-/** Start a season: pay the wages, build the fixtures. */
+/**
+ * Start a season: build the fixtures.
+ *
+ * Wages are no longer paid here. They accrue a round at a time in `playRound`, so what a
+ * career has banked always reflects the rugby it has actually played.
+ */
 export function beginSeason(career: PlayerCareer, world: World): CareerRun {
-  const paid = creditSeasonSalary(career)
-  const leagueId = paid.contract.leagueId
-  const synced = syncCareerToWorld(world, paid)
+  const leagueId = career.contract.leagueId
+  const synced = syncCareerToWorld(world, career)
 
   return {
-    career: paid,
+    career,
     world: synced,
-    season: createSeason(synced.seed, paid.season, leagueId, teamsInLeague(synced, leagueId)),
+    season: createSeason(synced.seed, career.season, leagueId, teamsInLeague(synced, leagueId)),
     log: [],
     wheelPending: false,
   }
@@ -131,7 +137,8 @@ export function playRound(run: CareerRun, decisions: readonly ResolvedDecision[]
   const rolled = rollEvent(rng, 'player_career', eventsFired)
   const event = rolled ? resolveEvent(rolled, rng) : null
 
-  let career = run.career
+  // A week's wages, before anything else happens. Paid for turning up, not for playing.
+  let career = creditRoundWages(run.career, round)
 
   // A call that did not come off costs form or morale, and nothing else.
   const knocks = agencyEffects(decisions)
@@ -294,9 +301,21 @@ export function* runToSeasonEnd(run: CareerRun): Generator<CareerRun, CareerRun,
   return current
 }
 
+/**
+ * A season summary plus what the rest of the world did.
+ *
+ * Kept separate from `SeasonSummary` in `career.ts`, which is about one player's season and
+ * has no business knowing that other leagues exist.
+ */
+export interface CareerSeasonSummary extends SeasonSummary {
+  world: WorldSeason
+  /** Null when the player did not appear at all. */
+  ranking: WorldRanking | null
+}
+
 export interface SeasonClose {
   run: CareerRun
-  summary: SeasonSummary
+  summary: CareerSeasonSummary
 }
 
 /** Play the finals and close the season out. */
@@ -321,8 +340,9 @@ export function closeSeason(run: CareerRun): SeasonClose {
     career = creditMatchEarnings(career, final)
   }
 
+  const clubName = findTeam(run.world, clubId)?.name ?? clubId
+
   if (withFinals.championId === clubId) {
-    const club = findTeam(run.world, clubId)
     career = {
       ...career,
       trophies: [
@@ -331,20 +351,68 @@ export function closeSeason(run: CareerRun): SeasonClose {
           season: career.season,
           name: getLeague(withFinals.leagueId).name,
           type: 'league',
-          clubOrNation: club?.name ?? clubId,
+          clubOrNation: clubName,
         },
       ],
     }
   }
 
+  // The rest of the world plays its season, which is what gives the ranking a field and both
+  // cups a qualified entry list.
+  const worldSeason = simulateWorldSeason(
+    run.world,
+    run.career.seed,
+    run.career.season,
+    withFinals,
+  )
+
+  // Cups the player's club won. Both feed the same trophy cabinet as the league title.
+  const cupsWon = [
+    ...worldSeason.domesticCups.filter((cup) => cup.championId === clubId),
+    ...(worldSeason.championsCup.championId === clubId ? [worldSeason.championsCup] : []),
+  ]
+  if (cupsWon.length > 0) {
+    career = {
+      ...career,
+      trophies: [
+        ...career.trophies,
+        ...cupsWon.map((cup) => ({
+          season: career.season,
+          name: cup.name,
+          type: 'cup' as const,
+          clubOrNation: clubName,
+        })),
+      ],
+    }
+  }
+
+  // Cup ties are matches: caps, tries and win bonuses count like any other.
+  for (const cup of [...worldSeason.domesticCups, worldSeason.championsCup]) {
+    for (const tie of cup.matches) {
+      if (tie.home.teamId !== clubId && tie.away.teamId !== clubId) continue
+      const line = playerLine(tie)
+      if (!line) continue
+      career = {
+        ...career,
+        careerCaps: career.careerCaps + 1,
+        careerTries: career.careerTries + line.tries,
+        careerPoints: career.careerPoints + line.tries * 5 + line.kickPoints,
+      }
+      career = creditMatchEarnings(career, tie)
+    }
+  }
+
   const summary = endSeason(career, withFinals, rng)
+  const ranking = worldRanking(worldSeason.seasons, PLAYER_ID, (id) =>
+    id === PLAYER_ID ? career.age : 24,
+  )
 
   // SPEC §4: reconciliation is checked at every season boundary.
   assertReconciled(summary.career.ledger, `season ${career.season}`)
 
   return {
     run: { ...run, career: summary.career, season: withFinals },
-    summary,
+    summary: { ...summary, world: worldSeason, ranking },
   }
 }
 

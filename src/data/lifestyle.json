@@ -3,9 +3,51 @@
     "location": "Summer Plans → Lifestyle section",
     "currency": "GBP",
     "deductsFrom": "careerEarnings",
-    "note": "Purchases must actually reduce career earnings. One-time items grey out once owned and show a badge on My Player. Reconciliation tests required: sum of purchases + remaining balance must equal gross career earnings at every season boundary."
+    "note": "Purchases must actually reduce career earnings. One-time items grey out once owned and show a badge on My Player. Reconciliation tests required: sum of purchases + remaining balance must equal gross career earnings at every season boundary.",
+    "priceLadder": "Costs are derived from the measured earnings curve, not guessed. Median career earnings run £12k after season 1, £62k after 3, £127k after 5, £336k after 8, £797k after 10, £4.5M after 15 and £11.5M after 20. The bottom rung is affordable in season two; the top rung takes most of a career to reach.",
+    "stackingNote": "matchGrowthMultiplier is the one effect that compounds into the progression targets, so only two items carry it and together they cap at 1.31. Anything more expensive buys durability, money or big-match nerve instead."
   },
   "items": [
+    {
+      "id": "gym_membership",
+      "name": "Proper Gym Membership",
+      "cost": 15000,
+      "repeatable": false,
+      "effect": { "matchGrowthMultiplier": 1.05 },
+      "description": "Somewhere better than the club's cramped weights room. A small edge, bought early, compounding for twenty years."
+    },
+    {
+      "id": "nutritionist",
+      "name": "Nutritionist",
+      "cost": 35000,
+      "repeatable": false,
+      "effect": { "injuryRiskMultiplier": 0.85 },
+      "description": "Someone to tell you what to eat and when. Unglamorous, and it keeps you on the pitch."
+    },
+    {
+      "id": "sleep_coach",
+      "name": "Sleep Coach",
+      "cost": 60000,
+      "repeatable": false,
+      "effect": { "slumpDurationMultiplier": 0.8 },
+      "description": "Rest properly and a bad run of form stops feeling like a spiral."
+    },
+    {
+      "id": "offseason_retreat",
+      "name": "Off-Season Retreat",
+      "cost": 250000,
+      "repeatable": true,
+      "effect": { "startSeasonInPeakForm": true },
+      "description": "Start next season in peak form. Buy again any summer."
+    },
+    {
+      "id": "sports_psychologist",
+      "name": "Sports Psychologist",
+      "cost": 400000,
+      "repeatable": false,
+      "effect": { "slumpDurationMultiplier": 0.5, "bigMatchRatingBonus": 0.5 },
+      "description": "Form slumps last half as long and you rate higher in finals and internationals."
+    },
     {
       "id": "personal_trainer",
       "name": "Personal Trainer",
@@ -23,14 +65,6 @@
       "description": "Injury risk halved and every recovery is one week shorter."
     },
     {
-      "id": "sports_psychologist",
-      "name": "Sports Psychologist",
-      "cost": 400000,
-      "repeatable": false,
-      "effect": { "slumpDurationMultiplier": 0.5, "bigMatchRatingBonus": 0.5 },
-      "description": "Form slumps last half as long and you rate higher in finals and internationals."
-    },
-    {
       "id": "elite_agent",
       "name": "Elite Agent",
       "cost": 1000000,
@@ -39,12 +73,20 @@
       "description": "One extra offer every transfer window and 10% more on every future contract."
     },
     {
-      "id": "offseason_retreat",
-      "name": "Off-Season Retreat",
-      "cost": 250000,
-      "repeatable": true,
-      "effect": { "startSeasonInPeakForm": true },
-      "description": "Start next season in peak form. Buy again any summer."
+      "id": "performance_team",
+      "name": "Full-Time Performance Team",
+      "cost": 3000000,
+      "repeatable": false,
+      "effect": { "injuryRiskMultiplier": 0.6, "recoveryWeeksReduction": 1, "bigMatchRatingBonus": 0.4 },
+      "description": "Physio, S&C, analyst and chef, all on your payroll and answering to nobody else. What the last four years of a career are bought with."
+    },
+    {
+      "id": "global_agency",
+      "name": "Global Agency",
+      "cost": 6000000,
+      "repeatable": false,
+      "effect": { "extraOffersPerWindow": 1, "futureSalaryMultiplier": 1.25 },
+      "description": "Representation with an office on three continents. Every club in the world knows your name and your price."
     }
   ]
 }

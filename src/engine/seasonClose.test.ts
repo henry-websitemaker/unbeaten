@@ -180,6 +180,8 @@ describe('season awards', () => {
     for (const award of recorded) expect(award.season).toBe(summary.record.season)
   })
 
+  // Closing a season now plays the whole world — seven more leagues and nine cups — so these
+  // need a real budget rather than the 5s default.
   it('gives the near-miss line only for 2nd and 3rd', () => {
     for (const seed of [11, 22, 33, 44, 55]) {
       const { career, world: placed } = newCareer(seed)
@@ -192,7 +194,7 @@ describe('season awards', () => {
         expect(near.message).toContain(near.leaderName)
       }
     }
-  })
+  }, 120_000)
 
   it('does not shortlist a rookie for World Player of the Year', () => {
     const { career, world: placed } = newCareer(2032)

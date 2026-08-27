@@ -5,9 +5,11 @@
  * matters: a bad spin costs form, fitness or morale, never anything permanent.
  */
 
+import { useCallback, useMemo, useState } from 'react'
 import { Button, Card, Screen } from './components'
+import { WheelSpinner } from './WheelSpinner'
 import { useGame } from '../store/gameStore'
-import { WHEEL_TARGET_ODDS } from '../engine/wheel'
+import { WHEEL_OUTCOMES, WHEEL_TARGET_ODDS } from '../engine/wheel'
 
 export default function WheelScreen() {
   const go = useGame((s) => s.go)
@@ -15,9 +17,49 @@ export default function WheelScreen() {
   const skipWheel = useGame((s) => s.skipWheel)
   const lastSpin = useGame((s) => s.lastSpin)
 
+  // The result is decided the moment `spinWheel` runs; this only controls whether the wheel
+  // has finished turning, so the reveal follows the landing rather than pre-empting it.
+  const [revealed, setRevealed] = useState(false)
+  const onLanded = useCallback(() => setRevealed(true), [])
+
   const positive = Math.round(WHEEL_TARGET_ODDS.positive * 100)
   const negative = Math.round(WHEEL_TARGET_ODDS.negative * 100)
   const neutral = Math.round(WHEEL_TARGET_ODDS.neutral * 100)
+
+  const segments = useMemo(
+    () =>
+      WHEEL_OUTCOMES.map((outcome) => ({
+        label: outcome.label,
+        tone:
+          outcome.type === 'positive'
+            ? ('good' as const)
+            : outcome.type === 'negative'
+              ? ('bad' as const)
+              : ('neutral' as const),
+      })),
+    [],
+  )
+
+  // Spun, but still turning.
+  if (lastSpin && !revealed) {
+    const landingOn = WHEEL_OUTCOMES.findIndex((o) => o.id === lastSpin.outcome.id)
+
+    return (
+      <Screen title="Halfway" subtitle="Round and round">
+        <div className="py-6">
+          <WheelSpinner
+            segments={segments}
+            targetIndex={Math.max(0, landingOn)}
+            spinning
+            onLanded={onLanded}
+          />
+        </div>
+        <p className="text-center text-sm text-pitch-500">
+          Whatever it lands on, you cannot lose what you have already earned.
+        </p>
+      </Screen>
+    )
+  }
 
   if (lastSpin) {
     const tone =

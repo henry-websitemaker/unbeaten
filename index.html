@@ -6,6 +6,19 @@
     <meta name="theme-color" content="#0a0f0d" />
     <meta name="description" content="Unbeaten: Rugby Career — twenty seasons, one perfect record." />
     <title>Unbeaten: Rugby Career</title>
+
+    <!--
+      The display face. `--font-display` has been declared in index.css since the first build
+      and never loaded, so every heading quietly fell through to the body stack.
+      `preconnect` because the stylesheet is render-blocking; `display=swap` so a slow font
+      never leaves the title invisible.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&display=swap"
+    />
   </head>
   <body>
     <div id="root"></div>

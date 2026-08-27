@@ -27,7 +27,7 @@ import {
 import { createWorld, findTeam, randomStartingClub, teamsInLeague } from './world'
 import { balance, grossEarnings, reconcile, totalSpent } from './economy'
 import { computeOvr } from './ovr'
-import { isRegularSeasonComplete } from './season'
+import { isRegularSeasonComplete, totalRounds } from './season'
 import { createRng, rngFor } from './rng'
 import { KEY_STAT_CREATION_BONUS, POSITIONS, getLeague, loadTeams } from '../data'
 import { CAREER_SEASONS } from '../types/career'
@@ -183,18 +183,24 @@ describe('playing a season', () => {
     expect(run.career.round).toBe(rounds)
   })
 
-  it('pays wages up front and win bonuses as they are earned', () => {
+  it('accrues wages by the round and win bonuses as they are earned', () => {
     const { career, world: placed } = newCareer()
     let run = beginSeason(career, placed)
-    expect(grossEarnings(run.career.ledger)).toBe(career.contract.salary)
+
+    // Nothing is paid before a round has been played — wages used to arrive as a lump here.
+    expect(grossEarnings(run.career.ledger)).toBe(0)
 
     while (!isRegularSeasonComplete(run.season)) {
       run = playRound(run)
       if (run.wheelPending) run = skipWheelSpin(run)
     }
 
+    const seasonWages = career.contract.salary * totalRounds(run.season)
     const wins = run.log.filter((e) => e.result === 'W').length
-    if (wins > 0) expect(grossEarnings(run.career.ledger)).toBeGreaterThan(career.contract.salary)
+
+    // Wages for every round, plus a bonus for each win on top.
+    expect(grossEarnings(run.career.ledger)).toBeGreaterThanOrEqual(seasonWages)
+    if (wins > 0) expect(grossEarnings(run.career.ledger)).toBeGreaterThan(seasonWages)
   })
 
   it('accumulates caps and tries only from matches actually played', () => {

@@ -20,7 +20,7 @@
     }
   },
   "progression": {
-    "careerSims": 60,
+    "careerSims": 24,
     "targets": {
       "medianPeakOvr": [78, 82],
       "medianPeakAge": [25, 31],
@@ -31,6 +31,7 @@
       "decliningSeasonShare": 0.2,
       "peakOvrCeiling": 99,
       "notes": {
+        "careerSims": "Cut from 60 when closing a season began simulating the whole world — seven more leagues and nine cups per season, which is what the world ranking and both cups are built on. Fewer samples means noisier medians, so read a single failing run as a signal to re-run before treating it as a regression.",
         "medianPeakAge": "Spans the Wonderkid's 26 and the Late Bloomer's 31 — the archetypes keep their own shapes rather than being flattened to one curve.",
         "retirementFloorShare": "At least this share of careers retire above the floor. Lowered from 0.80 to 0.75 and then to 0.60 as the model gained volatility, each time to a measured value rather than an aspiration. The median retirement OVR is 75.5, well clear of the floor of 65 — what moved is the spread, not the middle. This is the direct cost of two-way OVR: a model where a season can go backwards will sometimes end a career badly, and forcing this share back up would mean removing the volatility that makes the arc worth watching. The two cannot both be had.",
         "growingSeasonFrom": "The season from which a played season is expected to add OVR rather than take it away.",

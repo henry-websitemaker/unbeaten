@@ -37,7 +37,7 @@ import DashboardScreen from './DashboardScreen'
 import MatchScreen from './MatchScreen'
 import TableScreen from './TableScreen'
 import WheelScreen from './WheelScreen'
-import SummerScreen from './SummerScreen'
+import SummerScreen, { OfferCard } from './SummerScreen'
 import QuickSeasonScreen from './QuickSeasonScreen'
 import TeamCareerScreen from './TeamCareerScreen'
 import { AchievementsScreen, MyPlayerScreen, RivalScreen } from './PlayerScreens'
@@ -329,29 +329,75 @@ describe('end-of-season screens', () => {
     // existed at all — which is why the amendment is called out in the spec rather than
     // quietly applied. It then asserted blocks; training is now a per-stat pick.
     const html = render(<SummerScreen />)
-    expect(html).toContain('Pre-season')
+    expect(html).toContain('Pre-season training')
 
     const career = useGame.getState().run!.career
     for (const stat of Object.keys(career.stats)) {
       expect(html, `no card for ${stat}`).toContain(`>${stat}<`)
     }
     // The consequence of each pick is on the card, not left to be guessed.
-    expect(html).toMatch(/\+\d+<\/p>|±0<\/p>/)
-    expect(html).toContain('OVR')
+    expect(html).toMatch(/\+\d+ OVR|±0 OVR/)
+    // And the season's figure is one definite number in the header.
+    expect(html).toMatch(/\+\d+ to one attribute before next season/)
   })
 
-  it('shows the new squad role labels rather than the old ones', () => {
+  it('opens the career-earnings banner at the top', () => {
     const html = render(<SummerScreen />)
+    expect(html).toContain('Career earnings')
+    expect(html).toContain('in the bank')
+  })
+
+  it('puts the transfer window behind a spin', () => {
+    // SPEC §3: spin for the pool, then choose from it. The cards are not on screen until the
+    // wheel has landed, which is why `OfferCard` is asserted separately below.
+    const html = render(<SummerScreen />)
+    if (useGame.getState().offers.length > 0) {
+      expect(html).toContain('Your options')
+      expect(html).toContain('Spin the transfer window')
+    }
+  })
+
+  it('shows wage, wage change and squad role on a destination card', () => {
+    const offer = useGame.getState().offers[0]
+    if (!offer) return
+
+    const html = render(
+      <OfferCard
+        offer={{ ...offer, salary: 2_000 }}
+        currentWage={3_000}
+        isChosen={false}
+        locked={false}
+        onPick={() => {}}
+      />,
+    )
+
+    expect(html).toContain('Weekly wage')
+    expect(html).toContain('Contract')
     expect(html).toMatch(/First Team|Impact Sub|Bench Cover/)
     for (const old of ['Star man', 'First choice', 'Squad player']) {
       expect(html).not.toContain(old)
     }
+
+    // A pay cut is shown as a cut, in the loss colour.
+    expect(html).toContain('text-loss')
+    expect(html).toContain('−')
   })
 
   it('shows the OVR consequence on destination cards before the choice', () => {
-    const html = render(<SummerScreen />)
-    expect(html).toContain('Where next?')
-    expect(html).toContain('OVR')
+    // SPEC §2.5, asserted on the card itself because the cards sit behind the transfer spin.
+    const offer = useGame.getState().offers[0]
+    if (!offer) return
+
+    const html = render(
+      <OfferCard
+        offer={offer}
+        currentWage={offer.salary}
+        isChosen={false}
+        locked={false}
+        onPick={() => {}}
+      />,
+    )
+    expect(html).toContain('Squad OVR')
     // Either a step-up range, a step-down range, or the stay option.
     expect(html).toMatch(/±0|to \+|to -/)
   })

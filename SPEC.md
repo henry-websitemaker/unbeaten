@@ -29,6 +29,8 @@ phase is done. No new dependencies without asking.
 | `lifestyle.json` | 5 lifestyle purchases with costs and effects |
 | `events.json` | 10 between-round events |
 | `derbies.json` | 26 real rivalries with intensity ratings |
+| `cups.json` | Champions Cup and one domestic knockout per league |
+| `training.json` | 4 flavour blocks over 11 stats, and the per-season gain curve |
 | `awards.json` | 7 season awards, World Player floors, achievement grid categories |
 | `internationals.json` | 22 nations in 6 regions, 8 competitions, World Cup seasons, selection thresholds |
 | `balance-targets.json` | Monte Carlo distribution assertions |
@@ -116,6 +118,18 @@ The **OVR effect of each pick is shown on its card** before it is chosen, the sa
 destination card shows its OVR consequence (§2.5). Key stats carry 2.5× weight, so working on
 one moves OVR two to three times as much; the player is entitled to know that rather than
 guess, and rounding out a weakness stays a legitimate call.
+
+The gain is **one definite figure per season, not a range**, and it shrinks as a career goes
+on — the header reads "+4 to one attribute before next season" with that season's actual
+number. The curve lives in `training.json`, not in code:
+
+| Seasons | Gain |
+|---|---|
+| 1–4 | +5 |
+| 5–9 | +4 |
+| 10–14 | +3 |
+| 15–17 | +2 |
+| 18–20 | +1 |
 
 Training must not be able to break the progression targets in `balance-targets.json`: the peak
 band holds with a player who trains optimally every summer, enforced by the Monte Carlo pass
@@ -214,7 +228,20 @@ identical choices. Alongside it, at most two skippable, stat-driven decisions (�
 news lines carry the flavour.
 
 **Season verdict.** The review opens with one of World Class, Solid, Steady Performer or
-Quiet Season.
+Quiet Season, beside a **world ranking** — where the player finished against every player who
+appeared anywhere in the world that season, with a minimum-appearances floor so two cameos
+cannot top the table.
+
+**Cups.** Three trophies can be won, and all three reach the cabinet: the **league title**, a
+**domestic cup** running alongside each league season, and the **Champions Cup**, drawn from the
+tier-1 leagues by league finish. Cup ties count as appearances and pay win bonuses like any
+other match. Champions Cup entry is therefore something a career has to climb to — a tier-2
+club cannot qualify.
+
+**The whole world plays.** Every league is simulated each season, not just the player's. That
+is what the ranking is measured against and what fills both cups. The other seven leagues are
+simulated once at season close rather than round by round, because nothing reads them until
+then.
 
 **Internationals.** Form-based selection with the threshold scaling by nation strength. Annual
 tournament banner. World Cups in seasons 4, 8, 12, 16 and 20. Caps and international trophies tracked
@@ -254,15 +281,35 @@ Sits in Summer Plans. Purchases **actually deduct from career earnings** — thi
 to end up faked, so reconciliation is tested at every season boundary: purchases + remaining balance
 must equal gross earnings.
 
+Prices are **derived from the measured earnings curve**, not chosen by feel. Median career earnings
+run £12k after season 1, £62k after 3, £127k after 5, £336k after 8, £797k after 10, £4.5M after 15
+and £11.5M after 20 — so the bottom rung is affordable in season two and the top rung takes most of
+a career.
+
 | Item | Cost | Effect |
 |---|---|---|
+| Proper Gym Membership | £15k | +5% match-based growth |
+| Nutritionist | £35k | Injury risk −15% |
+| Sleep Coach | £60k | Slumps 20% shorter |
+| Off-Season Retreat | £250k | Start next season in peak form — **repeatable** |
+| Sports Psychologist | £400k | Slumps 50% shorter, big-match boost |
 | Personal Trainer | £500k | +25% match-based growth |
 | Private Physio | £750k | Injury risk halved, recovery −1 week |
-| Sports Psychologist | £400k | Slumps 50% shorter, big-match boost |
 | Elite Agent | £1M | +1 offer per window, +10% future salaries |
-| Off-Season Retreat | £250k | Start next season in peak form — **repeatable** |
+| Full-Time Performance Team | £3M | Injury risk −40%, recovery −1 week, big-match boost |
+| Global Agency | £6M | +1 offer per window, +25% future salaries |
+
+Only two items carry `matchGrowthMultiplier`, capped together at 1.31, because that is the one effect
+that compounds into the §2.9 progression targets. Everything dearer buys durability, money or nerve.
 
 One-time items grey out once owned and show a badge on My Player.
+
+### 4.1 Wages
+
+Contracts are **weekly**. Wages are credited every round of the season, selected or not — a contract
+pays for being contracted. What a career has banked in wages is therefore exactly
+`weekly wage × rounds played`, and that identity is tested. A longer league season is worth more at
+the same weekly rate, which is why Pro D2's 30 rounds pay three times the NPC's 10.
 
 ---
 

@@ -1,0 +1,17 @@
+{
+  "note": "Knockout competitions. Text names only, no branding (SPEC §1). Domestic cups run alongside their league season and are seeded by league position; the Champions Cup draws its field from the tier-1 leagues by finish.",
+  "championsCup": {
+    "id": "champions_cup",
+    "name": "Champions Cup"
+  },
+  "domestic": {
+    "super_rugby": { "name": "Super Rugby Knockout", "teams": 8 },
+    "premiership": { "name": "Premiership Cup", "teams": 8 },
+    "top_14": { "name": "Coupe de France", "teams": 16 },
+    "urc": { "name": "United Cup", "teams": 8 },
+    "shute_shield": { "name": "Sydney Club Cup", "teams": 8 },
+    "npc": { "name": "Ranfurly Challenge", "teams": 8 },
+    "rfu_championship": { "name": "Championship Cup", "teams": 8 },
+    "pro_d2": { "name": "Coupe Pro D2", "teams": 8 }
+  }
+}

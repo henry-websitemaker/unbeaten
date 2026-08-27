@@ -32,8 +32,15 @@ export interface TrainingBlock {
   flavour: string
 }
 
+export interface TrainingBand {
+  from: number
+  to: number
+  gain: number
+}
+
 interface TrainingData {
-  rules: { blocksPerSeason: number; statGain: number }
+  rules: { blocksPerSeason: number }
+  curve: TrainingBand[]
   blocks: TrainingBlock[]
 }
 
@@ -41,6 +48,21 @@ const DATA = TRAINING as unknown as TrainingData
 
 export const TRAINING_BLOCKS: readonly TrainingBlock[] = DATA.blocks
 export const TRAINING_RULES = DATA.rules
+export const TRAINING_CURVE: readonly TrainingBand[] = DATA.curve
+
+/**
+ * What a summer is worth this season — one definite number, not a range.
+ *
+ * Larger while young and smaller past the peak, so the figure on the header is both true and
+ * something a player can plan around. Outside the curve's range it falls back to the last
+ * band rather than to zero, so a career that somehow runs long still trains.
+ */
+export function trainingGainForSeason(season: number): number {
+  for (const band of TRAINING_CURVE) {
+    if (season >= band.from && season <= band.to) return band.gain
+  }
+  return TRAINING_CURVE[TRAINING_CURVE.length - 1]?.gain ?? 0
+}
 
 export function getTrainingBlock(id: string): TrainingBlock {
   const block = TRAINING_BLOCKS.find((b) => b.id === id)
@@ -86,6 +108,7 @@ export function applyTraining(
   stats: StatBlock,
   position: PositionId,
   stat: StatKey,
+  season: number,
   tuning: ProgressionTuning = TUNING,
 ): TrainingResult {
   const before = computeOvr(stats, position)
@@ -93,9 +116,10 @@ export function applyTraining(
     return { stats: { ...stats }, ovr: before, ovrDelta: 0, raised: stat }
   }
 
-  // The same taper season progression uses, so a summer's work faces the same diminishing
-  // returns as a season's and twenty of them cannot compound past the top of the scale.
-  const gain = TRAINING_RULES.statGain * growthHeadroom(before, tuning)
+  // The season's figure, then the same taper season progression uses — so a summer's work
+  // faces the same diminishing returns as a season's and twenty cannot compound past the top
+  // of the scale.
+  const gain = trainingGainForSeason(season) * growthHeadroom(before, tuning)
 
   const out: StatBlock = { ...stats, [stat]: clampStat((stats[stat] ?? 0) + gain) }
   const after = computeOvr(out, position)
@@ -123,6 +147,7 @@ export interface TrainingOption {
 export function trainingOptions(
   stats: StatBlock,
   position: PositionId,
+  season: number,
   tuning: ProgressionTuning = TUNING,
 ): TrainingOption[] {
   const keyStats = new Set<StatKey>(POSITIONS[position].keyStats)
@@ -130,7 +155,7 @@ export function trainingOptions(
   return (Object.keys(stats) as StatKey[]).map((stat) => ({
     stat,
     current: stats[stat] ?? 0,
-    ovrDelta: applyTraining(stats, position, stat, tuning).ovrDelta,
+    ovrDelta: applyTraining(stats, position, stat, season, tuning).ovrDelta,
     isKeyStat: keyStats.has(stat),
     block: blockForStat(stat),
   }))

@@ -463,11 +463,16 @@ describe('SPEC §2.5 — the career arc', () => {
           // the worst case for the peak band, which is the case the targets have to hold
           // against — a player who trains perfectly every summer must not break the arc.
           if (!isFinalSeason(career)) {
-            const best = trainingOptions(career.stats, career.position).sort(
+            const best = trainingOptions(career.stats, career.position, career.season).sort(
               (a, b) => b.ovrDelta - a.ovrDelta,
             )[0]
             if (best) {
-              const applied = applyTraining(career.stats, career.position, best.stat)
+              const applied = applyTraining(
+                career.stats,
+                career.position,
+                best.stat,
+                career.season,
+              )
               career = {
                 ...career,
                 stats: applied.stats,

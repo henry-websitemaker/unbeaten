@@ -431,15 +431,25 @@ export function creditMatchEarnings(
   }
 }
 
-/** Salary is paid at the start of each season. */
-export function creditSeasonSalary(career: PlayerCareer): PlayerCareer {
+/**
+ * A week's wages, credited for every round of the season.
+ *
+ * Paid whether or not the player was selected, because that is what a contract is. It used to
+ * be the whole year's salary credited as a lump before a ball was kicked, which meant career
+ * earnings had no relationship to how much rugby was actually played — a career that ended in
+ * round three had still banked the full season.
+ *
+ * The identity this buys, and which `economy.test.ts` asserts: **wages banked equals the
+ * weekly wage times the rounds that have been played.**
+ */
+export function creditRoundWages(career: PlayerCareer, round: number): PlayerCareer {
   return {
     ...career,
     ledger: credit(
       career.ledger,
       career.season,
       'salary',
-      `Wages, season ${career.season}`,
+      `Wages, season ${career.season} round ${round}`,
       career.contract.salary,
     ),
   }

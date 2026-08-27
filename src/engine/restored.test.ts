@@ -17,6 +17,7 @@ import {
   blockForStat,
   getTrainingBlock,
   hasTrainedThisSeason,
+  trainingGainForSeason,
   trainingOptions,
 } from './training'
 import {
@@ -34,7 +35,7 @@ import { createWorld, randomStartingClub } from './world'
 import { createRng, rngFor } from './rng'
 import { POSITIONS, TIER_TWO_LEAGUES, LEAGUES } from '../data'
 import type { PositionId, StatBlock, StatKey, TeamDef } from '../types/core'
-import type { SeasonRecord } from '../types/career'
+import { CAREER_SEASONS, type SeasonRecord } from '../types/career'
 import type { World } from './world'
 
 let defs: readonly TeamDef[]
@@ -47,6 +48,9 @@ beforeAll(async () => {
 }, 60_000)
 
 const ALL_POSITIONS = Object.keys(POSITIONS) as PositionId[]
+
+/** Season 1, the top rung of the training curve, unless a test cares about the curve itself. */
+const TRAINING_SEASON = 1
 
 function statsFor(position: PositionId, level: number): StatBlock {
   const block: StatBlock = {}
@@ -80,7 +84,7 @@ describe('pre-season training', () => {
     expect(TRAINING_BLOCKS).toHaveLength(4)
     for (const position of ALL_POSITIONS) {
       const stats = statsFor(position, 65)
-      const options = trainingOptions(stats, position)
+      const options = trainingOptions(stats, position, TRAINING_SEASON)
 
       // One card per stat the player actually has — no more, no fewer.
       expect(options.map((o) => o.stat).sort()).toEqual((Object.keys(stats) as StatKey[]).sort())
@@ -106,7 +110,7 @@ describe('pre-season training', () => {
     for (const position of ALL_POSITIONS) {
       const before = statsFor(position, 60)
       for (const stat of Object.keys(before) as StatKey[]) {
-        const after = applyTraining(before, position, stat).stats
+        const after = applyTraining(before, position, stat, TRAINING_SEASON).stats
         expect(after[stat]!).toBeGreaterThan(before[stat]!)
         for (const other of Object.keys(before) as StatKey[]) {
           if (other === stat) continue
@@ -120,7 +124,7 @@ describe('pre-season training', () => {
     for (const position of ALL_POSITIONS) {
       const before = statsFor(position, 60)
       for (const stat of Object.keys(before) as StatKey[]) {
-        const result = applyTraining(before, position, stat)
+        const result = applyTraining(before, position, stat, TRAINING_SEASON)
         expect(result.ovrDelta).toBeGreaterThanOrEqual(0)
         for (const other of Object.keys(before) as StatKey[]) {
           expect(result.stats[other]!).toBeGreaterThanOrEqual(before[other]!)
@@ -132,7 +136,7 @@ describe('pre-season training', () => {
   it('is worth more on a stat the shirt is judged on', () => {
     // A fly-half is judged on KCK/VIS/HND at 2.5x weight, so working on one of those must
     // move OVR more than working on something he is barely rated for.
-    const options = trainingOptions(statsFor('FH', 65), 'FH')
+    const options = trainingOptions(statsFor('FH', 65), 'FH', TRAINING_SEASON)
     const key = options.filter((o) => o.isKeyStat)
     const rest = options.filter((o) => !o.isKeyStat)
     expect(key.length).toBe(3)
@@ -145,14 +149,16 @@ describe('pre-season training', () => {
     // A wing has no scrummaging; asking for it is a no-op rather than an invention.
     const stats = statsFor('WL', 65)
     expect(stats.SCR).toBeUndefined()
-    const result = applyTraining(stats, 'WL', 'SCR')
+    const result = applyTraining(stats, 'WL', 'SCR', TRAINING_SEASON)
     expect(result.ovrDelta).toBe(0)
     expect(result.stats).toEqual(stats)
   })
 
   it('tapers as a player climbs, but never stops', () => {
     const gainAt = (level: number) =>
-      Math.max(...trainingOptions(statsFor('OC', level), 'OC').map((o) => o.ovrDelta))
+      Math.max(
+        ...trainingOptions(statsFor('OC', level), 'OC', TRAINING_SEASON).map((o) => o.ovrDelta),
+      )
 
     // Slower the better you are...
     expect(gainAt(88)).toBeLessThanOrEqual(gainAt(60))
@@ -162,11 +168,47 @@ describe('pre-season training', () => {
 
   it('cannot be trained past the top of the scale', () => {
     let stats = statsFor('OC', 70)
-    for (let season = 1; season <= 60; season++) {
-      const best = trainingOptions(stats, 'OC').sort((a, b) => b.ovrDelta - a.ovrDelta)[0]!
-      stats = applyTraining(stats, 'OC', best.stat).stats
+    // Season 1 every time: the most generous rung of the curve, sixty summers running.
+    for (let i = 0; i < 60; i++) {
+      const best = trainingOptions(stats, 'OC', 1).sort((a, b) => b.ovrDelta - a.ovrDelta)[0]!
+      stats = applyTraining(stats, 'OC', best.stat, 1).stats
     }
     expect(computeOvr(stats, 'OC')).toBeLessThanOrEqual(HARD_CEILING)
+  })
+
+  /**
+   * SPEC §2.8: the figure is one definite number per season, not a range, and it shrinks as
+   * a career goes on. It used to be a flat 5 every summer, which meant a thirty-eight-year-old
+   * improved as fast as an academy graduate.
+   */
+  it('gives a single definite figure per season, larger while young', () => {
+    const gains = Array.from({ length: CAREER_SEASONS }, (_, i) => trainingGainForSeason(i + 1))
+
+    // Never rises as a career goes on.
+    for (let i = 1; i < gains.length; i++) {
+      expect(gains[i]!, `season ${i + 1}`).toBeLessThanOrEqual(gains[i - 1]!)
+    }
+    // And genuinely falls — a flat curve would pass the check above.
+    expect(gains[0]!).toBeGreaterThan(gains[gains.length - 1]!)
+
+    expect(trainingGainForSeason(1)).toBe(5)
+    expect(trainingGainForSeason(20)).toBe(1)
+  })
+
+  it('covers every season of a career, and does not fall off the end', () => {
+    for (let season = 1; season <= CAREER_SEASONS; season++) {
+      expect(trainingGainForSeason(season), `season ${season}`).toBeGreaterThan(0)
+    }
+    // Past the end it holds the last rung rather than dropping to nothing.
+    expect(trainingGainForSeason(CAREER_SEASONS + 5)).toBeGreaterThan(0)
+  })
+
+  it('sums to the total the curve advertises', () => {
+    const total = Array.from({ length: CAREER_SEASONS }, (_, i) =>
+      trainingGainForSeason(i + 1),
+    ).reduce((a, b) => a + b, 0)
+    // 4x5 + 5x4 + 5x3 + 3x2 + 3x1 = 64 raw stat points across a full career.
+    expect(total).toBe(64)
   })
 
   it('allows exactly one pick a summer', () => {

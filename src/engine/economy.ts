@@ -132,7 +132,15 @@ export function entriesForSeason(ledger: Ledger, season: number): LedgerEntry[] 
  * `wageBudgetBase` is the Team Career squad budget and is a poor fit for one player's
  * wage, so the curve uses `prizePool` relative to the tier median as the wealth signal.
  */
-const TIER_ANCHOR_SALARY: Record<1 | 2, number> = { 1: 250_000, 2: 30_000 }
+/**
+ * Weekly wage at the OVR anchor, per tier.
+ *
+ * Chosen to preserve the scale the annual figures had: £1,200 a week over a 22-round
+ * Championship season is £26.4k against the £30k the old annual anchor paid, and £10,000 a
+ * week over an 18-round Premiership season is £180k against £250k. Tier 1 is deliberately a
+ * little tighter than before — the old figure assumed a full year, not a season.
+ */
+const TIER_ANCHOR_WEEKLY_WAGE: Record<1 | 2, number> = { 1: 10_000, 2: 1_200 }
 const ANCHOR_OVR = 65
 /** Each point of OVR above the anchor is worth 9% more. */
 const OVR_SALARY_GROWTH = 1.09
@@ -163,7 +171,18 @@ export function leagueWealthFactor(league: LeagueDef): number {
 }
 
 /**
- * Expected annual salary for a player of this OVR at this club's level.
+ * Expected **weekly** wage for a player of this OVR at this club's level.
+ *
+ * Contracts are weekly rather than annual because that is the unit a wage is actually paid
+ * in, and it is what makes the earnings identity exact: what a career banks is the weekly
+ * wage times the rounds that were played. An annual figure cannot express that, because
+ * league seasons run from 10 rounds to 30 — the same "annual salary" would mean three
+ * different weekly rates depending on where you signed.
+ *
+ * The anchors are set so the scale is roughly what it was: a tier-2 player at the OVR 65
+ * anchor earns about £1.2k a week, which over a 22-round Championship season is close to the
+ * £30k the old annual figure paid.
+ *
  * `squadRoleFactor` lets a fringe player be offered less than a guaranteed starter.
  */
 export function expectedSalary(
@@ -172,11 +191,16 @@ export function expectedSalary(
   squadRoleFactor = 1,
 ): number {
   const league = getLeague(leagueId)
-  const anchor = TIER_ANCHOR_SALARY[league.tier]
+  const anchor = TIER_ANCHOR_WEEKLY_WAGE[league.tier]
   const ovrFactor = Math.pow(OVR_SALARY_GROWTH, ovr - ANCHOR_OVR)
   const raw = anchor * ovrFactor * leagueWealthFactor(league) * squadRoleFactor
   // Rounded to something a contract would actually be written for.
-  return Math.max(5_000, Math.round(raw / 1_000) * 1_000)
+  return Math.max(200, Math.round(raw / 100) * 100)
+}
+
+/** What a contract at this weekly wage pays across a whole season of the given length. */
+export function seasonWages(weeklyWage: number, rounds: number): number {
+  return weeklyWage * rounds
 }
 
 /** Win bonus per victory, scaled to the league's prize pool. */

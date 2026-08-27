@@ -5,8 +5,9 @@
  * from real players, locking one stat at a time — and finally the starting archetype.
  */
 
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, Card, Screen, SectionTitle } from './components'
+import { WheelSpinner } from './WheelSpinner'
 import { useGame } from '../store/gameStore'
 import { buildOriginDraft, type OriginCard } from '../engine/career'
 import { ARCHETYPE_LIST } from '../engine/progression'
@@ -282,6 +283,12 @@ export default function CreateScreen() {
   )
 }
 
+/**
+ * One round of the origin draft (SPEC §3), as a spin.
+ *
+ * Spin for the pool, then choose from the three it turns up. The cards were already decided
+ * by the seed before the wheel moved — this is a reveal, not the randomiser.
+ */
 function OriginDraft({
   cards,
   stat,
@@ -295,8 +302,44 @@ function OriginDraft({
   total: number
   onPick: (card: OriginCard) => void
 }) {
+  const [spinning, setSpinning] = useState(false)
+  const [spun, setSpun] = useState(false)
+  const onLanded = useCallback(() => setSpun(true), [])
+
+  // Each round is a fresh draw, so the wheel resets when the stat changes.
+  useEffect(() => {
+    setSpinning(false)
+    setSpun(false)
+  }, [stat])
+
   if (cards.length === 0) {
     return <p className="py-12 text-center text-sm text-pitch-500">Building your draft…</p>
+  }
+
+  if (!spun) {
+    return (
+      <>
+        <SectionTitle>
+          Origin draft — {stat} ({index + 1} of {total})
+        </SectionTitle>
+        <p className="mb-3 text-sm text-pitch-500">
+          Three players who already have the {stat} you want. Spin to see who comes up.
+        </p>
+
+        <div className="py-4">
+          <WheelSpinner
+            segments={cards.map((card) => ({ label: card.playerName, tone: 'neutral' as const }))}
+            targetIndex={cards.length - 1}
+            spinning={spinning}
+            onLanded={onLanded}
+          />
+        </div>
+
+        <Button full disabled={spinning} onClick={() => setSpinning(true)}>
+          {spinning ? 'Spinning…' : 'Spin the draft'}
+        </Button>
+      </>
+    )
   }
 
   return (

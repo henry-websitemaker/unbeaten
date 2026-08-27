@@ -1,9 +1,16 @@
 {
   "rules": {
     "blocksPerSeason": 1,
-    "statGain": 5,
-    "note": "SPEC §2.8. One stat per summer, use it or lose it. Blocks are the flavour a stat belongs to, not the unit of choice. There is no currency and nothing accumulates across seasons."
+    "note": "SPEC §2.8. One stat per summer, use it or lose it. Blocks are the flavour a stat belongs to, not the unit of choice. There is no currency and nothing accumulates across seasons.",
+    "curveNote": "The gain is a single definite figure per season, shown before the choice — not a range. It is largest while a player is young and smallest once they are past their peak, which is where the tapering used to be invisible. Seasons are inclusive `from`..`to`; the last band runs to the end of the career."
   },
+  "curve": [
+    { "from": 1, "to": 4, "gain": 5 },
+    { "from": 5, "to": 9, "gain": 4 },
+    { "from": 10, "to": 14, "gain": 3 },
+    { "from": 15, "to": 17, "gain": 2 },
+    { "from": 18, "to": 20, "gain": 1 }
+  ],
   "blocks": [
     {
       "id": "gym",

@@ -50,7 +50,7 @@ import {
 } from '../engine/persistence'
 import { rngFor, seedFromString } from '../engine/rng'
 import type { SpinResult } from '../engine/wheel'
-import type { SeasonSummary } from '../engine/career'
+import type { CareerSeasonSummary } from '../engine/careerRun'
 import type { GamePlanId, PlayerCareer, TransferOffer } from '../types/career'
 import type { StatKey } from '../types/core'
 
@@ -86,7 +86,7 @@ interface GameState {
   /** Set while "Sim to season end" is running. */
   simming: boolean
   lastSpin: SpinResult | null
-  lastSummary: SeasonSummary | null
+  lastSummary: CareerSeasonSummary | null
   offers: TransferOffer[]
   newAchievements: string[]
 
@@ -401,7 +401,7 @@ export const useGame = create<GameState>((set, get) => ({
       return 'That is not something your position is rated on.'
     }
 
-    const result = applyTraining(career.stats, career.position, stat)
+    const result = applyTraining(career.stats, career.position, stat, career.season)
     const next: PlayerCareer = {
       ...career,
       stats: result.stats,

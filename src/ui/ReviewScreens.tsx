@@ -17,6 +17,7 @@ import { useGame } from '../store/gameStore'
 import { formatMoney, grossEarnings } from '../engine/economy'
 import { currentLadder, isPerfectSeason, perfectSeasonTarget, totalRounds } from '../engine/season'
 import { seasonVerdict } from '../engine/flavour'
+import type { WorldRanking } from '../engine/ranking'
 import { ACHIEVEMENT_DEFS } from '../engine/achievements'
 import { rivalVerdict } from '../engine/rival'
 import { hallOfFameView } from '../engine/persistence'
@@ -98,6 +99,7 @@ export function SeasonReviewScreen() {
       }
     >
       <VerdictBanner record={record} totalRounds={totalRounds(run.season)} />
+      {summary.ranking && <WorldRankBanner ranking={summary.ranking} />}
 
       {perfect && (
         <div className="mb-4 rounded-2xl border border-gold/40 bg-gold/10 p-4 text-center">
@@ -289,6 +291,47 @@ function VerdictBanner({
     <div className={`mb-4 rounded-2xl border p-5 text-center ${tone}`}>
       <p className="text-2xl font-black tracking-tight">{verdict}</p>
       <p className="mt-1.5 text-sm text-pitch-400">{line}</p>
+    </div>
+  )
+}
+
+/**
+ * Where the player finished against everyone playing the game this season (SPEC §3).
+ *
+ * Sits next to the verdict because they answer the same question from two directions: the
+ * verdict says how the season went, this says how that compared with the rest of the world.
+ */
+function WorldRankBanner({ ranking }: { ranking: WorldRanking }) {
+  const elite = ranking.percentile >= 95
+
+  return (
+    <div
+      className={`mb-4 flex items-center justify-between gap-4 rounded-2xl border px-4 py-3 ${
+        elite ? 'border-gold/40 bg-gold/10' : 'border-pitch-700 bg-pitch-900'
+      }`}
+    >
+      <div className="min-w-0">
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-pitch-500">
+          World ranking
+        </p>
+        <p className="nums truncate text-xs text-pitch-500">
+          of {ranking.ranked.toLocaleString('en-GB')} players · {ranking.rating.toFixed(1)} avg
+        </p>
+        {!ranking.eligible && (
+          <p className="mt-0.5 text-[11px] text-pitch-600">
+            Too few appearances to be ranked properly.
+          </p>
+        )}
+      </div>
+
+      <div className="shrink-0 text-right">
+        <p className={`nums text-3xl font-black ${elite ? 'text-gold' : 'text-white'}`}>
+          #{ranking.rank.toLocaleString('en-GB')}
+        </p>
+        <p className="nums text-[10px] uppercase tracking-wider text-pitch-600">
+          top {Math.max(1, 100 - ranking.percentile)}%
+        </p>
+      </div>
     </div>
   )
 }
